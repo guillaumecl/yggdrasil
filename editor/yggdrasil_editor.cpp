@@ -1,0 +1,348 @@
+/***************************************************************************
+ *   Copyright (C) 2007 by Lightning Flik   *
+ *   flik@baobob.org   *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
+
+#include <QtGui>
+#include <QDebug>
+#include "yggdrasil_editor.h"
+
+#include <QTextEdit>
+#include <QTextStream>
+#include <QCloseEvent>
+#include <QFileDialog>
+
+#include "archiver.h"
+#include "exception.h"
+#include "screendockwidget.h"
+#include "objectdockwidget.h"
+
+#include "qteditorlog.h"
+
+namespace editor
+{
+
+using namespace custom;
+
+yggdrasil_editor::yggdrasil_editor() :
+	core(NULL),
+	draw(NULL),
+	sound(NULL),
+	displayWidget(NULL),
+	corePlugin(NULL),
+	drawPlugin(NULL)
+{
+	setupUi(this);
+	setAttribute(Qt::WA_DeleteOnClose);
+
+	dockLog->setWidget(new QtEditorLog(this));
+
+	initEngine();
+
+	menuDocks->addAction(dockScreen->toggleViewAction());
+	menuDocks->addAction(dockObject->toggleViewAction());
+	menuDocks->addAction(dockProperties->toggleViewAction());
+	menuDocks->addAction(dockLog->toggleViewAction());
+
+	menuToolbars->addAction(fileToolBar->toggleViewAction());
+	menuToolbars->addAction(editToolBar->toggleViewAction());
+	menuToolbars->addAction(typeToolBar->toggleViewAction());
+
+	ScreenDockWidget *scrDock = new ScreenDockWidget(dockScreen);
+	screenTree = scrDock->screenTree();
+
+	ObjectDockWidget *objDock = new ObjectDockWidget(dockObject);
+	objectTree = objDock->objectTree();
+
+	propertyWidget = new property::PropertyWidget(dockProperties);
+	dockProperties->setWidget(propertyWidget);
+
+	tabs = new QTabWidget(this);
+
+	gameDisplayer = new GameDisplayer(core,draw,sound,displayWidget);
+	objectDisplayer = new ObjectDisplayer(core,draw,sound,displayWidget);
+
+	tabs->addTab(gameDisplayer,screenTree->iconScreen, tr("Screen editor"));
+	tabs->addTab(objectDisplayer,objectTree->iconObject, tr("Object editor"));
+	tabs->addTab(new QWidget(),objectTree->iconAction, tr("Action editor"));
+
+	setCentralWidget(tabs);
+
+	gameDisplayer->setFocus();
+
+	// Read settings once all widgets have been properly set.
+
+	readSettings();
+
+	connectSignals();
+
+	setCurrentFile("");
+}
+
+void yggdrasil_editor::closeEvent(QCloseEvent *event)
+{
+	if (maybeSave()) {
+		writeSettings();
+		event->accept();
+	} else {
+		event->ignore();
+	}
+}
+
+void yggdrasil_editor::on_fileNew_triggered()
+{
+	if (maybeSave()) {
+		/*		delete currentScreen;
+		currentScreen = new Screen();*/
+		setCurrentFile("");
+	}
+}
+
+void yggdrasil_editor::on_fileOpen_triggered()
+{
+	if (maybeSave()) {
+		QString fileName = QFileDialog::getOpenFileName(this);
+		if (!fileName.isEmpty())
+			loadFile(fileName);
+	}
+}
+
+bool yggdrasil_editor::on_fileSave_triggered()
+{
+	if (curFile.isEmpty()) {
+		return on_fileSaveAs_triggered();
+	} else {
+		return saveFile(curFile);
+	}
+}
+
+bool yggdrasil_editor::on_fileSaveAs_triggered()
+{
+	QString fileName = QFileDialog::getSaveFileName(this);
+	if (fileName.isEmpty())
+		return false;
+
+	return saveFile(fileName);
+}
+
+void yggdrasil_editor::readSettings()
+{
+	QPoint pos;
+	QSize size;
+
+	QSettings settings("yggdrasil", "editor");
+
+	restoreGeometry(settings.value("geometry").toByteArray());
+	restoreState(settings.value("windowState").toByteArray());
+
+	currentGameDirectory = settings.value("currentGameDirectory", ".").toString();
+	QDir::setCurrent(currentGameDirectory);
+	screenTree->scan(QDir(currentGameDirectory));
+	objectTree->scan(QDir(currentGameDirectory));
+}
+
+void yggdrasil_editor::writeSettings()
+{
+	QSettings settings("yggdrasil", "editor");
+
+	settings.setValue("geometry", saveGeometry());
+	settings.setValue("windowState", saveState());
+	settings.setValue("currentGameDirectory", currentGameDirectory);
+}
+
+bool yggdrasil_editor::maybeSave()
+{
+/*	if (textEdit->document()->isModified()) {
+		int ret = QMessageBox::warning(this, tr("Application"),
+					tr("The document has been modified.\n"
+					"Do you want to save your changes?"),
+					QMessageBox::Yes | QMessageBox::Default,
+					QMessageBox::No,
+					QMessageBox::Cancel | QMessageBox::Escape);
+		if (ret == QMessageBox::Yes)
+		return save();
+		else if (ret == QMessageBox::Cancel)
+		return false;
+	}*/
+	return true;
+}
+
+void yggdrasil_editor::loadFile(const QString &fileName)
+{
+	//delete currentScreen;
+
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+	try
+	{
+		FileReader fr(fileName.toLatin1().data());
+		//currentScreen = new Screen(*draw,fr);
+
+		setCurrentFile(fileName);
+		statusBar()->showMessage(tr("File loaded"), 2000);
+	}
+	catch(exception &e)
+	{
+		QMessageBox::warning(this, tr("Application"),
+							 tr(e.what()));
+		//currentScreen = new Screen();
+	}
+	QApplication::restoreOverrideCursor();
+}
+
+bool yggdrasil_editor::saveFile(const QString &fileName)
+{
+	/*QFile file(fileName);
+	if (!file.open(QFile::WriteOnly | QFile::Text)) {
+		QMessageBox::warning(this, tr("Application"),
+							tr("Cannot write file %1:\n%2.")
+							.arg(fileName)
+							.arg(file.errorString()));
+		return false;
+	}
+
+	QTextStream out(&file);
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+	//out << textEdit->toPlainText();
+	QApplication::restoreOverrideCursor();
+
+	setCurrentFile(fileName);
+	statusBar()->showMessage(tr("File saved"), 2000);*/
+	Q_UNUSED(fileName);
+	return true;
+}
+
+void yggdrasil_editor::setCurrentFile(const QString &fileName)
+{
+	curFile = fileName;
+	setWindowModified(false);
+
+	QString shownName;
+	if (curFile.isEmpty())
+		shownName = "untitled.scr";
+	else
+		shownName = strippedName(curFile);
+
+	setWindowTitle(tr("%1[*] - %2").arg(shownName).arg(tr("Application")));
+}
+
+QString yggdrasil_editor::strippedName(const QString &fullFileName)
+{
+	return QFileInfo(fullFileName).fileName();
+}
+
+yggdrasil_editor::~yggdrasil_editor()
+{
+	delete sound;
+	delete draw;
+	delete core;
+
+	delete drawPlugin;
+	delete corePlugin;
+}
+
+void yggdrasil_editor::onMouseMoved(const QPoint &newPos)
+{
+	statusBar()->showMessage(QString("Position : (%1,%2)").arg(newPos.x()).arg(newPos.y()));
+}
+
+void yggdrasil_editor::initEngine()
+{
+	try
+	{
+		corePlugin = new Plugin("qtcore");
+		/*
+		*	Until a better solution is found, the global core must be initialized by hand. This is because the
+		*	static variable lies in the core plugin namespace, and also in the editor namespace.
+		*/
+		core = static_cast<core::QtCore*>(corePlugin->create());
+		core::Core::globalCore = core;
+
+		drawPlugin = new Plugin("qtdrawgl");
+		draw = static_cast<draw::DrawManager*>(drawPlugin->create());
+		sound = new SoundManager();
+
+		core->setup(*draw,*sound);
+
+		displayWidget = core->getWidget();
+	}
+	catch(exception &e)
+	{
+		delete sound;		sound = NULL;
+		delete draw;		draw = NULL;
+		delete core;		core = NULL;
+		delete corePlugin;	corePlugin = NULL;
+		delete drawPlugin;	drawPlugin = NULL;
+
+		displayWidget = NULL;
+
+		QMessageBox::warning(this, tr("Application"),
+							 tr("The following error happened while loading the plugins :\n\n%1\n\nYggdrasil Editor cannot function properly without plugins.")
+							 .arg(QString::fromUtf8(e.what())));
+	}
+}
+
+void yggdrasil_editor::viewScreen()
+{
+	tabs->setCurrentWidget(gameDisplayer);
+}
+
+void yggdrasil_editor::viewObject()
+{
+	tabs->setCurrentWidget(objectDisplayer);
+}
+
+void yggdrasil_editor::connectSignals()
+{
+	connect(gameDisplayer,SIGNAL(itemSelected(game::Screen*, game::ScreenElement*)),screenTree, SLOT(on_selectItem(game::Screen*, game::ScreenElement*)));
+
+	connect(gameDisplayer,SIGNAL(itemUnselected(game::Screen*, game::ScreenElement*)),screenTree, SLOT(on_unselectItem(game::Screen*, game::ScreenElement*)));
+
+	connect(gameDisplayer,SIGNAL(objectCreated(game::Screen*, game::ScreenElement*)),screenTree, SLOT(on_objectAdded(game::Screen*, game::ScreenElement*)));
+
+	connect(gameDisplayer,SIGNAL(mouseMoved(const QPoint&)),this, SLOT(onMouseMoved(const QPoint&)));
+
+	connect(objectDisplayer,SIGNAL(mouseMoved(const QPoint&)),this, SLOT(onMouseMoved(const QPoint&)));
+
+	connect(screenTree,SIGNAL(itemSelected(game::Screen*, QString)),gameDisplayer,SLOT(selectItem(game::Screen*, QString)));
+	connect(screenTree,SIGNAL(loadScreen(game::Screen*)),gameDisplayer,SLOT(loadScreen(game::Screen*)));
+	connect(screenTree,SIGNAL(loadScreen(game::Screen*)),this,SLOT(viewScreen()));
+	connect(screenTree,SIGNAL(closeScreen(game::Screen*)),gameDisplayer,SLOT(closeScreen(game::Screen*)));
+	connect(screenTree,SIGNAL(screenSelected(game::Screen*)),propertyWidget,SLOT(selectScreen(game::Screen*)));
+	connect(screenTree,SIGNAL(removeObject(game::Screen*, game::ScreenElement*)),gameDisplayer,SLOT(removeItem(game::Screen*, game::ScreenElement*)));
+	connect(screenTree,SIGNAL(itemSelected(game::Screen*, QString)),propertyWidget,SLOT(selectScreenItem(game::Screen*, QString)));
+
+	connect(gameDisplayer,SIGNAL(itemUnselected(game::Screen*, game::ScreenElement*)),propertyWidget,SLOT(unselect()));
+
+	connect(gameDisplayer,SIGNAL(itemSelected(game::Screen*, game::ScreenElement*)),propertyWidget,SLOT(selectScreenItem(game::Screen*, game::ScreenElement*)));
+
+	connect(gameDisplayer,SIGNAL(itemChanged(game::Screen*, game::ScreenElement*)),propertyWidget,SLOT(selectScreenItem(game::Screen*, game::ScreenElement*)));
+
+	connect(gameDisplayer,SIGNAL(objectRemoved(game::Screen*, game::ScreenElement*)),screenTree,SLOT(on_objectRemoved(game::Screen*,game::ScreenElement*)));
+
+	connect(propertyWidget,SIGNAL(screenUpdated(game::Screen*)),gameDisplayer,SLOT(loadScreen(game::Screen*)));
+
+	connect(objectTree,SIGNAL(objectSelected(game::ScreenElement*)),propertyWidget,SLOT(selectScreenElement(game::ScreenElement*)));
+
+	connect(objectTree,SIGNAL(loadObject(game::ScreenElement*)),objectDisplayer,SLOT(loadObject(game::ScreenElement*)));
+	connect(objectTree,SIGNAL(loadObject(game::ScreenElement*)),this,SLOT(viewObject()));
+
+	connect(objectTree,SIGNAL(actionSelected(game::ScreenElement*, game::Action*)),propertyWidget,SLOT(selectAction(game::ScreenElement*,game::Action*)));
+}
+
+
+}

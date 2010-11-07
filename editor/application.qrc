@@ -1,0 +1,40 @@
+<RCC>
+    <qresource prefix="/">
+        <file>action.png</file>
+        <file>editcopy.xpm</file>
+        <file>editcut.xpm</file>
+        <file>editpaste.xpm</file>
+        <file>filenew.xpm</file>
+        <file>fileopen.xpm</file>
+        <file>filesave.xpm</file>
+        <file>object.png</file>
+        <file>screen.png</file>
+    </qresource>
+    <qresource prefix="/arrows">
+        <file>down.png</file>
+        <file>down_left.png</file>
+        <file>down_right.png</file>
+        <file>left.png</file>
+        <file>right.png</file>
+        <file>up.png</file>
+        <file>up_left.png</file>
+        <file>up_right.png</file>
+    </qresource>
+    <qresource prefix="/folder">
+        <file>folder.png</file>
+        <file>folder_green.png</file>
+        <file>folder_green_open.png</file>
+        <file>folder_grey.png</file>
+        <file>folder_grey_open.png</file>
+        <file>folder_open.png</file>
+        <file>folder_orange.png</file>
+        <file>folder_orange_open.png</file>
+    </qresource>
+    <qresource prefix="/logs">
+        <file alias="debug">debug.png</file>
+        <file alias="error">error.png</file>
+        <file alias="fatal">fatal.png</file>
+        <file alias="info">info.png</file>
+        <file alias="warning">warning.png</file>
+    </qresource>
+</RCC>
