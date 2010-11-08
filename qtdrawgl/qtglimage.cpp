@@ -43,7 +43,6 @@ QtGlImage::QtGlImage(const char *fileName) :
 	id(0)
 {
 	QImage qImg, qImgResized, qGlImg;
-	unsigned char *bytes;
 
 	if(!qImg.load(fileName))
 		throw LoadException("Cannot load the image file",fileName);
