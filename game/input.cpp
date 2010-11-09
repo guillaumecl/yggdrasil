@@ -23,14 +23,15 @@
 
 #include <algorithm>
 
-static const char *key_names[] = {"UP","DOWN","LEFT","RIGHT",
-		"B1","B2","B3","B4","L","R","START",
-		"ANY_DIR"};
-
 using namespace std;
 
 namespace input
 {
+
+static const char *key_names[] = {"UP","DOWN","LEFT","RIGHT",
+		"B1","B2","B3","B4","L","R","START",
+		"ANY_DIR"};
+
 
 using namespace buttons;
 
