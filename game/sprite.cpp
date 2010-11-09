@@ -36,7 +36,6 @@ Sprite::Sprite(FileReader &confFile, const char *sectionName, int pWidth, int pH
 	foregroundPlane(NULL),
 	currentFrame(0)
 {
-	string fileName;
 	string section = sectionName;
 	
 	numFrames = confFile.getInt(sectionName, "numFrames",1);
@@ -56,9 +55,9 @@ Sprite::Sprite(FileReader &confFile, const char *sectionName, int pWidth, int pH
 	try {backgroundPlane = new Plane(confFile,(section + " background").c_str(),pWidth,pHeight); }
 	catch(const exception &e) { }
 	
-	planes[PLANE_FOREGROUND] = foregroundPlane;
-	planes[PLANE_OBJECT] = objectPlane;
-	planes[PLANE_BACKGROUND] = backgroundPlane;
+	planes[foreground] = foregroundPlane;
+	planes[object] = objectPlane;
+	planes[background] = backgroundPlane;
 }
 
 
@@ -69,7 +68,7 @@ Sprite::~Sprite()
 	delete objectPlane;
 }
 
-void Sprite::draw(int x, int y, int direction, int plane)
+void Sprite::draw(int x, int y, game::directions::DirectionType direction, PlaneType plane)
 {
 	if(planes[plane])
 		planes[plane]->draw(x,y,currentFrame, direction);

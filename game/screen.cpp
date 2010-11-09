@@ -69,7 +69,7 @@ void Screen::drawBackground()
 	list<ScreenElement *>::iterator it;
 
 	for(it = sortedElements.begin(); it != sortedElements.end(); it++)
-		(*it)->draw(draw::planes::PLANE_BACKGROUND);
+		(*it)->draw(draw::planes::background);
 }
 
 
@@ -78,7 +78,7 @@ void Screen::drawForeground()
 	list<ScreenElement *>::iterator it;
 
 	for(it = sortedElements.begin(); it != sortedElements.end(); it++)
-		(*it)->draw(draw::planes::PLANE_FOREGROUND);
+		(*it)->draw(draw::planes::foreground);
 }
 
 
@@ -86,7 +86,7 @@ void Screen::drawObject()
 {
 	list<ScreenElement *>::iterator it;
 	for(it = sortedElements.begin(); it != sortedElements.end(); it++)
-		(*it)->draw(draw::planes::PLANE_OBJECT);
+		(*it)->draw(draw::planes::object);
 }
 
 void Screen::updatePositions()

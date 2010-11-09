@@ -33,8 +33,6 @@ static const char *key_names[] = {"UP","DOWN","LEFT","RIGHT",
 		"ANY_DIR"};
 
 
-using namespace buttons;
-
 Input::Input()
 {
 }
@@ -44,94 +42,94 @@ Input::~Input()
 {
 }
 
-bool Input::keyPressed(bitset<32> &keys, unsigned char key)
+bool Input::keyPressed(bitset<32> &keys, buttons::ButtonType key)
 {
-	if(key <= MAX_BUTTON)
-		return keys[key];
+	if(key <= buttons::max)
+		return keys[(int)key];
 	/*
 		Special keys
 	*/
 
-	if(key == BUTTON_ANY_DIR)
-		return 	keys[BUTTON_UP] || keys[BUTTON_DOWN] ||
-				keys[BUTTON_LEFT] || keys[BUTTON_RIGHT];
+	if(key == buttons::anyDir)
+		return 	keys[buttons::up] || keys[buttons::down] ||
+				keys[buttons::left] || keys[buttons::right];
 
 	/* Should not happen */
 	return false;
 }
 
-bool Input::hasKey(unsigned char key)
+bool Input::hasKey(buttons::ButtonType key)
 {
 	return keyPressed(currentKeys,key);
 }
 
-bool Input::hasNewKey(unsigned char key)
+bool Input::hasNewKey(buttons::ButtonType key)
 {
 	return keyPressed(currentKeys,key) && !keyPressed(lastKeys,key);
 }
 
 bool Input::b1()
 {
-	return hasKey(BUTTON_B1);
+	return hasKey(buttons::b1);
 }
 
 bool Input::b2()
 {
-	return hasKey(BUTTON_B2);
+	return hasKey(buttons::b2);
 }
 
 bool Input::b3()
 {
-	return hasKey(BUTTON_B3);
+	return hasKey(buttons::b3);
 }
 
 bool Input::b4()
 {
-	return hasKey(BUTTON_B4);
+	return hasKey(buttons::b4);
 }
 
 
 bool Input::up()
 {
-	return hasKey(BUTTON_UP);
+	return hasKey(buttons::up);
 }
 
 bool Input::down()
 {
-	return hasKey(BUTTON_DOWN);
+	return hasKey(buttons::down);
 }
 
 bool Input::left()
 {
-	return hasKey(BUTTON_LEFT);
+	return hasKey(buttons::left);
 }
 
 bool Input::right()
 {
-	return hasKey(BUTTON_RIGHT);
+	return hasKey(buttons::right);
 }
 
 
 bool Input::l()
 {
-	return hasKey(BUTTON_L);
+	return hasKey(buttons::l);
 }
 
 bool Input::r()
 {
-	return hasKey(BUTTON_R);
+	return hasKey(buttons::r);
 }
 
 
 bool Input::start()
 {
-	return hasKey(BUTTON_START);
+	return hasKey(buttons::start);
 }
 
 
 bool Input::isValidated(InputCondition &in)
 {
-	vector<unsigned char>::iterator iter;
+	vector<buttons::ButtonType>::iterator iter;
 
 	/*
 		if pAct had no "keys" option, it shouldn't be considered triggered.
@@ -156,7 +154,7 @@ bool Input::isValidated(InputCondition &in)
 	return std::search(keyMemory.begin(), keyMemory.end(), in.combo.begin(), in.combo.end()) != keyMemory.end();
 }
 
-void Input::addCombo(unsigned char key)
+void Input::addCombo(buttons::ButtonType key)
 {
 	keyMemory.push_back(key);
 
@@ -164,19 +162,19 @@ void Input::addCombo(unsigned char key)
 		keyMemory.pop_front();
 }
 
-const char *keyName(unsigned char key)
+const char *keyName(buttons::ButtonType key)
 {
-	return key_names[key];
+	return key_names[(int)key];
 }
 
-unsigned char key(const char *name)
+buttons::ButtonType key(const char *name)
 {
 	int i;
 
-	for(i=0;i < MAX_BUTTONS ; i++)
+	for(i=0;i < buttons::maxSpecials ; i++)
 	{
-		if(!strcmp(keyName(i),name))
-			return i;
+		if(!strcmp(keyName(static_cast<buttons::ButtonType>(i)),name))
+			return static_cast<buttons::ButtonType>(i);
 	}
 	throw KeyException(name);
 }

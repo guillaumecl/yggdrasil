@@ -25,8 +25,6 @@
 
 using namespace std;
 
-using namespace game::directions;
-
 #include "core.h"
 #include "collisionscreen.h"
 #include "collision.h"
@@ -36,7 +34,7 @@ namespace game
 {
 
 ScreenElement::ScreenElement(FileReader &confFile, const std::string &pName) :
-	direction(0),
+	direction(directions::up),
 	walkable(true),
 	_x(0),
 	_y(0),
@@ -52,7 +50,7 @@ ScreenElement::ScreenElement(FileReader &confFile, const std::string &pName) :
 
 
 ScreenElement::ScreenElement(const std::string &pName) :
-	direction(0),
+	direction(directions::up),
 	walkable(true),
 	_x(0),
 	_y(0),
@@ -158,7 +156,7 @@ void ScreenElement::load(FileReader &confFile)
 	}
 }
 
-void ScreenElement::draw(int plane)
+void ScreenElement::draw(draw::planes::PlaneType plane)
 {
 	if(currentAction)
 		currentAction->draw(_x, _y+_z, direction, plane);
@@ -227,36 +225,36 @@ void ScreenElement::rotateLeft()
 	direction = rleft(direction);
 }
 
-int ScreenElement::rright(int dir)
+directions::DirectionType ScreenElement::rright(directions::DirectionType dir)
 {
-	static int rot[] = 
+	static directions::DirectionType rot[] =
 	{
-		DIR_UP_RIGHT,	// DIR_UP,
-		DIR_DOWN_LEFT,	// DIR_DOWN,
-		DIR_UP_LEFT,	// DIR_LEFT,
-		DIR_DOWN_RIGHT,	// DIR_RIGHT,
+		directions::upRight,	// DIR_UP,
+		directions::downLeft,	// DIR_DOWN,
+		directions::upLeft,	// DIR_LEFT,
+		directions::downRight,	// DIR_RIGHT,
 		
-		DIR_UP,			// DIR_UP_LEFT,
-		DIR_RIGHT,		// DIR_UP_RIGHT,
-		DIR_LEFT,		// DIR_DOWN_LEFT,
-		DIR_DOWN,		// DIR_DOwN_RIGHT
+		directions::up,			// DIR_UP_LEFT,
+		directions::right,		// DIR_UP_RIGHT,
+		directions::left,		// DIR_DOWN_LEFT,
+		directions::down,		// DIR_DOwN_RIGHT
 	};
 	return rot[dir];
 }
 
-int ScreenElement::rleft(int dir)
+directions::DirectionType ScreenElement::rleft(directions::DirectionType dir)
 {
-	static int rot[] = 
+	static directions::DirectionType rot[] =
 	{
-		DIR_UP_LEFT,	// DIR_UP,
-		DIR_DOWN_RIGHT,	// DIR_DOWN,
-		DIR_DOWN_LEFT,	// DIR_LEFT,
-		DIR_UP_RIGHT,	// DIR_RIGHT,
+		directions::upLeft,	// DIR_UP,
+		directions::downRight,	// DIR_DOWN,
+		directions::downLeft,	// DIR_LEFT,
+		directions::upRight,	// DIR_RIGHT,
 		
-		DIR_LEFT,		// DIR_UP_LEFT,
-		DIR_UP,			// DIR_UP_RIGHT,
-		DIR_DOWN,		// DIR_DOWN_LEFT,
-		DIR_RIGHT,		// DIR_DOwN_RIGHT
+		directions::left,		// DIR_UP_LEFT,
+		directions::up,			// DIR_UP_RIGHT,
+		directions::down,		// DIR_DOWN_LEFT,
+		directions::right,		// DIR_DOwN_RIGHT
 	};
 	return rot[dir];
 }
@@ -273,17 +271,17 @@ inline void ScreenElement::move(int iForward, int iRight)
 	/*
 		perp[i] is the direction of i rotated by 90� to the right.
 	*/
-	static int perp[] = 
+	static directions::DirectionType perp[] =
 	{
-		DIR_RIGHT,		// DIR_UP,
-		DIR_LEFT,		// DIR_DOWN,
-		DIR_UP,			// DIR_LEFT,
-		DIR_DOWN,		// DIR_RIGHT,
+		directions::right,		// DIR_UP,
+		directions::left,		// DIR_DOWN,
+		directions::up,			// DIR_LEFT,
+		directions::down,		// DIR_RIGHT,
 		
-		DIR_UP_RIGHT,	// DIR_UP_LEFT,
-		DIR_DOWN_RIGHT,	// DIR_UP_RIGHT,
-		DIR_UP_LEFT,	// DIR_DOWN_LEFT,
-		DIR_DOWN_LEFT,	// DIR_DOwN_RIGHT
+		directions::upRight,	// DIR_UP_LEFT,
+		directions::downRight,	// DIR_UP_RIGHT,
+		directions::upLeft,	// DIR_DOWN_LEFT,
+		directions::downLeft,	// DIR_DOwN_RIGHT
 	};
 	
 	static int xDir[] = 
@@ -366,9 +364,9 @@ void ScreenElement::checkCollision()
 	bool can_left = true;
 	bool can_right = true;
 	
-	const int dir_NoMove = direction;
-	const int dir_Left = rleft(direction);
-	const int dir_Right = rright(direction);
+	const directions::DirectionType dir_NoMove = direction;
+	const directions::DirectionType dir_Left = rleft(direction);
+	const directions::DirectionType dir_Right = rright(direction);
 	
 	CollisionList collisions;
 	
@@ -470,7 +468,7 @@ void ScreenElement::collideFunction(Collision &coll)
 	rollbackFrame();
 }
 
-bool ScreenElement::tryDir(int pDir, bool pSaveCollisions, CollisionList *pCollisions)
+bool ScreenElement::tryDir(directions::DirectionType pDir, bool pSaveCollisions, CollisionList *pCollisions)
 {
 	bool result = true;
 	direction = pDir;

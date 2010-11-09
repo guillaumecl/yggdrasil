@@ -20,25 +20,13 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
+#include "basictypes.h"
 #include "plane.h"
 #include "archiver.h"
 
 namespace draw
 {
 
-/**
- * @namespace draw::planes
- * The three planes used by a sprite.
- */
-namespace planes
-{
-	enum
-	{
-		PLANE_BACKGROUND,
-		PLANE_FOREGROUND,
-		PLANE_OBJECT
-	};
-}
 /**
  * @brief An image, which can be "alive" or not.
  *	@author Lightning Flik <flik@baobob.org>
@@ -64,7 +52,7 @@ public:
 	 * @param direction The direction of the sprite to draw. If not applicable, set to 0.
 	 * @see Screen::directions
 	 */
-	void draw(int x, int y, int plane, int direction = 0);
+	void draw(int x, int y, game::directions::DirectionType direction, planes::PlaneType plane);
 
 	void nextFrame();
 	void reset();

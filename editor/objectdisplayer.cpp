@@ -65,9 +65,9 @@ bool ObjectDisplayer::hasObject() const
 
 void ObjectDisplayer::drawFunction()
 {
-	currentObject->draw(draw::planes::PLANE_BACKGROUND);
-	currentObject->draw(draw::planes::PLANE_OBJECT);
-	currentObject->draw(draw::planes::PLANE_FOREGROUND);
+	currentObject->draw(draw::planes::background);
+	currentObject->draw(draw::planes::object);
+	currentObject->draw(draw::planes::foreground);
 }
 
 void ObjectDisplayer::inputFunction()

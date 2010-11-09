@@ -123,7 +123,7 @@ void Action::reset()
 	curFrame = 0;
 }
 
-void Action::draw(int x, int y, int direction, int plane)
+void Action::draw(int x, int y, directions::DirectionType direction, draw::planes::PlaneType plane)
 {
 	spr.draw(x,y+baseOffsetY,direction,plane);
 }

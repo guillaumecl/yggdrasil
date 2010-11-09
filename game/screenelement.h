@@ -33,28 +33,6 @@ namespace game
 {
 
 /**
- * @namespace game::directions
- *
- * @brief Contains the different directions a ScreenElement can have.
- *
- */
-namespace directions
-{
-	enum
-	{
-		DIR_UP,
-		DIR_DOWN,
-		DIR_LEFT,
-		DIR_RIGHT,
-
-		DIR_UP_LEFT,
-		DIR_UP_RIGHT,
-		DIR_DOWN_LEFT,
-		DIR_DOWN_RIGHT
-	};
-};
-
-/**
  * @brief A screen Element is a part of the screen.
  *
  * It has a position inside the screen, actions that can make it move or be animated.
@@ -73,7 +51,7 @@ public:
 
 	void load(FileReader &confFile);
 
-	void draw(int plane);
+	void draw(draw::planes::PlaneType plane);
 
 	void setPosition(int x, int y);
 
@@ -112,7 +90,7 @@ public:
 	 * Direction of the sprite.
 	 * Possible directions are in game::directions
 	 */
-	int direction;
+	directions::DirectionType direction;
 
 	void checkCollision();
 
@@ -176,14 +154,14 @@ private:
 	void advanceFrame();
 	void rollbackFrame();
 
-	static int rright(int dir);
-	static int rleft(int dir);
+	static directions::DirectionType rright(directions::DirectionType dir);
+	static directions::DirectionType rleft(directions::DirectionType dir);
 
 	void *mask;
 
 	Rect mCollisionRect;
 
-	bool tryDir(int pDir, bool pSaveCollisions, CollisionList *pCollisions);
+	bool tryDir(directions::DirectionType pDir, bool pSaveCollisions, CollisionList *pCollisions);
 protected:
 
 	virtual void collideFunction(Collision &type);

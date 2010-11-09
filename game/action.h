@@ -44,7 +44,7 @@ public:
 	
 	int priority() const;
 	
-	void draw(int x, int y, int direction, int plane);
+	void draw(int x, int y, directions::DirectionType direction, draw::planes::PlaneType plane);
 	
 	bool nextFrame();
 	

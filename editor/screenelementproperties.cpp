@@ -23,7 +23,7 @@
 
 using game::ScreenElement;
 using game::Action;
-using namespace game::directions;
+using namespace game;
 
 namespace editor {
 
@@ -37,16 +37,16 @@ ScreenElementProperties::ScreenElementProperties(QWidget *parent) :
 
 	width = new PropertyItem(0);
 	height = new PropertyItem(0);
-	direction = new PropertyList(DIR_UP);
+	direction = new PropertyList(directions::up);
 
-	direction->add(QIcon(":/arrows/up.png"),tr("Up"),DIR_UP);
-	direction->add(QIcon(":/arrows/down.png"),tr("Down"),DIR_DOWN);
-	direction->add(QIcon(":/arrows/left.png"),tr("Left"),DIR_LEFT);
-	direction->add(QIcon(":/arrows/right.png"),tr("Right"),DIR_RIGHT);
-	direction->add(QIcon(":/arrows/up_left.png"),tr("Up Left"),DIR_UP_LEFT);
-	direction->add(QIcon(":/arrows/up_right.png"),tr("Up Right"),DIR_UP_RIGHT);
-	direction->add(QIcon(":/arrows/down_right.png"),tr("Down Right"),DIR_DOWN_RIGHT);
-	direction->add(QIcon(":/arrows/down_left.png"),tr("Down left"),DIR_DOWN_LEFT);
+	direction->add(QIcon(":/arrows/up.png"),tr("Up"), directions::up);
+	direction->add(QIcon(":/arrows/down.png"),tr("Down"), directions::down);
+	direction->add(QIcon(":/arrows/left.png"),tr("Left"), directions::left);
+	direction->add(QIcon(":/arrows/right.png"),tr("Right"), directions::right);
+	direction->add(QIcon(":/arrows/up_left.png"),tr("Up Left"), directions::upLeft);
+	direction->add(QIcon(":/arrows/up_right.png"),tr("Up Right"), directions::upRight);
+	direction->add(QIcon(":/arrows/down_right.png"),tr("Down Right"), directions::downRight);
+	direction->add(QIcon(":/arrows/down_left.png"),tr("Down left"), directions::downLeft);
 
 	section->appendRow(tr("width"), width);
 	section->appendRow(tr("height"), height);
@@ -103,7 +103,7 @@ void ScreenElementProperties::itemUpdated(PropertyItem *item)
 	if(!current)
 		return;
 	if(item == direction)
-		current->direction = item->get().toInt();
+		current->direction = (directions::DirectionType) item->get().toInt();
 
 	if(item == defaultAction)
 		current->defaultActionName = defaultAction->get().toString().toStdString();

@@ -17,6 +17,10 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
+#ifndef GAME__BASIC__TYPES
+#define GAME__BASIC__TYPES
+
 #include <list>
 
 namespace game
@@ -38,6 +42,49 @@ typedef std::list<Collision> CollisionList;
 class CollisionScreen;
 typedef std::list<CollisionScreen*> CollisionScreenPList;
 
+
+/**
+ * @namespace game::directions
+ *
+ * @brief Contains the different directions a ScreenElement can have.
+ *
+ */
+namespace directions
+{
+	enum DirectionType
+	{
+		up,
+		down,
+		left,
+		right,
+
+		upLeft,
+		upRight,
+		downLeft,
+		downRight
+	};
+};
+
+
+};
+
+namespace draw
+{
+	/**
+	 * @namespace draw::planes
+	 * The three planes used by a sprite.
+	 */
+	namespace planes
+	{
+		enum PlaneType
+		{
+			background,
+			foreground,
+			object
+		};
+	};
 };
 
 class FileReader;
+
+#endif

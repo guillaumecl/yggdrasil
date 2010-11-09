@@ -20,6 +20,7 @@
 #ifndef DRAWPLANE_H
 #define DRAWPLANE_H
 
+#include "basictypes.h"
 #include "drawmanager.h"
 #include "archiver.h"
 
@@ -55,7 +56,7 @@ public:
 	 * @param width Width of the portion of the image to draw
 	 * @param height Height of the portion of the image to draw
 	 */
-	void draw(int x, int y, int currentFrame, int direction);
+	void draw(int x, int y, int currentFrame, game::directions::DirectionType direction);
 
 	void setSize(int pWidth, int pHeight);
 private:

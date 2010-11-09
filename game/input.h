@@ -41,8 +41,8 @@ public:
 	
 	bool isValidated(InputCondition &in);
 	
-	bool hasKey(unsigned char key);
-	bool hasNewKey(unsigned char key);
+	bool hasKey(buttons::ButtonType key);
+	bool hasNewKey(buttons::ButtonType key);
 	
 	bool b1();
 	bool b2();
@@ -59,7 +59,7 @@ public:
 	
 	bool start();
 	
-	void addCombo(unsigned char key);
+	void addCombo(buttons::ButtonType key);
 	void resetCombo();
 	
 	virtual void updateState() = 0;
@@ -70,42 +70,12 @@ protected:
 	/**
 	 * Last pressed keys. Used for combos.
 	 */
-	std::list<unsigned char> keyMemory;
+	std::list<buttons::ButtonType> keyMemory;
 	std::bitset<32> lastKeys;
 	std::bitset<32> currentKeys;
 	
-	bool keyPressed(std::bitset<32> &keys, unsigned char key);
+	bool keyPressed(std::bitset<32> &keys, buttons::ButtonType key);
 };
-
-	
-namespace buttons
-{
-
-enum
-{
-	BUTTON_UP = 0,
-	BUTTON_DOWN,
-	BUTTON_LEFT,
-	BUTTON_RIGHT,
-	
-	BUTTON_B1,
-	BUTTON_B2,
-	BUTTON_B3,
-	BUTTON_B4,
-	
-	BUTTON_L,
-	BUTTON_R,
-	
-	BUTTON_START,
-	
-	MAX_BUTTON = BUTTON_START,
-	
-	BUTTON_ANY_DIR,
-	
-	MAX_BUTTONS = BUTTON_ANY_DIR
-};
-
-}
 
 }
 
