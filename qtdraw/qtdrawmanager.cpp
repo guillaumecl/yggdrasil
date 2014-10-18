@@ -191,24 +191,12 @@ void QtDrawManager::fadeRect(unsigned char p, unsigned long color, int x, int y,
 
 void QtDrawManager::scale(double pScale)
 {
-	if (pScale == 1)
-		return;
-	std::cerr << "Scaling with " << pScale << "\n";
-	scaledView = QPixmap(scrHeight, scrWidth);
-	scaledView.fill(Qt::black);
-	painter = new QPainter(&scaledView);
-	curScale = pScale;
+	painter->scale(pScale, pScale);
 }
 
 void QtDrawManager::endScale()
 {
-	if (curScale == 1)
-		return;
-	delete painter;
-
-	painter = widgetPainter;
-
-	widgetPainter->drawPixmap(0, 0, widget->width() * curScale, widget->height() * curScale, scaledView);
+	painter->resetTransform();
 }
 
 void QtDrawManager::draw(Image *img, int x, int y)
