@@ -67,7 +67,7 @@ Rect::Rect(int pX, int pX2, int pY, int pY2, bool pUnused) :
 	mHeight(pY2-pY)
 {
 	pUnused = true;
-
+	(void)pUnused;
 }
 
 Rect Rect::intersection(const Rect &pRect) const

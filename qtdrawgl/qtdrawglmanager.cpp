@@ -146,7 +146,7 @@ void QtDrawGlManager::endDraw()
 
 void QtDrawGlManager::setFont(Font &fnt)
 {
-
+	Q_UNUSED(fnt);
 }
 
 Font &QtDrawGlManager::getFont()
@@ -155,14 +155,21 @@ Font &QtDrawGlManager::getFont()
 
 void QtDrawGlManager::drawText(const char *text, int x, int y)
 {
+	Q_UNUSED(text);
+	Q_UNUSED(x);
+	Q_UNUSED(y);
 }
 
 unsigned int QtDrawGlManager::getTextHeight(const char *text)
 {
+	Q_UNUSED(text);
+	return 0;
 }
 
 unsigned int QtDrawGlManager::getTextWidth(const char *text)
 {
+	Q_UNUSED(text);
+	return 0;
 }
 
 void QtDrawGlManager::setGraphicOrigin(int x, int y)

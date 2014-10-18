@@ -69,7 +69,7 @@ OBJECTS_DIR = ../bin/editor/
 TARGET = yggdrasil_editor
 LIBS += ../bin/game/libgame.a \
     ../bin/common/libcommon.a
-TARGETDEPS += ../bin/game/libgame.a \
+POST_TARGETDEPS += ../bin/game/libgame.a \
     ../bin/common/libcommon.a
 UI_DIR = ../bin/editor/ui/
 MOC_DIR = ../bin/editor/moc/

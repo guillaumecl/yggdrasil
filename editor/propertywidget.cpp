@@ -38,15 +38,15 @@ PropertyWidget::PropertyWidget(QWidget *parent) :
 	screenElementProperties = new ScreenElementProperties(this);
 	screenItemProperties = new ScreenItemProperties(this);
 	actionProperties = new ActionProperties(this);
-	
+
 	addWidget(new QWidget());
 	addWidget(screenProperties);
 	addWidget(screenElementProperties);
 	addWidget(screenItemProperties);
 	addWidget(actionProperties);
-	
+
 	connect(screenProperties, SIGNAL(screenUpdated(game::Screen*)), this, SIGNAL(screenUpdated(game::Screen*)));
-	
+
 	unselect();
 }
 
@@ -71,7 +71,7 @@ void PropertyWidget::selectScreenItem(game::Screen *scr, const QString &elementN
 	game::ScreenElement *el = NULL;
 	if(scr)
 		el = scr->elements[elementName.toStdString()];
-	
+
 	if(el)
 		selectScreenItem(scr,el);
 	else
@@ -109,6 +109,7 @@ void PropertyWidget::selectScreenElement(game::ScreenElement *el)
 
 void PropertyWidget::selectAction(game::ScreenElement *el,game::Action *act)
 {
+	Q_UNUSED(el);
 	if(act)
 	{
 		actionProperties->sync(act);

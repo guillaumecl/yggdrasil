@@ -32,12 +32,12 @@ namespace draw
 
 QtDrawManager::QtDrawManager()
 	: QtDrawManagerBase(),
-		scrWidth(0),
-		scrHeight(0),
-		scrOriginX(0),
-		scrOriginY(0),
-		widget(0),
-		curScale(1)
+	  widget(NULL),
+	  curScale(1),
+	  scrWidth(0),
+	  scrHeight(0),
+	  scrOriginX(0),
+	  scrOriginY(0)
 {
 }
 
@@ -49,7 +49,7 @@ QtDrawManager::~QtDrawManager()
 		delete iter->second;
 }
 
-QWidget *QtDrawManager::getWidget(QWidget *parent, const char *name)
+QWidget *QtDrawManager::getWidget(QWidget *parent, const char */*name*/)
 {
 	if (!widget)
 		widget = new QRenderWidget(parent);
@@ -101,6 +101,7 @@ int QtDrawManager::initGraphics(int width, int height)
 {
 	scrWidth = width;
 	scrHeight = height;
+	return 0;
 }
 
 void QtDrawManager::beginDraw()
@@ -117,7 +118,7 @@ void QtDrawManager::endDraw()
 
 void QtDrawManager::setFont(Font &fnt)
 {
-
+	Q_UNUSED(fnt);
 }
 
 Font &QtDrawManager::getFont()
@@ -126,14 +127,21 @@ Font &QtDrawManager::getFont()
 
 void QtDrawManager::drawText(const char *text, int x, int y)
 {
+	Q_UNUSED(text);
+	Q_UNUSED(x);
+	Q_UNUSED(y);
 }
 
 unsigned int QtDrawManager::getTextHeight(const char *text)
 {
+	Q_UNUSED(text);
+	return 0;
 }
 
 unsigned int QtDrawManager::getTextWidth(const char *text)
 {
+	Q_UNUSED(text);
+	return 0;
 }
 
 void QtDrawManager::setGraphicOrigin(int x, int y)
@@ -160,7 +168,7 @@ void QtDrawManager::restoreGraphicOrigin()
 
 void QtDrawManager::shake(int strength)
 {
-
+	Q_UNUSED(strength);
 }
 
 void QtDrawManager::endShake()

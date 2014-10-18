@@ -67,7 +67,7 @@ ScreenElement::ScreenElement(const std::string &pName) :
 ScreenElement::~ScreenElement()
 {
 	map<string, Action *>::iterator iter;
-	
+
 	for(iter = actions.begin(); iter != actions.end(); iter++)
 		delete iter->second;
 }
@@ -81,23 +81,23 @@ void ScreenElement::load(FileReader &confFile)
 		Action *act = NULL;
 		ostringstream actionVar;
 		string actionName;
-		
+
 		int i = 1;
-		
+
 		mWidth = confFile.getInt("ScreenElement", "width",0);
 		if(mWidth <= 0)
 			throw LoadException("Bad width in file :", confFile.fileName());
-		
+
 		mHeight = confFile.getInt("ScreenElement", "height",0);
 		if(mHeight <= 0)
 			throw LoadException("Bad height in file :", confFile.fileName());
-		
-		
+
+
 		actionVar << "action " << i;
 		while(confFile.hasVariable("ScreenElement",actionVar.str().c_str()))
 		{
 			actionName = confFile.getString("ScreenElement",actionVar.str().c_str(),"");
-			
+
 			/*
 				Useless, but the case where two action numbers refer to the same action is
 			handled. Saves from memory leaks in this case.
@@ -107,22 +107,22 @@ void ScreenElement::load(FileReader &confFile)
 				act = new Action(confFile,actionName.c_str(),mWidth,mHeight);
 				actions[actionName] = act;
 			}
-			
+
 			i++;
 			actionVar.clear();
 			actionVar.str("");
 			actionVar << "action " << i;
 		}
-		
+
 		if(!confFile.hasVariable("ScreenElement","defaultAction"))
 			throw LoadException("This ScreenElement contains no default action.",confFile.fileName());
-		
+
 		defaultActionName = confFile.getString("ScreenElement","defaultAction","");
-		
+
 		map<string, Action*>::iterator ret;
-		
+
 		ret = actions.find(defaultActionName);
-		
+
 		if(ret == actions.end())
 		{
 			act = new Action(confFile,defaultActionName.c_str(),mWidth,mHeight);
@@ -130,13 +130,13 @@ void ScreenElement::load(FileReader &confFile)
 		}
 		else
 			act = ret->second;
-		
+
 		currentAction = act;
-		
+
 		walkable = confFile.hasVariable("ScreenElement","walkable");
 		if(!walkable)
 			mCollisionRect.set(_x,_y,mWidth,mHeight);
-		
+
 		/*
 		* Editor only properties
 		*/
@@ -149,7 +149,7 @@ void ScreenElement::load(FileReader &confFile)
 		 * load of an action.
 		 */
 		map<string, Action *>::iterator iter;
-		
+
 		for(iter = actions.begin(); iter != actions.end(); iter++)
 			delete iter->second;
 		throw;
@@ -183,7 +183,7 @@ void ScreenElement::nextFrame()
 {
 	if(!currentAction)
 		return;
-	
+
 	if(currentAction->nextFrame())
 	{
 		const ActionFrame &action = currentAction->getCurrentFrame();
@@ -211,7 +211,7 @@ void ScreenElement::nextFrame()
 		 * This depends on which decision is choosen in screenelement.h regarding the queuedaction.
 		 * Basically this could be just "currentAction = queuedAction ? queuedAction : &defaultAction; currentAction->reset();
 		 */
-		
+
 	}
 }
 
@@ -233,7 +233,7 @@ directions::DirectionType ScreenElement::rright(directions::DirectionType dir)
 		directions::downLeft,	// DIR_DOWN,
 		directions::upLeft,	// DIR_LEFT,
 		directions::downRight,	// DIR_RIGHT,
-		
+
 		directions::up,			// DIR_UP_LEFT,
 		directions::right,		// DIR_UP_RIGHT,
 		directions::left,		// DIR_DOWN_LEFT,
@@ -250,7 +250,7 @@ directions::DirectionType ScreenElement::rleft(directions::DirectionType dir)
 		directions::downRight,	// DIR_DOWN,
 		directions::downLeft,	// DIR_LEFT,
 		directions::upRight,	// DIR_RIGHT,
-		
+
 		directions::left,		// DIR_UP_LEFT,
 		directions::up,			// DIR_UP_RIGHT,
 		directions::down,		// DIR_DOWN_LEFT,
@@ -277,39 +277,39 @@ inline void ScreenElement::move(int iForward, int iRight)
 		directions::left,		// DIR_DOWN,
 		directions::up,			// DIR_LEFT,
 		directions::down,		// DIR_RIGHT,
-		
+
 		directions::upRight,	// DIR_UP_LEFT,
 		directions::downRight,	// DIR_UP_RIGHT,
 		directions::upLeft,	// DIR_DOWN_LEFT,
 		directions::downLeft,	// DIR_DOwN_RIGHT
 	};
-	
-	static int xDir[] = 
+
+	static int xDir[] =
 	{
 		0,	// DIR_UP,
 		0,	// DIR_DOWN,
 		-1,	// DIR_LEFT,
 		1,	// DIR_RIGHT,
-		
+
 		-1,	// DIR_UP_LEFT,
 		1,	// DIR_UP_RIGHT,
 		-1,	// DIR_DOWN_LEFT,
 		1,	// DIR_DOwN_RIGHT
 	};
-	
-	static int yDir[] = 
+
+	static int yDir[] =
 	{
 		1,	// DIR_UP,
 		-1,	// DIR_DOWN,
 		0,	// DIR_LEFT,
 		0,	// DIR_RIGHT,
-		
+
 		1,	// DIR_UP_LEFT,
 		1,	// DIR_UP_RIGHT,
 		-1,	// DIR_DOWN_LEFT,
 		-1,	// DIR_DOwN_RIGHT
 	};
-	
+
 	setPosition(_x + iForward * xDir[direction] + iRight * xDir[perp[direction]],
 	            _y + iForward * yDir[direction] + iRight * yDir[perp[direction]]);
 }
@@ -318,21 +318,21 @@ void ScreenElement::updatePosition(/** @todo add a CollisionScreen parameter */)
 {
 	if(!currentAction)
 		return;
-	
+
 	const ActionFrame &action = currentAction->getCurrentFrame();
-	
+
 	/*
 	 * 	Z position is updated anytime, even if a collision occurs. If not, when walking towards a wall, a character
 	 * would get stuck in the air.
 	 */
 	_z += action.move_height;
-	
+
 	/*
 	 *	No need to check collisions if we're not moving !
 	 */
 	if(!action.move_forward && !action.move_right)
 		return;
-	
+
 	checkCollision();
 }
 
@@ -363,18 +363,18 @@ void ScreenElement::checkCollision()
 	bool can_straight = true;
 	bool can_left = true;
 	bool can_right = true;
-	
+
 	const directions::DirectionType dir_NoMove = direction;
 	const directions::DirectionType dir_Left = rleft(direction);
 	const directions::DirectionType dir_Right = rright(direction);
-	
+
 	CollisionList collisions;
-	
+
 	/*
 		We always try to go straight, because we need to remember the collisions.
 	*/
 	can_straight = tryDir(dir_NoMove,true,&collisions);
-	
+
 	if(!can_straight)
 	{
 		/*
@@ -382,7 +382,7 @@ void ScreenElement::checkCollision()
 		is a collision, we just stop trying them since we will then use the normal direction.
 		*/
 		can_left = tryDir(dir_Left,false,&collisions);
-		
+
 		if(!can_left)
 		{
 			can_right = tryDir(dir_Right,false,&collisions);
@@ -408,7 +408,7 @@ void ScreenElement::checkCollision()
 		Advance frame only if no collision was detected.
 	*/
 	advanceFrame();
-	
+
 	/*
 		Restore the direction.
 	*/
@@ -424,10 +424,10 @@ bool ScreenElement::collideWith(Collision &collision)
 {
 	const ScreenElement &dest = collision.destination;
 	Rect intersection = collisionRect().intersection(dest.collisionRect());
-	
+
 	if(!intersection.isValid())
 		return false;
-	
+
 	if(mask && dest.mask)
 	{
 		//check the collision between the two masks
@@ -452,19 +452,20 @@ bool ScreenElement::collideWith(Collision &collision)
 void ScreenElement::advanceFrame()
 {
 	const ActionFrame &action = currentAction->getCurrentFrame();
-	
+
 	move(action.move_forward,action.move_right);
 }
 
 void ScreenElement::rollbackFrame()
 {
 	const ActionFrame &action = currentAction->getCurrentFrame();
-	
+
 	move(-action.move_forward,-action.move_right);
 }
 
 void ScreenElement::collideFunction(Collision &coll)
 {
+	(void)coll;
 	rollbackFrame();
 }
 
@@ -473,10 +474,10 @@ bool ScreenElement::tryDir(directions::DirectionType pDir, bool pSaveCollisions,
 	bool result = true;
 	direction = pDir;
 	advanceFrame();
-	
+
 	list<CollisionScreen*>::iterator i;
 	list<ScreenElement*>::iterator j;
-	
+
 	for(i = collisionScreens.begin(); i != collisionScreens.end(); i++)
 	{
 		CollisionScreen *c = *i;
@@ -485,7 +486,7 @@ bool ScreenElement::tryDir(directions::DirectionType pDir, bool pSaveCollisions,
 			ScreenElement *el = *j;
 			if(el == this)
 				continue;
-			
+
 			Collision coll(*this,*el);
 			if(collideWith(coll))
 			{
@@ -522,8 +523,8 @@ bool ScreenElement::operator<(const ScreenElement &compareTo)
 	{
 		if(_x == compareTo._x)
 			/*
-			 *	In last case, we use the pointer comparison. 
-			 * This ensures that the items will always be ordered 
+			 *	In last case, we use the pointer comparison.
+			 * This ensures that the items will always be ordered
 			 * the same way, if they have the same coordinates.
 			 */
 			return (void*)this < (void*)&compareTo;
@@ -532,7 +533,7 @@ bool ScreenElement::operator<(const ScreenElement &compareTo)
 	return _y < compareTo._y;
 }
 /**
- * 
+ *
  * @todo find a way that when a collision takes place between two objects,
  * when the other object does the doesCollide function at the same frame,
  * the testing and collision functions are not called once again.

@@ -44,19 +44,10 @@ public:
 	void draw(Image *image, int x, int y);
 	void draw(Image *image, int x, int y, int xImg, int yImg, int widthImg, int heightImg);
 
-	QRenderWidget *widget;
 	virtual QWidget *getWidget(QWidget *parent = NULL, const char *name = NULL);
 
 	virtual void setup();
 	virtual void update();
-
-	QPainter *widgetPainter;
-	QPainter *painter;
-	QPixmap scaledView;
-	double curScale;
-
-	int mapYCoordinate(int y);
-	int mapXCoordinate(int x);
 
 	virtual Image &getImage(const char *fileName);
 
@@ -91,6 +82,15 @@ public:
 
 	virtual void endScale();
 private:
+	int mapYCoordinate(int y);
+	int mapXCoordinate(int x);
+
+	QRenderWidget *widget;
+	QPainter *widgetPainter;
+	QPainter *painter;
+	QPixmap scaledView;
+	double curScale;
+
 	std::map<std::string, QtImage *> openedImages;
 
 	unsigned int scrWidth;

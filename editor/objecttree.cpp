@@ -384,7 +384,7 @@ void ObjectTree::currentChanged(const QModelIndex &selected, const QModelIndex &
 
 void ObjectTree::on_itemLoaded(game::ScreenElement *scrEl)
 {
-
+	(void)scrEl;
 }
 
 

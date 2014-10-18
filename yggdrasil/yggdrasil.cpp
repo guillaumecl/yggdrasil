@@ -21,27 +21,27 @@
 
 /**
  * @mainpage Yggdrasil
- * 
+ *
  * Yggdrasil is a 2D Engine made to create games similar to Secret of Mana.
- * 
+ *
  * @section Introduction
- * 
+ *
  * Introduction of the doc
- * 
+ *
  * @section nianiania test
- * 
+ *
  * test
- * 
+ *
  * @ref Truc
- * 
+ *
  */
 
 /**
- * 
+ *
  * @page Truc
- * 
+ *
  * Un truc
- * 
+ *
  * @ref main Back to Index
  */
 
@@ -93,49 +93,49 @@ int main(int argc, char *argv[])
 	core::Core *core = NULL;
 	DrawManager *drawManager = NULL;
 	SoundManager *soundManager = NULL;
-	
+
 	Plugin *coreLoader = NULL;
 	Plugin *drawLoader = NULL;
-		
+
 	try
 	{
 		log << "Loading the plugin loaders...\n";
-		
+
 		coreLoader = new Plugin("qtcore");
 		drawLoader = new Plugin("qtdraw");
-		
+
 		core = static_cast<Core*>(coreLoader->create());
 		core::Core::globalCore = core;
-		
+
 		drawManager = static_cast<DrawManager*>(drawLoader->create());
-		
+
 		/* Associate the core with the drawing and sound engines */
 		core->setup(*drawManager, *soundManager);
-		
+
 		FileReader file("defaultScreen.scr");
-		
+
 		mainScreen = new Screen(file);
-	
+
 		core->setFrameRate(60);
 		core->mainLoop(drawFunc,inputFunc);
-		
+
 		delete mainScreen;
-		
+
 		log << "Main loop over. Freeing resources.\n";
-		
+
 		delete drawManager;
 		drawManager = NULL;			/* in case any of the destructors throw exceptions */
-		
+
 		delete soundManager;
 		soundManager = NULL;
-		
+
 		delete core;
 		core = NULL;
 	}
 	catch(exception &e)
 	{
 		log << "Exception in main : " << e.what() << "\n";
-		
+
 		delete drawManager;
 		delete soundManager;
 		delete core;
@@ -145,9 +145,9 @@ int main(int argc, char *argv[])
 		This also the case of the exceptions raised by the plugins... which is why the plugins
 		are loaded outside the try.
 	*/
-	
+
 	delete drawLoader;
 	delete coreLoader;
-	
+
 	return 0;
 }

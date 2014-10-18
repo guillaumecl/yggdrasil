@@ -57,20 +57,18 @@ DisplayWidget::~DisplayWidget()
 
 void DisplayWidget::setFrameRate(double pFrameRate)
 {
-	int time;
 	if(runningTimer != -1)
 		killTimer(runningTimer);
 
-	time = (int)(1000/pFrameRate);
-	runningTimer = startTimer((int)(1000/pFrameRate));
+	runningTimer = startTimer(1000/pFrameRate);
 }
 
-void DisplayWidget::keyPressEvent( QKeyEvent *e )
+void DisplayWidget::keyPressEvent(QKeyEvent * /*e*/)
 {
 
 }
 
-void DisplayWidget::timerEvent(QTimerEvent *event)
+void DisplayWidget::timerEvent(QTimerEvent * /*event*/)
 {
 	((QtDrawManagerBase*)Core::getDrawManager())->update();
 	if(inputFunc)
