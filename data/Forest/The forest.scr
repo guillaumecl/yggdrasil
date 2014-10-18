@@ -1,0 +1,141 @@
+[Screen]
+
+width = 2048
+height = 2048
+
+element 1 = Grass 1
+element 2 = Grass 2
+element 3 = Grass 3
+element 4 = Grass 4
+element 5 = Tree 1
+element 6 = Tree 2
+element 7 = Tree 3
+element 8 = Tree 4
+element 9 = Tree 5
+element 10 = Tree 6
+element 11 = Tree 7
+element 12 = Tree 8
+element 13 = Tree 9
+element 14 = Tree 10
+element 15 = Tree 11
+element 16 = Tree 12
+element 17 = Tree 13
+element 18 = Tree 14
+element 19 = Tree 15
+element 20 = Tree 16
+
+[Grass 1]
+file = grass_big_block.elm
+x = 0
+y = 0
+locked=1
+
+[Grass 2]
+file = grass_big_block.elm
+x = 1024
+y = 0
+locked=1
+
+[Grass 3]
+file = grass_big_block.elm
+x = 0
+y = 1024
+locked=1
+
+[Grass 4]
+file = grass_big_block.elm
+x = 1024
+y = 1024
+locked=1
+
+
+[Tree 1]
+file = tree.elm
+x = 85
+y = 263
+
+
+[Tree 1]
+file = tree.elm
+x = 85
+y = 263
+
+[Tree 1]
+file = tree.elm
+x = 573
+y = 217
+
+[Tree 2]
+file = tree.elm
+x = 1583
+y = 780
+
+[Tree 3]
+file = tree.elm
+x = 1240
+y = 380
+
+[Tree 4]
+file = tree.elm
+x = 1005
+y = 0300
+
+[Tree 5]
+file = tree.elm
+x = 1800
+y = 345
+
+[Tree 6]
+file = tree.elm
+x = 1400
+y = 75
+
+[Tree 7]
+file = tree.elm
+x = 700
+y = 1800
+
+[Tree 8]
+file = tree.elm
+x = 900
+y = 1300
+
+[Tree 9]
+file = tree.elm
+x = 1300
+y = 900
+
+[Tree 10]
+file = tree.elm
+x = 1300
+y = 1300
+
+[Tree 11]
+file = tree.elm
+x = 900
+y = 900
+
+[Tree 12]
+file = tree.elm
+x = 1984
+y = 1800
+
+[Tree 13]
+file = tree.elm
+x = 200
+y = 1900
+
+[Tree 14]
+file = tree.elm
+x = 115
+y = 780
+
+[Tree 15]
+file = tree.elm
+x = 320
+y = 1200
+
+[Tree 16]
+file = tree.elm
+x = 580
+y = 750

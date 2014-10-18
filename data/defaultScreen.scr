@@ -1,0 +1,30 @@
+[Screen]
+
+width = 3000
+height = 3000
+
+element 1 = Riesz overlap
+element 2 = Koopa 1
+element 3 = Koopa 2
+element 4 = Riesz
+
+[Koopa 1]
+file = gueststars/koopa.elm
+x = 0
+y = 0
+
+[Koopa 2]
+file = gueststars/koopa.elm
+x = 500
+y = 500
+
+[Riesz]
+file = characters/riesz.elm
+x = 400
+y = 300
+
+[Riesz overlap]
+file = characters/riesz.elm
+x = 0
+y = 0
+

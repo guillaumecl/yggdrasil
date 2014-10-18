@@ -1,0 +1,29 @@
+[Screen]
+
+width = 5000
+height = 15000
+
+element 1 = Koopa 1
+element 2 = Koopa 2
+element 3 = Riesz
+element 4 = Firefox
+
+[Koopa 1]
+file = gueststars/koopa.elm
+x = 50
+y = 1000
+
+[Koopa 2]
+file = gueststars/koopa.elm
+x = 500
+y = 5500
+
+[Riesz]
+file = characters/riesz.elm
+x = 400
+y = 300
+
+[Firefox]
+file = gueststars/firefox.elm
+x = 0
+y = 3000
