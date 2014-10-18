@@ -1,0 +1,6 @@
+bin
+*.so
+Makefile
+data/yggdrasil_editor
+*.pro.user
+
