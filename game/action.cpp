@@ -20,8 +20,8 @@
 #include "action.h"
 #include <string>
 
-#include "core.h"
-#include "exception.h"
+#include "common/core.h"
+#include "common/exception.h"
 
 #include <sstream>
 
@@ -137,4 +137,3 @@ void Action::setSize(int pWidth, int pHeight)
 }
 
 }
-

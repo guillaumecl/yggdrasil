@@ -26,11 +26,11 @@
 
 #include <map>
 
-#include "exception.h"
+#include "common/exception.h"
 #include "gamedisplayer.h"
 #include "mime.h"
-#include "screen.h"
-#include "screenelement.h"
+#include "game/screen.h"
+#include "game/screenelement.h"
 
 
 namespace editor

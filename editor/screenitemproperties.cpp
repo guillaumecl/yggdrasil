@@ -19,7 +19,7 @@
  ***************************************************************************/
 #include "screenitemproperties.h"
 
-#include "screenelement.h"
+#include "game/screenelement.h"
 
 using game::ScreenElement;
 

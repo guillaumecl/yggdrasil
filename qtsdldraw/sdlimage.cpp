@@ -18,12 +18,12 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #include "sdlimage.h"
-#include "exception.h"
+#include "common/exception.h"
 
 #include "qtsdldrawmanager.h"
 #include <QPainter>
 
-#include "log.h"
+#include "common/log.h"
 
 using std::string;
 

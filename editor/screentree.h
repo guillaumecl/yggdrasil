@@ -20,7 +20,7 @@
 #ifndef EDITORSCREENTREE_H
 #define EDITORSCREENTREE_H
 
-#include "basictypes.h"
+#include "game/basictypes.h"
 #include <QTreeView>
 #include "objectitem.h"
 #include "itemfilter.h"

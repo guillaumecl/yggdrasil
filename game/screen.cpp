@@ -21,9 +21,9 @@
 
 #include <sstream>
 
-#include "exception.h"
+#include "common/exception.h"
+#include "common/core.h"
 #include "sprite.h"
-#include "core.h"
 #include "collisionscreen.h"
 
 using draw::DrawManager;

@@ -28,9 +28,9 @@
 #include <QMessageBox>
 
 #include "mime.h"
-#include "exception.h"
-#include "screen.h"
-#include "screenelement.h"
+#include "common/exception.h"
+#include "game/screen.h"
+#include "game/screenelement.h"
 
 #include "filterwidget.h"
 

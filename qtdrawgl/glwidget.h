@@ -23,7 +23,7 @@
 #include <QGLWidget>
 #include <QDebug>
 
-#include "drawmanager.h"
+#include "common/drawmanager.h"
 
 namespace draw
 {

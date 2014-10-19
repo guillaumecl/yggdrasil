@@ -20,7 +20,7 @@
 #ifndef EDITOR_PROPERTYPROPERTYLIST_H
 #define EDITOR_PROPERTYPROPERTYLIST_H
 
-#include <propertyitem.h>
+#include "propertyitem.h"
 #include <QComboBox>
 
 namespace editor

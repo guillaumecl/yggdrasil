@@ -19,7 +19,7 @@
  ***************************************************************************/
 #include "qtglimage.h"
 
-#include "exception.h"
+#include "common/exception.h"
 
 #include <iostream>
 

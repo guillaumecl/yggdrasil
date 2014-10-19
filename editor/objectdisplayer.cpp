@@ -23,9 +23,9 @@
 #include "objectdisplayer.h"
 
 #include "mime.h"
-#include "sprite.h"
+#include "game/sprite.h"
 
-#include "screenelement.h"
+#include "game/screenelement.h"
 
 namespace editor
 {
@@ -146,6 +146,3 @@ void ObjectDisplayer::closeObject(game::ScreenElement *element)
 }
 
 }
-
-
-

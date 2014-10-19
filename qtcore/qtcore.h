@@ -20,7 +20,7 @@
 #ifndef QTCORE_H
 #define QTCORE_H
 
-#include "core.h"
+#include "common/core.h"
 
 #include <QApplication>
 #include <QMainWindow>

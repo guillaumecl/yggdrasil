@@ -20,7 +20,7 @@
 #ifndef DRAWQTDRAWMANAGER_H
 #define DRAWQTDRAWMANAGER_H
 
-#include "qtdrawmanagerbase.h"
+#include "qtcore/qtdrawmanagerbase.h"
 
 #include <map>
 #include <string>

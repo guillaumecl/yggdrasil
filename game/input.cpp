@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #include "input.h"
-#include "exception.h"
+#include "common/exception.h"
 #include "string.h"
 
 #include <algorithm>

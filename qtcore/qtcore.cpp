@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 #include "qtcore.h"
-#include "log.h"
+#include "common/log.h"
 #include "qtdrawmanagerbase.h"
 
 #include <iostream>

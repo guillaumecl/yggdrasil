@@ -25,8 +25,8 @@
 
 #include <iostream>
 
-#include "exception.h"
-#include "core.h"
+#include "common/exception.h"
+#include "common/core.h"
 
 #include <QHBoxLayout>
 

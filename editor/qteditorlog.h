@@ -1,7 +1,7 @@
 #ifndef QTEDITORLOG_H
 #define QTEDITORLOG_H
 
-#include "qtcore.h"
+#include "qtcore/qtcore.h"
 #include <QListWidget>
 
 class QtEditorLog: public QListWidget, public core::QtCoreLogger

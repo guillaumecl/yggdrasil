@@ -20,7 +20,7 @@
 #ifndef EDITOROBJECTTREE_H
 #define EDITOROBJECTTREE_H
 
-#include "basictypes.h"
+#include "game/basictypes.h"
 
 #include <QTreeView>
 #include <QStandardItemModel>

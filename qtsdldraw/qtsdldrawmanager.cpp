@@ -19,11 +19,11 @@
  ***************************************************************************/
 #include "qtsdldrawmanager.h"
 
-#include "exception.h"
+#include "common/exception.h"
 #include <QGraphicsView>
 #include "qrenderwidget.h"
 
-#include "log.h"
+#include "common/log.h"
 
 using std::map;
 using std::string;

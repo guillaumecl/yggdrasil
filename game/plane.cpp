@@ -19,8 +19,8 @@
  ***************************************************************************/
 #include "plane.h"
 
-#include "exception.h"
-#include "core.h"
+#include "common/exception.h"
+#include "common/core.h"
 #include <string>
 
 using std::string;

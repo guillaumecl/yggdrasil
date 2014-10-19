@@ -1,6 +1,6 @@
 #include "qrenderwidget.h"
 
-#include "qtcore.h"
+#include "qtcore/qtcore.h"
 
 #include <QResizeEvent>
 

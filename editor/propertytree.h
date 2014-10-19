@@ -22,7 +22,7 @@
 
 #include <QTreeView>
 #include "propertyitemmodel.h"
-#include "screen.h"
+#include "game/screen.h"
 
 namespace editor
 {

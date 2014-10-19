@@ -34,7 +34,7 @@
 
 #include "ui_main.h"
 
-#include "plugin.h"
+#include "common/plugin.h"
 
 class QAction;
 class QMenu;

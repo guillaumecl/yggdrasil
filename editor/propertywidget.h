@@ -21,7 +21,7 @@
 #define EDITOR_PROPERTYPROPERTYWIDGET_H
 
 #include <QStackedWidget>
-#include "basictypes.h"
+#include "game/basictypes.h"
 #include "propertytree.h"
 
 #include "screenproperties.h"

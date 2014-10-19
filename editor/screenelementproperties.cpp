@@ -19,7 +19,7 @@
  ***************************************************************************/
 #include "screenelementproperties.h"
 #include <QDebug>
-#include "screenelement.h"
+#include "game/screenelement.h"
 
 using game::ScreenElement;
 using game::Action;

@@ -20,7 +20,7 @@
 #ifndef DRAWQTIMAGE_H
 #define DRAWQTIMAGE_H
 
-#include "drawmanager.h"
+#include "common/drawmanager.h"
 
 #include <QGLWidget>
 

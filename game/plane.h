@@ -21,8 +21,8 @@
 #define DRAWPLANE_H
 
 #include "basictypes.h"
-#include "drawmanager.h"
-#include "archiver.h"
+#include "common/drawmanager.h"
+#include "common/archiver.h"
 
 namespace draw
 {

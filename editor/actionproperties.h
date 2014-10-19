@@ -20,8 +20,8 @@
 #ifndef EDITOR_PROPERTYACTIONPROPERTIES_H
 #define EDITOR_PROPERTYACTIONPROPERTIES_H
 
-#include <propertytree.h>
-#include "basictypes.h"
+#include "propertytree.h"
+#include "game/basictypes.h"
 
 namespace editor
 {

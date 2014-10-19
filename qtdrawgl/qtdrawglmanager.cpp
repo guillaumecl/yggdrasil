@@ -19,7 +19,7 @@
  ***************************************************************************/
 #include "qtdrawglmanager.h"
 
-#include "exception.h"
+#include "common/exception.h"
 
 using std::map;
 using std::string;

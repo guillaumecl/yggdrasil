@@ -22,7 +22,7 @@
 
 #include "screenelementproperties.h"
 
-#include "basictypes.h"
+#include "game/basictypes.h"
 
 namespace editor
 {

@@ -1,8 +1,8 @@
 #include "qrenderwidget.h"
 
-#include "qtcore.h"
+#include "qtcore/qtcore.h"
 
-#include "log.h"
+#include "common/log.h"
 
 #include <QResizeEvent>
 
@@ -39,7 +39,7 @@ void QRenderWidget::resizeEvent(QResizeEvent *event)
 	if (windowInitialized) {
 		screen = SDL_SetVideoMode(width(), height(), 32, SDL_SWSURFACE);
 		if (!screen) {
-			log() << "Couldn't set video mode: " << SDL_GetError() << std::endl;
+			//log() << "Couldn't set video mode: " << SDL_GetError() << std::endl;
 		}
 	}
 }
@@ -60,13 +60,13 @@ void QRenderWidget::showEvent(QShowEvent *e)
 
 		// Initialisation du système vidéo de SDL
 		if ((SDL_Init(SDL_INIT_VIDEO) == -1)) {
-			log() << "Could not initialize SDL: " << SDL_GetError() << std::endl;
+			//log() << "Could not initialize SDL: " << SDL_GetError() << std::endl;
 		}
 
 		IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 		screen = SDL_SetVideoMode(width(), height(), 32, SDL_SWSURFACE);
 		if (!screen) {
-			log() << "Couldn't set video mode: " << SDL_GetError() << std::endl;
+			//log() << "Couldn't set video mode: " << SDL_GetError() << std::endl;
 		}
 		windowInitialized = true;
 	}

@@ -21,8 +21,8 @@
 
 #include "namechoose.h"
 #include <QMessageBox>
-#include "screen.h"
-#include "archiver.h"
+#include "game/screen.h"
+#include "common/archiver.h"
 
 namespace editor
 {
@@ -77,4 +77,3 @@ void NameChoose::setName(QString pName)
 }
 
 }
-

@@ -20,10 +20,10 @@
 #ifndef EDITOR_PROPERTYSCREENELEMENTPROPERTIES_H
 #define EDITOR_PROPERTYSCREENELEMENTPROPERTIES_H
 
-#include <propertytree.h>
+#include "propertytree.h"
 #include "propertylist.h"
 
-#include "basictypes.h"
+#include "game/basictypes.h"
 
 namespace editor
 {

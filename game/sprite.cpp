@@ -20,7 +20,7 @@
 #include "sprite.h"
 #include <string>
 
-#include "exception.h"
+#include "common/exception.h"
 
 using std::string;
 
@@ -107,4 +107,3 @@ void Sprite::setSize(int pWidth, int pHeight)
 }
 
 }
-

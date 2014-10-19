@@ -34,9 +34,9 @@
 #include <QMessageBox>
 
 #include "mime.h"
-#include "exception.h"
-#include "archiver.h"
-#include "screenelement.h"
+#include "common/exception.h"
+#include "common/archiver.h"
+#include "game/screenelement.h"
 
 using game::ScreenElement;
 using game::Action;

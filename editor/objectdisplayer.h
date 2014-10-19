@@ -22,7 +22,7 @@
 
 #include "glwrapper.h"
 
-#include "basictypes.h"
+#include "game/basictypes.h"
 
 namespace editor
 {

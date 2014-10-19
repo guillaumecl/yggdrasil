@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #include "actionproperties.h"
-#include "action.h"
+#include "game/action.h"
 #include <QDebug>
 #include <QApplication>
 

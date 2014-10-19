@@ -21,7 +21,7 @@
 #define SCREENSCREENELEMENT_H
 
 #include "basictypes.h"
-#include "archiver.h"
+#include "common/archiver.h"
 
 #include <list>
 #include "rect.h"

@@ -3,4 +3,4 @@ bin
 Makefile
 data/yggdrasil_editor
 *.pro.user
-
+build

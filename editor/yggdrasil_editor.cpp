@@ -27,8 +27,8 @@
 #include <QCloseEvent>
 #include <QFileDialog>
 
-#include "archiver.h"
-#include "exception.h"
+#include "common/archiver.h"
+#include "common/exception.h"
 #include "screendockwidget.h"
 #include "objectdockwidget.h"
 

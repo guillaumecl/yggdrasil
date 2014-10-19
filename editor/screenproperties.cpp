@@ -20,7 +20,7 @@
 #include "screenproperties.h"
 #include <QDebug>
 
-#include "screen.h"
+#include "game/screen.h"
 
 using game::Screen;
 

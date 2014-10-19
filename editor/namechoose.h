@@ -22,7 +22,7 @@
 #define NAMECHOOSE_H
 
 #include <QDialog>
-#include "basictypes.h"
+#include "game/basictypes.h"
 #include "ui_nameChoose.h"
 
 namespace editor
@@ -48,4 +48,3 @@ public slots:
 }
 
 #endif
-

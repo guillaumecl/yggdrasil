@@ -1,8 +1,8 @@
 #ifndef QTDRAWMANAGERBASE_H
 #define QTDRAWMANAGERBASE_H
 
-#include "drawmanager.h"
-#include "qtcore.h"
+#include "common/drawmanager.h"
+#include "qtcore/qtcore.h"
 
 #include <QWidget>
 

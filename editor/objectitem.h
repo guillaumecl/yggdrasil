@@ -20,7 +20,7 @@
 #ifndef EDITOROBJECTITEM_H
 #define EDITOROBJECTITEM_H
 
-#include "basictypes.h"
+#include "game/basictypes.h"
 
 #include <QStandardItem>
 

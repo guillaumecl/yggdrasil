@@ -19,13 +19,13 @@
  ***************************************************************************/
 #include "screenelement.h"
 #include <sstream>
-#include "exception.h"
+#include "common/exception.h"
 
 #include "action.h"
 
 using namespace std;
 
-#include "core.h"
+#include "common/core.h"
 #include "collisionscreen.h"
 #include "collision.h"
 #include "rect.h"
