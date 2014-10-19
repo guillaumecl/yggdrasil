@@ -66,12 +66,22 @@ public:
 
 	void updatePosition();
 
-	int height() { return mHeight; }
-	int width() { return mWidth; }
+	int height() {
+		return mHeight;
+	}
+	int width() {
+		return mWidth;
+	}
 
-	inline int x() { return _x;}
-	inline int y() { return _y;}
-	inline int z() { return _z;}
+	inline int x() {
+		return _x;
+	}
+	inline int y() {
+		return _y;
+	}
+	inline int z() {
+		return _z;
+	}
 
 	std::string getName();
 	void setName(std::string name);
@@ -148,7 +158,9 @@ private:
 	void move(int pForward, int pRight);
 
 	bool collideWith(Collision &type);
-	ScreenElement(const ScreenElement &ref) {*this = ref;}
+	ScreenElement(const ScreenElement &ref) {
+		*this = ref;
+	}
 	CollisionScreenPList collisionScreens;
 
 	void advanceFrame();

@@ -23,9 +23,11 @@
 #include <propertytree.h>
 #include "basictypes.h"
 
-namespace editor {
+namespace editor
+{
 
-namespace property {
+namespace property
+{
 
 /**
 	@author flik <flik@baobob.org>
@@ -34,10 +36,10 @@ class ActionProperties : public PropertyTree
 {
 	Q_OBJECT
 public:
-    ActionProperties(QWidget *parent=0);
+	ActionProperties(QWidget *parent=0);
 
-    ~ActionProperties();
-	
+	~ActionProperties();
+
 	virtual void sync(void *item);
 	virtual void itemUpdated(PropertyItem *item);
 	virtual void setReadOnly(bool pReadOnly);
@@ -47,7 +49,7 @@ public:
 	PropertyItem *name;
 	PropertyItem *spr;
 	PropertyItem *baseOffsetY;
-	
+
 	/**
 	 * Sprite properties
 	 */
@@ -55,7 +57,7 @@ public:
 	PropertyItem *foregroundPlane;
 	PropertyItem *objectPlane;
 	PropertyItem *numFrames;
-	
+
 	/**
 	 * Background plane properties
 	 */
@@ -64,7 +66,7 @@ public:
 	PropertyItem *background_width;
 	PropertyItem *background_offsetX;
 	PropertyItem *background_offsetY;
-	
+
 	/**
 	 * Object plane properties
 	 */
@@ -73,7 +75,7 @@ public:
 	PropertyItem *object_width;
 	PropertyItem *object_offsetX;
 	PropertyItem *object_offsetY;
-	
+
 	/**
 	 * Foreground plane properties
 	 */
@@ -82,7 +84,7 @@ public:
 	PropertyItem *foreground_width;
 	PropertyItem *foreground_offsetX;
 	PropertyItem *foreground_offsetY;
-	
+
 	game::Action *current;
 };
 

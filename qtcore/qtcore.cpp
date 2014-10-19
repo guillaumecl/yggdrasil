@@ -38,11 +38,10 @@ QtCore::QtCore() :
 	widget(NULL),
 	privateApp(true)
 {
-	if (!QApplication::instance())
-	{
+	if (!QApplication::instance()) {
 		log() << "Creating QApplication...";
 		app = new QApplication(paramCount,params);
-		app->connect( app, SIGNAL( lastWindowClosed() ), app, SLOT( quit() ) );
+		app->connect(app, SIGNAL(lastWindowClosed()), app, SLOT(quit()));
 	} else {
 		privateApp = false;
 		app = (QApplication *) QApplication::instance();
@@ -54,8 +53,7 @@ QtCore::~QtCore()
 	log() << "Destructing the Widget...";
 	delete widget;
 
-	if(privateApp)
-	{
+	if (privateApp) {
 		log() << "Destructing the QApplication...";
 		delete app;
 	}
@@ -85,7 +83,7 @@ double QtCore::frameRate()
 
 void QtCore::setFrameRate(double frameRate)
 {
-	if(frameRate > 1)
+	if (frameRate > 1)
 		widget->setFrameRate(frameRate);
 	else
 		widget->setFrameRate(0.5);
@@ -132,17 +130,17 @@ extern "C"
 
 
 
-	#ifdef WIN32
+#ifdef WIN32
 
-	#ifdef BUILD_DLL
-		#define DLL_EXPORT __declspec(dllexport)
-	#else
-		#define DLL_EXPORT
-	#endif
+#ifdef BUILD_DLL
+#define DLL_EXPORT __declspec(dllexport)
+#else
+#define DLL_EXPORT
+#endif
 
-	#else
-		#define DLL_EXPORT
-	#endif
+#else
+#define DLL_EXPORT
+#endif
 
 	using namespace core;
 	/**

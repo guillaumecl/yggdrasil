@@ -25,7 +25,8 @@
 
 #include "drawmanager.h"
 
-namespace core {
+namespace core
+{
 
 /**
  *	@author Lightning Flik <flik@baobob.org>
@@ -35,24 +36,24 @@ class GLWidget : public QGLWidget
 public:
 	GLWidget(QWidget *parent = NULL, const char *name = NULL);
 
-    virtual ~GLWidget();
+	virtual ~GLWidget();
 	virtual void setFuncs(void (*drawFunc)(), void (*inputFunc)());
-	
-	
+
+
 	virtual void setFrameRate(double pFrameRate);
-	
+
 protected:
-	virtual void resizeGL( int width, int height );
+	virtual void resizeGL(int width, int height);
 	virtual void paintGL();
-   
-	virtual void keyPressEvent( QKeyEvent *e );
-	
+
+	virtual void keyPressEvent(QKeyEvent *e);
+
 	void timerEvent(QTimerEvent *event);
-		
+
 private:
 	void (*drawFunc)();
 	void (*inputFunc)();
-	
+
 	int runningTimer;
 };
 

@@ -23,25 +23,27 @@
 
 using game::ScreenElement;
 
-namespace editor {
+namespace editor
+{
 
-namespace property {
+namespace property
+{
 
 ScreenItemProperties::ScreenItemProperties(QWidget *parent) :
 	ScreenElementProperties(parent)
 {
 	PropertyItem *section = insertSection(tr("Object"));
-	
+
 	x = new PropertyItem((unsigned int)0);
 	y = new PropertyItem((unsigned int)0);
 	locked = new PropertyItem(false);
 	name = new PropertyItem("");
-	
+
 	section->appendRow(tr("name"), name);
 	section->appendRow(tr("X"), x);
 	section->appendRow(tr("Y"), y);
 	section->appendRow(tr("locked"), locked);
-	
+
 	ScreenElementProperties::setReadOnly(true);
 }
 
@@ -53,11 +55,11 @@ ScreenItemProperties::~ScreenItemProperties()
 void ScreenItemProperties::sync(void *item)
 {
 	ScreenElementProperties::sync(item);
-	
+
 	ScreenElement *el = static_cast<ScreenElement*>(item);
-	if(!el)
+	if (!el)
 		return;
-	
+
 	current = NULL;
 	/**
 	 * @todo Make this use the coordinate used at the screen startup, not the current one modified by the actions.
@@ -66,21 +68,21 @@ void ScreenItemProperties::sync(void *item)
 	y->set(el->y());
 	locked->set(el->locked);
 	name->set(QString::fromStdString(el->getName()));
-	
+
 	current = el;
 }
 
 void ScreenItemProperties::itemUpdated(PropertyItem *item)
 {
 	ScreenElementProperties::itemUpdated(item);
-	
-	if(!current)
+
+	if (!current)
 		return;
-	if(item == x)
+	if (item == x)
 		current->setPosition(x->get().toInt(),current->y());
-	if(item == y)
+	if (item == y)
 		current->setPosition(current->x(),y->get().toInt());
-	if(item == locked)
+	if (item == locked)
 		current->locked = locked->get().toBool();
 }
 
@@ -90,7 +92,7 @@ void ScreenItemProperties::setReadOnly(bool pReadOnly)
 		the default screen properties for the item are always visible and always non editable.
 	*/
 	ScreenElementProperties::setReadOnly(true);
-	
+
 	locked->setEditable(!pReadOnly);
 	name->setEditable(!pReadOnly);
 	x->setEditable(!pReadOnly);

@@ -20,7 +20,8 @@
 #include "collisionscreen.h"
 #include "screenelement.h"
 
-namespace game {
+namespace game
+{
 
 CollisionScreen::CollisionScreen(int pX, int pY, int pWidth, int pHeight) :
 	leftScreen(NULL),
@@ -49,7 +50,7 @@ bool CollisionScreen::fits(ScreenElement *el)
 	int x2 = el->x() + el->width();
 	int y1 = el->y();
 	int y2 = el->y() + el->height();
-	
+
 	return (x1 <= maxX && x2 >= mX && y1 <= maxY && y2 >= mY);
 }
 
@@ -62,21 +63,18 @@ void CollisionScreen::updateElement(ScreenElement *el)
 	int x2 = el->x() + el->width();
 	int y1 = el->y();
 	int y2 = el->y() + el->height();
-	
-	if(x1 >= maxX || x2 <= mX || y1 >= maxY || y2 <= mY)
-	{
+
+	if (x1 >= maxX || x2 <= mX || y1 >= maxY || y2 <= mY) {
 		screenElements.remove(el);
 		el->removeFromCollisionScreen(this);
 	}
-	
-	if(x2 >= maxX)
-	{
+
+	if (x2 >= maxX) {
 		addIfNeeded(el,rightScreen);
 		addIfNeeded(el,topRightScreen);
 		addIfNeeded(el,bottomRightScreen);
 	}
-	if(x1 <= mX)
-	{
+	if (x1 <= mX) {
 		addIfNeeded(el,leftScreen);
 		addIfNeeded(el,topLeftScreen);
 		addIfNeeded(el,bottomLeftScreen);
@@ -86,8 +84,7 @@ void CollisionScreen::updateElement(ScreenElement *el)
 
 void CollisionScreen::addIfNeeded(ScreenElement *el, CollisionScreen *neighbour)
 {
-	if(neighbour && neighbour->fits(el) && !neighbour->has(el))
-	{
+	if (neighbour && neighbour->fits(el) && !neighbour->has(el)) {
 		neighbour->screenElements.push_back(el);
 		el->addToCollisionScreen(neighbour);
 	}
@@ -96,11 +93,11 @@ void CollisionScreen::addIfNeeded(ScreenElement *el, CollisionScreen *neighbour)
 bool CollisionScreen::has(ScreenElement *el)
 {
 	ScreenElementPList::iterator it;
-	
-	for(it = screenElements.begin(); it != screenElements.end(); it++)
-		if(*it == el)
+
+	for (it = screenElements.begin(); it != screenElements.end(); it++)
+		if (*it == el)
 			return true;
-	
+
 	return false;
 }
 

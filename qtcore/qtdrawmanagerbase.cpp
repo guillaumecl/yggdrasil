@@ -24,7 +24,7 @@
 namespace draw
 {
 
-	using namespace core;
+using namespace core;
 
 
 

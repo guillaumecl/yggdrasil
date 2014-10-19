@@ -30,7 +30,8 @@
 
 #include <QHBoxLayout>
 
-namespace core {
+namespace core
+{
 
 DisplayWidget::DisplayWidget(QWidget *parent, const char *name) :
 	QWidget(parent),
@@ -57,7 +58,7 @@ DisplayWidget::~DisplayWidget()
 
 void DisplayWidget::setFrameRate(double pFrameRate)
 {
-	if(runningTimer != -1)
+	if (runningTimer != -1)
 		killTimer(runningTimer);
 
 	runningTimer = startTimer(1000/pFrameRate);
@@ -71,7 +72,7 @@ void DisplayWidget::keyPressEvent(QKeyEvent * /*e*/)
 void DisplayWidget::timerEvent(QTimerEvent * /*event*/)
 {
 	((QtDrawManagerBase*)Core::getDrawManager())->update();
-	if(inputFunc)
+	if (inputFunc)
 		inputFunc();
 }
 
@@ -89,7 +90,7 @@ void DisplayWidget::paintFunc()
 
 	draw->beginDraw();
 
-	if(drawFunc)
+	if (drawFunc)
 		drawFunc();
 
 	draw->endDraw();

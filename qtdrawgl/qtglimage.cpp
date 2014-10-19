@@ -23,16 +23,17 @@
 
 #include <iostream>
 
-namespace draw {
+namespace draw
+{
 
 static int getPowerOf2(int n)
 {
 	int k = 1;
-	if(!(n & (n-1)))
+	if (!(n & (n-1)))
 		return n;
 
 	n <<= 1;
-	while( n & (n-1))
+	while (n & (n-1))
 		n &= ~(1 << k++);
 
 	return n;
@@ -44,7 +45,7 @@ QtGlImage::QtGlImage(const char *fileName) :
 {
 	QImage qImg, qImgResized, qGlImg;
 
-	if(!qImg.load(fileName))
+	if (!qImg.load(fileName))
 		throw LoadException("Cannot load the image file",fileName);
 
 	mWidth = qImg.width();
@@ -57,8 +58,8 @@ QtGlImage::QtGlImage(const char *fileName) :
 
 	qGlImg = qImgResized.rgbSwapped();
 
-	glGenTextures( 1, &id );
-	glBindTexture( GL_TEXTURE_2D, id );
+	glGenTextures(1, &id);
+	glBindTexture(GL_TEXTURE_2D, id);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);	/* GL_NEAREST */
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -67,7 +68,7 @@ QtGlImage::QtGlImage(const char *fileName) :
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 
-	glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, actualWidth, actualHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, qGlImg.bits() );
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, actualWidth, actualHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, qGlImg.bits());
 }
 
 unsigned int QtGlImage::width()
@@ -91,10 +92,14 @@ void QtGlImage::draw(int x, int y)
 	y -= actualHeight - mHeight;*/
 	glBindTexture(GL_TEXTURE_2D, id);
 	glBegin(GL_QUADS);
-		glTexCoord2i(0, 0); glVertex2i(x				, y + actualHeight);
-		glTexCoord2i(1, 0); glVertex2i(x + actualWidth	, y + actualHeight);
-		glTexCoord2i(1, 1); glVertex2i(x + actualWidth	, y);
-		glTexCoord2i(0, 1); glVertex2i(x				, y);
+	glTexCoord2i(0, 0);
+	glVertex2i(x				, y + actualHeight);
+	glTexCoord2i(1, 0);
+	glVertex2i(x + actualWidth	, y + actualHeight);
+	glTexCoord2i(1, 1);
+	glVertex2i(x + actualWidth	, y);
+	glTexCoord2i(0, 1);
+	glVertex2i(x				, y);
 	glEnd();
 	// unbind the texture (we can also do glDisable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -122,7 +127,7 @@ void QtGlImage::draw(int x, int y, int xImg, int yImg, int widthImg, int heightI
 	*/
 	yImg += actualHeight - mHeight;
 	xCoord = (double)(xImg) / (double)actualWidth;
-	yCoord = (double)(yImg + mHeight ) / (double)actualHeight;
+	yCoord = (double)(yImg + mHeight) / (double)actualHeight;
 
 	wI = (double)widthImg / (double)actualWidth;
 	hI = (double)heightImg / (double)actualHeight;
@@ -130,17 +135,17 @@ void QtGlImage::draw(int x, int y, int xImg, int yImg, int widthImg, int heightI
 	glBindTexture(GL_TEXTURE_2D, id);
 	glBegin(GL_QUADS);
 
-		glTexCoord2d(xCoord, yCoord);
-		glVertex2i(x, y + heightImg);
+	glTexCoord2d(xCoord, yCoord);
+	glVertex2i(x, y + heightImg);
 
-		glTexCoord2d(xCoord+wI, yCoord);
-		glVertex2i(x + widthImg, y + heightImg);
+	glTexCoord2d(xCoord+wI, yCoord);
+	glVertex2i(x + widthImg, y + heightImg);
 
-		glTexCoord2d(xCoord + wI, yCoord + hI);
-		glVertex2i(x + widthImg, y);
+	glTexCoord2d(xCoord + wI, yCoord + hI);
+	glVertex2i(x + widthImg, y);
 
-		glTexCoord2d(xCoord, yCoord + hI);
-		glVertex2i(x, y);
+	glTexCoord2d(xCoord, yCoord + hI);
+	glVertex2i(x, y);
 
 	glEnd();
 	// unbind the texture (we can also do glDisable(GL_TEXTURE_2D);

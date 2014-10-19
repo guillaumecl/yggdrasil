@@ -20,13 +20,13 @@ QRenderWidget::~QRenderWidget()
 
 }
 
-void QRenderWidget::paintEvent (QPaintEvent *event)
+void QRenderWidget::paintEvent(QPaintEvent *event)
 {
 	Q_UNUSED(event);
 	core::Core::getCore()->mainLoopIteration();
 }
 
-void QRenderWidget::resizeEvent (QResizeEvent *event)
+void QRenderWidget::resizeEvent(QResizeEvent *event)
 {
 	Q_UNUSED(event);
 	core::Core::getDrawManager()->initGraphics(width(), height());

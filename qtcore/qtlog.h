@@ -8,7 +8,7 @@
 class QtLog : public Log
 {
 public:
-    QtLog();
+	QtLog();
 
 	std::stringbuf buffer;
 };

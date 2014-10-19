@@ -25,9 +25,11 @@
 
 #include "screentree.h"
 
-namespace editor {
+namespace editor
+{
 
-namespace custom {
+namespace custom
+{
 
 /**
  *	@author flik <flik@baobob.org>
@@ -38,8 +40,8 @@ class ScreenDockWidget : public QWidget
 public:
 	ScreenDockWidget(QDockWidget *parent);
 
-    ~ScreenDockWidget();
-	
+	~ScreenDockWidget();
+
 	ScreenTree *screenTree() const;
 private:
 	ScreenTree *mScreenTree;

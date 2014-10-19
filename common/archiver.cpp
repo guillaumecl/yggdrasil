@@ -28,7 +28,7 @@ using std::map;
 FileReader::FileReader(const char *fileName) :
 	file(fileName), m_fileName(fileName)
 {
-	if(!file)
+	if (!file)
 		throw LoadException("Cannot open the file", fileName);
 
 	string line;
@@ -36,18 +36,16 @@ FileReader::FileReader(const char *fileName) :
 	/*
 		Build the section list.
 	*/
-	while( getline(file,line) )
-	{
+	while (getline(file,line)) {
 		unsigned int begin = line.find_first_not_of(" 	");
 		unsigned int end = line.find_last_of(']');
-		if(begin != string::npos && line[begin] == '[' && end != string::npos)
-		{
+		if (begin != string::npos && line[begin] == '[' && end != string::npos) {
 			/*
 				This is a section.
 			*/
 			string sectionName = line.substr(begin+1,end-1);
 
-			sections.insert( make_pair(sectionName , file.tellg() ) );
+			sections.insert(make_pair(sectionName , file.tellg()));
 		}
 	}
 }
@@ -74,37 +72,33 @@ string FileReader::getString(const char *section, const char *varName, const cha
 {
 	string line;
 
-	if(!goToSection(section))
+	if (!goToSection(section))
 		return defValue;
 
-	while( getline(file,line) )
-	{
+	while (getline(file,line)) {
 		unsigned int begin = line.find_first_not_of(" 	");
 		unsigned int end = line.find_first_of('=',begin);
 
-		if(begin != string::npos && line[begin] == '[')
-		{
+		if (begin != string::npos && line[begin] == '[') {
 			/*
 				This is a section. This means that the variable was not found.
 			*/
 			break;
 		}
-		if(begin != string::npos && line[begin] != ';' && end != string::npos)
-		{
+		if (begin != string::npos && line[begin] != ';' && end != string::npos) {
 			/*
 				This is a variable name.
 			*/
 			string variableName = line.substr(begin,end);
 			unsigned int realEnd = variableName.find_last_not_of(" 	");
-			if(realEnd != string::npos)
+			if (realEnd != string::npos)
 				variableName = variableName.substr(0,realEnd+1);
 
-			if(variableName == varName)
-			{
+			if (variableName == varName) {
 				begin = line.find_first_not_of(" 	",end+1);
 				end = line.find_last_not_of(" 	");
 
-				if(begin != string::npos && end != string::npos)
+				if (begin != string::npos && end != string::npos)
 					return line.substr(begin,end);
 				else
 					return "";
@@ -119,7 +113,7 @@ bool FileReader::goToSection(const char *section)
 	map<string,int>::iterator ret;
 
 	ret = sections.find(section);
-	if(ret == sections.end())
+	if (ret == sections.end())
 		return false;
 	/*
 		Clear the states (could be EOF / read error, ...)
@@ -137,7 +131,7 @@ int FileReader::getInt(const char *section, const char *varName, int defValue)
 	string sResult = getString(section,varName,"");
 	std::istringstream resultConverter(sResult);
 
-	if(resultConverter >> iResult)
+	if (resultConverter >> iResult)
 		return iResult;
 	return defValue;
 
@@ -150,13 +144,10 @@ bool FileReader::hasSection(const char *section) const
 
 bool FileReader::hasVariable(const char *section, const char *varName)
 {
-	try
-	{
+	try {
 		getString(section,varName,NULL);
 		return true;
-	}
-	catch(exception &e)
-	{
+	} catch (exception &e) {
 		return false;
 	}
 }

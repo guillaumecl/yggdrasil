@@ -76,33 +76,32 @@ ObjectTree::ObjectTree(QWidget *parent) :
 	actLoad = new QAction(tr("Load"),this);
 	connect(actLoad,SIGNAL(triggered()), this,SLOT(on_load()));
 
-	connect(this,SIGNAL(expanded(const QModelIndex&)),
-			this,SLOT(on_itemExpanded(const QModelIndex&)));
+	connect(this,SIGNAL(expanded(const QModelIndex &)),
+	        this,SLOT(on_itemExpanded(const QModelIndex &)));
 
-	connect(this,SIGNAL(collapsed(const QModelIndex&)),
-			this,SLOT(on_itemCollapsed(const QModelIndex&)));
+	connect(this,SIGNAL(collapsed(const QModelIndex &)),
+	        this,SLOT(on_itemCollapsed(const QModelIndex &)));
 }
 
 QWidget *ObjectTree::insertFilter()
 {
 	FilterWidget *lineEd = new FilterWidget(this);
 
-	connect(lineEd, SIGNAL( textEdited(const QString&)),
-			filterModel, SLOT( setFilterWildcard(const QString&) ));
+	connect(lineEd, SIGNAL(textEdited(const QString &)),
+	        filterModel, SLOT(setFilterWildcard(const QString &)));
 
 	return lineEd;
 }
 
 ObjectTree::~ObjectTree()
 {
-	QList<QStandardItem *> items = itemModel->findItems ("*", Qt::MatchRecursive | Qt::MatchWildcard);
+	QList<QStandardItem *> items = itemModel->findItems("*", Qt::MatchRecursive | Qt::MatchWildcard);
 
 	int i;
 
-	for(i=0;i<items.size();i++)
-	{
+	for (i=0; i<items.size(); i++) {
 		ObjectItem *item = dynamic_cast<ObjectItem*>(items[i]);
-		if(item && item->screenElement())
+		if (item && item->screenElement())
 			delete item->screenElement();
 	}
 }
@@ -122,8 +121,7 @@ void ObjectTree::scan(QDir curDir, QStandardItem *parent)
 	if (!p)
 		p = itemModel->invisibleRootItem();
 
-	foreach(dir, dirList)
-	{
+	foreach(dir, dirList) {
 		QDir newDir(curDir);
 		newDir.cd(dir);
 
@@ -155,11 +153,9 @@ void ObjectTree::addObject(QString objFile, QStandardItem *parent)
 	QString iconName = QString::fromStdString(fr.getString("ScreenEditor","icon",""));
 	QIcon *iconRef = &iconObject;
 
-	if(!iconName.isEmpty())
-	{
+	if (!iconName.isEmpty()) {
 		iconRef = new QIcon(iconName);
-		if(iconRef->pixmap(16).isNull())
-		{
+		if (iconRef->pixmap(16).isNull()) {
 			delete iconRef;
 			iconRef = &iconObject;
 		}
@@ -167,7 +163,7 @@ void ObjectTree::addObject(QString objFile, QStandardItem *parent)
 
 
 	ObjectItem *obj = new ObjectItem(*iconRef,name, objFile, item::Object);
-	if(iconRef != &iconObject)
+	if (iconRef != &iconObject)
 		delete iconRef;
 	parent->appendRow(obj);
 }
@@ -177,11 +173,9 @@ void ObjectTree::mousePressEvent(QMouseEvent *event)
 	QTreeView::mousePressEvent(event);
 	if (event->button() == Qt::LeftButton)
 		dragStartPosition = event->pos();
-	else if(event->button() == Qt::RightButton)
-	{
+	else if (event->button() == Qt::RightButton) {
 		ObjectItem *obj = itemAt(event->pos());
-		if(obj && obj->type() == item::Object && !obj->isLoaded())
-		{
+		if (obj && obj->type() == item::Object && !obj->isLoaded()) {
 			QMenu menu(this);
 
 			menu.addAction(actLoad);
@@ -199,17 +193,17 @@ ObjectItem *ObjectTree::itemAt(const QPoint &pos)
 
 ObjectItem *ObjectTree::itemAt(const QModelIndex &index)
 {
-	return dynamic_cast<ObjectItem*>(itemModel->itemFromIndex (filterModel->mapToSource(index)));
+	return dynamic_cast<ObjectItem*>(itemModel->itemFromIndex(filterModel->mapToSource(index)));
 }
 void ObjectTree::mouseMoveEvent(QMouseEvent *event)
 {
 	QTreeView::mouseMoveEvent(event);
 	if (!(event->buttons() & Qt::LeftButton)) return;
 	if ((event->pos() - dragStartPosition).manhattanLength()
-		< QApplication::startDragDistance())
+	    < QApplication::startDragDistance())
 		return;
 	ObjectItem *it = itemAt(dragStartPosition);
-	if(!it || it->type() !=  item::Object)
+	if (!it || it->type() !=  item::Object)
 		return;
 
 	QDrag *drag = new QDrag(this);
@@ -221,19 +215,14 @@ void ObjectTree::mouseMoveEvent(QMouseEvent *event)
 	This screen will be deleted if the drag is cancelled.
 	*/
 	ScreenElement *scrEl = it->screenElement();
-	if(!scrEl)
-	{
-		try
-		{
+	if (!scrEl) {
+		try {
 			scrEl = new ScreenElement();
-		}
-		catch(exception &e)
-		{
+		} catch (exception &e) {
 			QMessageBox::warning(this, tr("Application"),
-								 tr(e.what()));
+			                     tr(e.what()));
 		}
-	}
-	else
+	} else
 		load = false;
 	QMimeData *data = new QMimeData();
 	QByteArray encodedData;
@@ -250,14 +239,12 @@ void ObjectTree::mouseMoveEvent(QMouseEvent *event)
 
 	Qt::DropAction dropAction = drag->start(Qt::MoveAction);
 
-	if(dropAction == Qt::MoveAction)
-	{
+	if (dropAction == Qt::MoveAction) {
 		/*
 			After a successful drop, effectively load the screen,
 		or update it if it was already loaded.
 		*/
-		if(load)
-		{
+		if (load) {
 			QString name = it->name();
 
 			FileReader fr(name.toLatin1());
@@ -269,14 +256,14 @@ void ObjectTree::mouseMoveEvent(QMouseEvent *event)
 		emit objectSelected(scrEl);
 		emit loadObject(scrEl);
 		setExpanded(it->index(),true);
-	} else if(load)
+	} else if (load)
 		delete scrEl;
 }
 
 void ObjectTree::on_itemExpanded(const QModelIndex &ind)
 {
 	ObjectItem *item = dynamic_cast<ObjectItem*>(itemModel->itemFromIndex(filterModel->mapToSource(ind)));
-	if(!item || item->type() != item::Folder)
+	if (!item || item->type() != item::Folder)
 		return;
 	item->setIcon(iconFolderOpen);
 }
@@ -284,7 +271,7 @@ void ObjectTree::on_itemExpanded(const QModelIndex &ind)
 void ObjectTree::on_itemCollapsed(const QModelIndex &ind)
 {
 	ObjectItem *item = dynamic_cast<ObjectItem*>(itemModel->itemFromIndex(filterModel->mapToSource(ind)));
-	if(!item || item->type() != item::Folder)
+	if (!item || item->type() != item::Folder)
 		return;
 	item->setIcon(iconFolderClosed);
 }
@@ -294,55 +281,51 @@ void ObjectTree::mouseDoubleClickEvent(QMouseEvent * event)
 	QTreeView::mouseDoubleClickEvent(event);
 	on_load();
 	ObjectItem *it = itemAt(event->pos());
-	if(it->screenElement())
+	if (it->screenElement())
 		emit loadObject(it->screenElement());
 }
 
 void ObjectTree::on_load()
 {
 	QModelIndexList list = selectedIndexes();
-	if(list.size() != 1)
+	if (list.size() != 1)
 		return;
 	QModelIndex ind = list[0];
 
 	ObjectItem *el = dynamic_cast<ObjectItem*>(itemModel->itemFromIndex(filterModel->mapToSource(ind)));
 
-	if(!el || el->type() != item::Object)
+	if (!el || el->type() != item::Object)
 		return;
 
-	if(el->isLoaded())
+	if (el->isLoaded())
 		return;
 
 	/*
 	 * Load the object.
 	 */
 
-	try
-	{
+	try {
 		FileReader fr(el->name().toLatin1().data());
 		ScreenElement *scrEl = new ScreenElement(fr, "");
 
 		el->setScreenElement(scrEl);
 		scanObject(el);
 		emit objectSelected(scrEl);
-	}
-	catch(const exception &e)
-	{
+	} catch (const exception &e) {
 		QMessageBox::warning(this, tr("Application"),
-							 tr(e.what()));
+		                     tr(e.what()));
 	}
 }
 
 void ObjectTree::scanObject(ObjectItem *obj)
 {
-	if(!obj || obj->type() != item::Object || !obj->isLoaded())
+	if (!obj || obj->type() != item::Object || !obj->isLoaded())
 		return;
 
 	ScreenElement *scrEl = obj->screenElement();
 	map<string, Action *>::iterator iter;
 
-	for(iter = scrEl->actions.begin(); iter != scrEl->actions.end(); iter++)
-	{
+	for (iter = scrEl->actions.begin(); iter != scrEl->actions.end(); iter++) {
 		QString name = QString::fromStdString(iter->first);
 		Action *act = iter->second;
 
@@ -359,25 +342,21 @@ void ObjectTree::currentChanged(const QModelIndex &selected, const QModelIndex &
 {
 	/* could happen, maybe !*/
 	ObjectItem *item = itemAt(selected);
-	if(!item)
+	if (!item)
 		return;
-	if(item->type() == item::Object)
-	{
+	if (item->type() == item::Object) {
 		ScreenElement *scrEl = item->screenElement();
 		/*
 		 * Note: item->screenElement() can be NULL in the case the screen isn't
 		 * loaded. In this case, the properties will hide the properties.
 		 */
 		emit objectSelected(scrEl);
-	}
-	else if(item->type() == item::Action)
-	{
+	} else if (item->type() == item::Action) {
 		ScreenElement *scrEl = item->parent()->screenElement();
 		Action *act = item->action();
 		scrEl->changeAction(act);
 		emit actionSelected(scrEl,act);
-	}
-	else
+	} else
 		emit objectSelected(NULL);
 	Q_UNUSED(previous);
 }

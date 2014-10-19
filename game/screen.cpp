@@ -41,7 +41,7 @@ static bool compare(ScreenElement *el1, ScreenElement *el2)
 
 Screen::Screen(FileReader &confFile)
 {
-	if(!core::Core::globalCore)
+	if (!core::Core::globalCore)
 		throw GenericException("Plugins must be run in order to create screens.");
 	load(confFile);
 }
@@ -51,7 +51,7 @@ Screen::~Screen()
 {
 	map<string, ScreenElement *>::iterator it;
 
-	for(it = elements.begin(); it != elements.end(); it++)
+	for (it = elements.begin(); it != elements.end(); it++)
 		delete it->second;
 }
 
@@ -60,7 +60,7 @@ void Screen::nextFrame()
 {
 	map<string, ScreenElement *>::iterator it;
 
-	for(it = elements.begin(); it != elements.end(); it++)
+	for (it = elements.begin(); it != elements.end(); it++)
 		it->second->nextFrame();
 }
 
@@ -68,7 +68,7 @@ void Screen::drawBackground()
 {
 	list<ScreenElement *>::iterator it;
 
-	for(it = sortedElements.begin(); it != sortedElements.end(); it++)
+	for (it = sortedElements.begin(); it != sortedElements.end(); it++)
 		(*it)->draw(draw::planes::background);
 }
 
@@ -77,7 +77,7 @@ void Screen::drawForeground()
 {
 	list<ScreenElement *>::iterator it;
 
-	for(it = sortedElements.begin(); it != sortedElements.end(); it++)
+	for (it = sortedElements.begin(); it != sortedElements.end(); it++)
 		(*it)->draw(draw::planes::foreground);
 }
 
@@ -85,7 +85,7 @@ void Screen::drawForeground()
 void Screen::drawObject()
 {
 	list<ScreenElement *>::iterator it;
-	for(it = sortedElements.begin(); it != sortedElements.end(); it++)
+	for (it = sortedElements.begin(); it != sortedElements.end(); it++)
 		(*it)->draw(draw::planes::object);
 }
 
@@ -93,7 +93,7 @@ void Screen::updatePositions()
 {
 	map<string, ScreenElement *>::iterator it;
 
-	for(it = elements.begin(); it != elements.end(); it++)
+	for (it = elements.begin(); it != elements.end(); it++)
 		it->second->updatePosition();
 
 	sortedElements.sort(compare);
@@ -104,7 +104,7 @@ Screen::Screen() :
 	mWidth(2000),
 	mHeight(2000)
 {
-	if(!core::Core::globalCore)
+	if (!core::Core::globalCore)
 		throw GenericException("Plugins must be run in order to create screens.");
 }
 
@@ -113,18 +113,18 @@ Screen::Screen() :
  */
 void Screen::addObject(std::string name, ScreenElement *element)
 {
-	if(elements.find(name) != elements.end())
+	if (elements.find(name) != elements.end())
 		throw GenericException("This object already exists.");
 
 	elements[name] = element;
 	sortedElements.push_front(element);
 	sortedElements.sort(compare);
 
-	if(element->walkable)
+	if (element->walkable)
 		return;
 
 	CollisionScreenPList::iterator it;
-	for(it = collisionScreens.begin(); it != collisionScreens.end(); it++)
+	for (it = collisionScreens.begin(); it != collisionScreens.end(); it++)
 		CollisionScreen::addIfNeeded(element,*it);
 }
 
@@ -153,7 +153,7 @@ ScreenElement *Screen::get(string elementName)
 	map<string, ScreenElement *>::iterator it;
 
 	it = elements.find(elementName);
-	if(it == elements.end())
+	if (it == elements.end())
 		throw LoadException("Element not found : ", elementName);
 
 	return it->second;
@@ -164,7 +164,7 @@ void Screen::remove(string elementName)
 	map<string, ScreenElement *>::iterator it;
 
 	it = elements.find(elementName);
-	if(it == elements.end())
+	if (it == elements.end())
 		throw LoadException("Element not found : ", elementName);
 
 	ScreenElement *deletedItem = it->second;
@@ -177,10 +177,8 @@ void Screen::remove(ScreenElement *el)
 {
 	map<string, ScreenElement *>::iterator it;
 
-	for(it = elements.begin(); it != elements.end(); it++)
-	{
-		if(it->second == el)
-		{
+	for (it = elements.begin(); it != elements.end(); it++) {
+		if (it->second == el) {
 			elements.erase(it);
 			break;
 		}
@@ -192,19 +190,16 @@ void Screen::afterRemove(ScreenElement *el)
 {
 	ScreenElementPList::iterator listIt;
 
-	for(listIt = sortedElements.begin(); listIt != sortedElements.end(); listIt++)
-	{
-		if((*listIt) == el)
-		{
+	for (listIt = sortedElements.begin(); listIt != sortedElements.end(); listIt++) {
+		if ((*listIt) == el) {
 			sortedElements.erase(listIt);
 			break;
 		}
 	}
 
 	CollisionScreenPList::iterator it;
-	for(it = collisionScreens.begin(); it != collisionScreens.end(); it++)
-	{
-		if((*it)->has(el))
+	for (it = collisionScreens.begin(); it != collisionScreens.end(); it++) {
+		if ((*it)->has(el))
 			(*it)->screenElements.remove(el);
 	}
 
@@ -214,7 +209,7 @@ void Screen::afterRemove(ScreenElement *el)
 ScreenElement *Screen::add(std::string elementName, std::string fileName)
 {
 	ScreenElement *el;
-	if(elements.find(elementName) != elements.end())
+	if (elements.find(elementName) != elements.end())
 		throw LoadException("Duplicate element in the screen : ", elementName);
 
 	FileReader elFile(fileName.c_str());
@@ -242,8 +237,7 @@ void Screen::load(FileReader &confFile)
 	int i = 1;
 
 	elementVar << "element " << i;
-	while(confFile.hasVariable("Screen",elementVar.str().c_str()))
-	{
+	while (confFile.hasVariable("Screen",elementVar.str().c_str())) {
 		elementName = confFile.getString("Screen",elementVar.str().c_str(),NULL);
 		const char *elName = elementName.c_str();
 		string fileName = confFile.getString(elName,"file","");
@@ -253,14 +247,11 @@ void Screen::load(FileReader &confFile)
 		x = confFile.getInt(elName,"x",0);
 		y = confFile.getInt(elName,"y",0);
 
-		try
-		{
+		try {
 			el = add(elementName,fileName);
 			el->setPosition(x,y);
 			el->loadEditorProperties(confFile,elName);
-		}
-		catch(const exception &e)
-		{
+		} catch (const exception &e) {
 			/**
 			 * @fixme log the error
 			 */
@@ -277,9 +268,8 @@ bool Screen::nameExists(std::string pName)
 {
 	std::map<std::string, ScreenElement *>::iterator it;
 
-	for(it = elements.begin(); it != elements.end(); it++)
-	{
-		if(it->first == pName)
+	for (it = elements.begin(); it != elements.end(); it++) {
+		if (it->first == pName)
 			return true;
 	}
 	return false;

@@ -19,19 +19,20 @@
  ***************************************************************************/
 #include "rect.h"
 
-namespace game {
+namespace game
+{
 
 
 inline static int min(int x, int y)
 {
-	if(x < y)
+	if (x < y)
 		return x;
 	return y;
 }
 
 inline static int max(int x, int y)
 {
-	if(x > y)
+	if (x > y)
 		return x;
 	return y;
 }

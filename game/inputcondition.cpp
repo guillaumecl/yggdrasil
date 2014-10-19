@@ -19,7 +19,8 @@
  ***************************************************************************/
 #include "inputcondition.h"
 
-namespace input {
+namespace input
+{
 
 InputCondition::InputCondition()
 {

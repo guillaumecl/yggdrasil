@@ -29,8 +29,9 @@ namespace input
 {
 
 static const char *key_names[] = {"UP","DOWN","LEFT","RIGHT",
-		"B1","B2","B3","B4","L","R","START",
-		"ANY_DIR"};
+                                  "B1","B2","B3","B4","L","R","START",
+                                  "ANY_DIR"
+                                 };
 
 
 Input::Input()
@@ -44,15 +45,15 @@ Input::~Input()
 
 bool Input::keyPressed(bitset<32> &keys, buttons::ButtonType key)
 {
-	if(key <= buttons::max)
+	if (key <= buttons::max)
 		return keys[(int)key];
 	/*
 		Special keys
 	*/
 
-	if(key == buttons::anyDir)
+	if (key == buttons::anyDir)
 		return 	keys[buttons::up] || keys[buttons::down] ||
-				keys[buttons::left] || keys[buttons::right];
+		        keys[buttons::left] || keys[buttons::right];
 
 	/* Should not happen */
 	return false;
@@ -136,18 +137,16 @@ bool Input::isValidated(InputCondition &in)
 	If there is no "key" option, it will only be activated by another action,
 	or by an event.
 	*/
-	if(!in.pressed.size() && !in.released.size() && !in.combo.size())
+	if (!in.pressed.size() && !in.released.size() && !in.combo.size())
 		return false;
 
-	for(iter = in.pressed.begin(); iter != in.pressed.end(); iter++)
-	{
-		if(!hasKey(*iter))
+	for (iter = in.pressed.begin(); iter != in.pressed.end(); iter++) {
+		if (!hasKey(*iter))
 			return false;
 	}
 
-	for(iter = in.released.begin(); iter != in.released.end(); iter++)
-	{
-		if(hasKey(*iter))
+	for (iter = in.released.begin(); iter != in.released.end(); iter++) {
+		if (hasKey(*iter))
 			return false;
 	}
 
@@ -158,7 +157,7 @@ void Input::addCombo(buttons::ButtonType key)
 {
 	keyMemory.push_back(key);
 
-	if(keyMemory.size() > MAX_COMBO)
+	if (keyMemory.size() > MAX_COMBO)
 		keyMemory.pop_front();
 }
 
@@ -171,9 +170,8 @@ buttons::ButtonType key(const char *name)
 {
 	int i;
 
-	for(i=0;i < buttons::maxSpecials ; i++)
-	{
-		if(!strcmp(keyName(static_cast<buttons::ButtonType>(i)),name))
+	for (i=0; i < buttons::maxSpecials ; i++) {
+		if (!strcmp(keyName(static_cast<buttons::ButtonType>(i)),name))
 			return static_cast<buttons::ButtonType>(i);
 	}
 	throw KeyException(name);

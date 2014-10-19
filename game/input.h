@@ -35,37 +35,37 @@ namespace input
 class Input
 {
 public:
-    Input();
+	Input();
 
-    ~Input();
-	
+	~Input();
+
 	bool isValidated(InputCondition &in);
-	
+
 	bool hasKey(buttons::ButtonType key);
 	bool hasNewKey(buttons::ButtonType key);
-	
+
 	bool b1();
 	bool b2();
 	bool b3();
 	bool b4();
-	
+
 	bool up();
 	bool down();
 	bool left();
 	bool right();
-	
+
 	bool l();
 	bool r();
-	
+
 	bool start();
-	
+
 	void addCombo(buttons::ButtonType key);
 	void resetCombo();
-	
+
 	virtual void updateState() = 0;
-	
+
 	static const unsigned int MAX_COMBO = 20;
-	
+
 protected:
 	/**
 	 * Last pressed keys. Used for combos.
@@ -73,7 +73,7 @@ protected:
 	std::list<buttons::ButtonType> keyMemory;
 	std::bitset<32> lastKeys;
 	std::bitset<32> currentKeys;
-	
+
 	bool keyPressed(std::bitset<32> &keys, buttons::ButtonType key);
 };
 

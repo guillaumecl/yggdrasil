@@ -51,16 +51,14 @@ void NameChoose::setText(QString pText)
 
 void NameChoose::on_buttonOk_clicked()
 {
-	if(text().isEmpty())
-	{
+	if (text().isEmpty()) {
 		QMessageBox::warning(this, tr("Yggdrasil Editor"),
-							 tr("All items must have a name."));
+		                     tr("All items must have a name."));
 		return;
 	}
-	if(scr->nameExists(text().toStdString()))
-	{
+	if (scr->nameExists(text().toStdString())) {
 		QMessageBox::warning(this, tr("Yggdrasil Editor"),
-								tr("An element with this name already exists : %1.").arg(text()));
+		                     tr("An element with this name already exists : %1.").arg(text()));
 		return;
 	}
 	accept();
@@ -73,7 +71,7 @@ void NameChoose::setName(QString pName)
 	int try_number=1;
 	QString baseName = QString::fromStdString(fr.getString("ScreenEditor","name",pName.toLatin1().data()));
 	QString objectName = baseName;
-	while(scr->nameExists(objectName.toStdString()))
+	while (scr->nameExists(objectName.toStdString()))
 		objectName = QString("%1 %2").arg(baseName).arg(++try_number);
 	setText(objectName);
 }

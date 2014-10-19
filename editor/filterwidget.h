@@ -38,12 +38,12 @@ public:
 	FilterWidget(QWidget *parent=0);
 
 	~FilterWidget();
-	
+
 	void focusInEvent(QFocusEvent *event);
 	void focusOutEvent(QFocusEvent *event);
-	
+
 	void setFilterTextMode();
-	
+
 private:
 	bool noText;
 };

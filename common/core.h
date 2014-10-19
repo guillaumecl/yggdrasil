@@ -74,7 +74,10 @@ public:
 	  * no special logging ability is needed.
 	  * @param severity the severity (1 = info, 2 = warning, 3 = error, 4 = fatal)
 	  */
-	virtual void showLog(int severity, std::string log) { (void)severity; (void)log;  };
+	virtual void showLog(int severity, std::string log) {
+		(void)severity;
+		(void)log;
+	};
 
 	/**
 	 * 	Associate the core with the drawing and sound engines.

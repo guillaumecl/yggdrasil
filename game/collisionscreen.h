@@ -23,7 +23,8 @@
 #include <list>
 #include "basictypes.h"
 
-namespace game {
+namespace game
+{
 
 class ScreenElement;
 
@@ -35,32 +36,32 @@ class CollisionScreen
 public:
 	CollisionScreen(int pX, int pY, int pWidth, int pHeight);
 
-    ~CollisionScreen();
+	~CollisionScreen();
 
 	ScreenElementPList screenElements;
-	
+
 	void updateElement(ScreenElement *el);
-	
+
 	static void addIfNeeded(ScreenElement *el,CollisionScreen *neighbour);
 	bool has(ScreenElement *el);
 private:
 	CollisionScreen *leftScreen;
 	CollisionScreen *rightScreen;
-	
+
 	CollisionScreen *topScreen;
 	CollisionScreen *topLeftScreen;
 	CollisionScreen *topRightScreen;
-	
+
 	CollisionScreen *bottomScreen;
 	CollisionScreen *bottomLeftScreen;
 	CollisionScreen *bottomRightScreen;
-	
+
 	int mX;
 	int mY;
-	
+
 	int maxX;
 	int maxY;
-	
+
 	bool fits(ScreenElement *el);
 };
 

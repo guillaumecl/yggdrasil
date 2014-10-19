@@ -60,7 +60,7 @@
 
 namespace
 {
-	Log log;
+Log log;
 }
 
 using draw::DrawManager;
@@ -97,8 +97,7 @@ int main(int argc, char *argv[])
 	Plugin *coreLoader = NULL;
 	Plugin *drawLoader = NULL;
 
-	try
-	{
+	try {
 		log << "Loading the plugin loaders...\n";
 
 		coreLoader = new Plugin("qtcore");
@@ -131,9 +130,7 @@ int main(int argc, char *argv[])
 
 		delete core;
 		core = NULL;
-	}
-	catch(exception &e)
-	{
+	} catch (exception &e) {
 		log << "Exception in main : " << e.what() << "\n";
 
 		delete drawManager;

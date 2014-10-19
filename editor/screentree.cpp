@@ -63,8 +63,8 @@ ScreenTree::ScreenTree(QWidget *parent) :
 
 	setSortingEnabled(true);
 
-	connect(this,SIGNAL(doubleClicked (const QModelIndex&)),
-			this,SLOT(openItem(const QModelIndex&)));
+	connect(this,SIGNAL(doubleClicked(const QModelIndex &)),
+	        this,SLOT(openItem(const QModelIndex &)));
 
 	actLoad = new QAction(tr("Load"),this);
 	actRefresh = new QAction(tr("Refresh"),this);
@@ -84,14 +84,13 @@ ScreenTree::ScreenTree(QWidget *parent) :
 
 ScreenTree::~ScreenTree()
 {
-	QList<QStandardItem *> items = itemModel->findItems ("*", Qt::MatchRecursive | Qt::MatchWildcard);
+	QList<QStandardItem *> items = itemModel->findItems("*", Qt::MatchRecursive | Qt::MatchWildcard);
 
 	int i;
 
-	for(i=0;i<items.size();i++)
-	{
+	for (i=0; i<items.size(); i++) {
 		ObjectItem *item = dynamic_cast<ObjectItem*>(items[i]);
-		if(item && item->screen())
+		if (item && item->screen())
 			delete item->screen();
 	}
 }
@@ -112,8 +111,7 @@ void ScreenTree::scan(QDir curDir, QStandardItem *parent)
 	QStringList dirList = curDir.entryList();
 	QString dir;
 
-	foreach(dir, dirList)
-	{
+	foreach(dir, dirList) {
 		QDir newDir(curDir);
 		newDir.cd(dir);
 
@@ -146,25 +144,19 @@ void ScreenTree::addScreen(QString scrFile, QStandardItem *folder)
 void ScreenTree::openItem(const QModelIndex &ind)
 {
 	ObjectItem *item = itemAt(ind);
-	if(item->type() == item::Screen)
-	{
+	if (item->type() == item::Screen) {
 		Screen *scr = item->screen();
 
-		if(!scr)
-		{
-			try
-			{
+		if (!scr) {
+			try {
 				scr = new Screen;
-			}
-			catch(exception &e)
-			{
+			} catch (exception &e) {
 				QMessageBox::warning(this, tr("Application"),
-									 tr(e.what()));
+				                     tr(e.what()));
 			}
 			item->setScreen(scr);
 			loadScreenInfo(item);
-		}
-		else
+		} else
 			updateScreenInfo(item);
 
 		emit loadScreen(scr);
@@ -177,31 +169,24 @@ void ScreenTree::mousePressEvent(QMouseEvent *event)
 	QTreeView::mousePressEvent(event);
 	if (event->button() == Qt::LeftButton)
 		dragStartPosition = event->pos();
-	else if(event->button() == Qt::RightButton)
-	{
+	else if (event->button() == Qt::RightButton) {
 		QMenu menu(this);
 		ObjectItem *it = itemAt(event->pos());
-		if(!it)
+		if (!it)
 			return;
-		if(it->type() == item::Screen)
-		{
+		if (it->type() == item::Screen) {
 			Screen *screen = it->screen();
 			menu.setTitle(tr("Screen"));
-			if(screen)
-			{
+			if (screen) {
 				menu.addAction(actRefresh);
 				menu.addAction(actClose);
-			}
-			else
-			{
+			} else {
 				menu.addAction(actLoad);
 			}
-		}
-		else if(it->type() == item::Object)
-		{
+		} else if (it->type() == item::Object) {
 			menu.setTitle(tr("Object"));
 		}
-		if(!menu.isEmpty())
+		if (!menu.isEmpty())
 			menu.exec(event->globalPos());
 	}
 }
@@ -211,12 +196,12 @@ void ScreenTree::mouseMoveEvent(QMouseEvent *event)
 	QTreeView::mouseMoveEvent(event);
 	if (!(event->buttons() & Qt::LeftButton)) return;
 	if ((event->pos() - dragStartPosition).manhattanLength()
-		< QApplication::startDragDistance())
+	    < QApplication::startDragDistance())
 		return;
 
 	ObjectItem *it = itemAt(dragStartPosition);
 
-	if(!it || it->type() != item::Screen)
+	if (!it || it->type() != item::Screen)
 		return;
 
 	QDrag *drag = new QDrag(this);
@@ -227,19 +212,14 @@ void ScreenTree::mouseMoveEvent(QMouseEvent *event)
 	This screen will be deleted if the drag is cancelled.
 	*/
 	Screen *screen = it->screen();
-	if(!screen)
-	{
-		try
-		{
+	if (!screen) {
+		try {
 			screen = new Screen();
-		}
-		catch(exception &e)
-		{
+		} catch (exception &e) {
 			QMessageBox::warning(this, tr("Application"),
-								 tr(e.what()));
+			                     tr(e.what()));
 		}
-	}
-	else
+	} else
 		load = false;
 
 	QMimeData *data = new QMimeData();
@@ -252,46 +232,39 @@ void ScreenTree::mouseMoveEvent(QMouseEvent *event)
 
 	Qt::DropAction dropAction = drag->start(Qt::MoveAction);
 
-	if(dropAction == Qt::MoveAction)
-	{
+	if (dropAction == Qt::MoveAction) {
 		/*
 			After a successful drop, effectively load the screen,
 		or update it if it was already loaded.
 		*/
-		if(load)
-		{
+		if (load) {
 			it->setScreen(screen);
 			loadScreenInfo(it);
 			emit screenSelected(screen);
 			emit loadScreen(screen);
-		}
-		else
+		} else
 			updateScreenInfo(it);
 		setExpanded(it->index(),true);
-	}
-	else if(load)
+	} else if (load)
 		delete screen;
 }
 
 void ScreenTree::loadScreenInfo(ObjectItem *it)
 {
 	Screen *screen = it->screen();
-	if(!screen)
+	if (!screen)
 		return;
 
-	try
-	{
+	try {
 		QString name = it->name();
 
 		FileReader fr(name.toLatin1());
 		screen->load(fr);
 
 		updateScreenInfo(it);
-	}
-	catch(exception &e)
-	{
+	} catch (exception &e) {
 		QMessageBox::warning(this, tr("Application"),
-							 tr(e.what()));
+		                     tr(e.what()));
 	}
 }
 
@@ -302,10 +275,10 @@ void ScreenTree::updateScreenInfo(ObjectItem *scr)
 
 	scr->removeRows(0,scr->rowCount());
 
-	if(!screen)
+	if (!screen)
 		return;
 
-	for(it = screen->elements.begin(); it != screen->elements.end() ; it++)
+	for (it = screen->elements.begin(); it != screen->elements.end() ; it++)
 		addElement(it->first, it->second,scr);
 }
 
@@ -323,16 +296,16 @@ void ScreenTree::on_close()
 {
 	QModelIndexList selected = selectedIndexes();
 
-	if(selected.size() != 1)
+	if (selected.size() != 1)
 		return;
 
 	ObjectItem *itm = itemAt(selected[0]);
 
-	if(!itm)
+	if (!itm)
 		return;
 
 	Screen *screen = itm->screen();
-	if(!screen)
+	if (!screen)
 		return;
 
 	emit closeScreen(screen);
@@ -348,21 +321,18 @@ void ScreenTree::on_load()
 	QModelIndexList selected = selectedIndexes();
 
 
-	if(selected.size() != 1)
+	if (selected.size() != 1)
 		return;
 
 	ObjectItem *item = itemAt(selected[0]);
 
-	try
-	{
+	try {
 		item->setScreen(new Screen());
 		loadScreenInfo(item);
 		emit screenSelected(item->screen());
-	}
-	catch(exception &e)
-	{
+	} catch (exception &e) {
 		QMessageBox::warning(this, tr("Application"),
-							 tr(e.what()));
+		                     tr(e.what()));
 	}
 }
 
@@ -371,7 +341,7 @@ void ScreenTree::on_refresh()
 {
 	QModelIndexList selected = selectedIndexes();
 
-	if(selected.size() == 1)
+	if (selected.size() == 1)
 		updateScreenInfo(itemAt(selected[0]));
 }
 
@@ -380,14 +350,12 @@ ObjectItem *ScreenTree::getWidgetForScreen(game::Screen *pScr)
 	int i;
 	QStandardItem *root = itemModel->invisibleRootItem();
 	int n = root->rowCount();
-	for(i=0; i<n; i++)
-	{
+	for (i=0; i<n; i++) {
 		ObjectItem *it = dynamic_cast<ObjectItem*>(root->child(i));
-		if(it)
-		{
+		if (it) {
 			Screen *scr = it->screen();
 
-			if(scr == pScr) /* Note: this is REALLY a pointer comparison :) */
+			if (scr == pScr) /* Note: this is REALLY a pointer comparison :) */
 				return it;
 		}
 	}
@@ -398,15 +366,13 @@ ObjectItem *ScreenTree::getWidgetForObject(ObjectItem *base, game::ScreenElement
 {
 	int i;
 	int n = base->rowCount();
-	for(i=0; i<n; i++)
-	{
+	for (i=0; i<n; i++) {
 		ObjectItem *it = dynamic_cast<ObjectItem*>(base->child(i));
 
-		if(it)
-		{
+		if (it) {
 			QString name = it->name();
 
-			if(name == QString::fromStdString(scrEl->getName())) /* Note: this is REALLY a pointer comparison :) */
+			if (name == QString::fromStdString(scrEl->getName())) /* Note: this is REALLY a pointer comparison :) */
 				return it;
 		}
 	}
@@ -416,10 +382,10 @@ ObjectItem *ScreenTree::getWidgetForObject(ObjectItem *base, game::ScreenElement
 void ScreenTree::on_selectItem(game::Screen *scr, game::ScreenElement *scrEl)
 {
 	ObjectItem *it = getWidgetForScreen(scr);
-	if(!it)
+	if (!it)
 		return;
 	it = getWidgetForObject(it, scrEl);
-	if(!it)
+	if (!it)
 		return;
 
 	const QModelIndex &oldInd = currentIndex();
@@ -430,7 +396,7 @@ void ScreenTree::on_selectItem(game::Screen *scr, game::ScreenElement *scrEl)
 void ScreenTree::on_objectAdded(game::Screen *scr, game::ScreenElement *scrEl)
 {
 	ObjectItem *it = getWidgetForScreen(scr);
-	if(!it)
+	if (!it)
 		return;
 
 	addElement(scrEl->getName(), scrEl,it);
@@ -438,13 +404,13 @@ void ScreenTree::on_objectAdded(game::Screen *scr, game::ScreenElement *scrEl)
 
 void ScreenTree::on_unselectItem(game::Screen *scr, game::ScreenElement *scrEl)
 {
-	if(!scrEl)
+	if (!scrEl)
 		return;
 	ObjectItem *it = getWidgetForScreen(scr);
-	if(!it)
+	if (!it)
 		return;
 	it = getWidgetForObject(it, scrEl);
-	if(!it)
+	if (!it)
 		return;
 	clearSelection();
 	setCurrentIndex(itemModel->invisibleRootItem()->index());
@@ -454,16 +420,13 @@ void ScreenTree::currentChanged(const QModelIndex &selected, const QModelIndex &
 {
 	/* could happen, maybe !*/
 	ObjectItem *item = itemAt(selected);
-	if(!item)
+	if (!item)
 		return;
-	if(item->type() == item::Object)
-	{
+	if (item->type() == item::Object) {
 		Screen *scr = item->parent()->screen();
 		QString name = item->name();
 		emit itemSelected(scr,name);
-	}
-	else if(item->type() == item::Screen)
-	{
+	} else if (item->type() == item::Screen) {
 		/*
 		 * Note: item->screen() can be NULL in the case the screen isn't loaded.
 		 * In this case, the properties will hide the screen properties.
@@ -481,7 +444,7 @@ ObjectItem *ScreenTree::itemAt(const QPoint &pos)
 
 ObjectItem *ScreenTree::itemAt(const QModelIndex &ind)
 {
-	return dynamic_cast<ObjectItem*>(itemModel->itemFromIndex (filterModel->mapToSource(ind)));
+	return dynamic_cast<ObjectItem*>(itemModel->itemFromIndex(filterModel->mapToSource(ind)));
 }
 
 void ScreenTree::setCurrentIndex(const QModelIndex &ind)
@@ -498,8 +461,8 @@ QWidget *ScreenTree::insertFilter()
 {
 	FilterWidget *lineEd = new FilterWidget(this);
 
-	connect(lineEd, SIGNAL( textEdited(const QString&)),
-			filterModel, SLOT( setFilterWildcard(const QString&) ));
+	connect(lineEd, SIGNAL(textEdited(const QString &)),
+	        filterModel, SLOT(setFilterWildcard(const QString &)));
 
 	return lineEd;
 }
@@ -507,11 +470,11 @@ QWidget *ScreenTree::insertFilter()
 void ScreenTree::on_objectRemoved(game::Screen *scr, game::ScreenElement *scrEl)
 {
 	ObjectItem *base = getWidgetForScreen(scr);
-	if(!base)
+	if (!base)
 		return;
 
 	ObjectItem *it = getWidgetForObject(base,scrEl);
-	if(!it)
+	if (!it)
 		return;
 
 	setCurrentIndex(base->index());
@@ -523,19 +486,16 @@ void ScreenTree::on_objectRemoved(game::Screen *scr, game::ScreenElement *scrEl)
 void ScreenTree::keyPressEvent(QKeyEvent *event)
 {
 	event->ignore();
-	if(event->key() == Qt::Key_Delete)
-	{
+	if (event->key() == Qt::Key_Delete) {
 		ObjectItem *it = itemAt(currentIndex());
-		if(it->screenElement())
-		{
+		if (it->screenElement()) {
 			ObjectItem *base = it->parent();
 			Screen *scr = NULL;
 			ScreenElement *el = it->screenElement();
-			if(base)
+			if (base)
 				scr = base->screen();
 
-			if(scr)
-			{
+			if (scr) {
 				on_objectRemoved(scr,el);
 				emit removeObject(scr,el);
 				return;

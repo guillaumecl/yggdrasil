@@ -36,13 +36,13 @@ class ObjectItem: public QStandardItem
 	QString mName;
 	bool hasPointer;
 	void *mPointer;
-	
+
 public:
 	ObjectItem(const QIcon &pIcon, const QString &pText, const QString &pName, int pType);
 	ObjectItem(const QIcon &pIcon, const QString &pText, int pType);
 	int type() const;
-	
-	
+
+
 	/**
 	 * Functions used to access the pointer.
 	 */
@@ -50,17 +50,17 @@ public:
 	game::Screen *screen() const;
 	game::ScreenElement *screenElement() const;
 	game::Action *action() const;
-	
+
 	ObjectItem *parent() const;
-	
+
 	QString name() const;
-	
+
 	void setName(const QString &pName);
 	void setPointer(void *pPointer);
 	void setScreen(game::Screen *el);
 	void setScreenElement(game::ScreenElement *el);
 	void setAction(game::Action *act);
-	
+
 	bool isLoaded() const;
 	bool hasVisibleChildren(QRegExp pFilter);
 };

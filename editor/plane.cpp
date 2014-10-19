@@ -36,15 +36,14 @@ try:
 	offsetY = confFile.getInt(sectionName,"offsetY",0);
 	mWidth = confFile.getInt(sectionName,"width",defaultWidth);
 	mHeight = confFile.getInt(sectionName,"height",defaultHeight);
-}
-catch(...)
+} catch (...)
 {
-	/* 
-		We don't want to log the error if there is just no plane actually. 
+	/*
+		We don't want to log the error if there is just no plane actually.
 		This is why we put 0 to severity.
 	*/
 	string fName = confFile.getString(sectionName,"image","");
-	if(fName.empty())
+	if (fName.empty())
 		throw LoadException("Image not specified in section",sectionName, 0);
 	throw LoadException("Cannot load image : ",fName);
 }

@@ -29,11 +29,11 @@ namespace draw
 
 QtDrawGlManager::QtDrawGlManager()
 	: QtDrawManagerBase(),
-		scrWidth(0),
-		scrHeight(0),
-		scrOriginX(0),
-		scrOriginY(0),
-		widget(NULL)
+	  scrWidth(0),
+	  scrHeight(0),
+	  scrOriginX(0),
+	  scrOriginY(0),
+	  widget(NULL)
 {
 }
 
@@ -41,7 +41,7 @@ QtDrawGlManager::QtDrawGlManager()
 QtDrawGlManager::~QtDrawGlManager()
 {
 	map<string,QtGlImage*>::iterator iter;
-	for(iter = openedImages.begin(); iter != openedImages.end(); iter++)
+	for (iter = openedImages.begin(); iter != openedImages.end(); iter++)
 		delete iter->second;
 }
 
@@ -68,21 +68,18 @@ Image &QtDrawGlManager::getImage(const char *fileName)
 	QtGlImage *img;
 	map<string,QtGlImage *>::iterator ret;
 
-	if(!fileName[0])
+	if (!fileName[0])
 		throw LoadException("No file to load.",fileName,0);
 
 	ret = openedImages.find(fileName);
 
-	if(ret != openedImages.end())
-	{
+	if (ret != openedImages.end()) {
 		/*
 		This image is already loaded. Increment its counter and return it.
 		* @todo: really increment the counter (check if its not done somewhere else)
 		*/
 		img = ret->second;
-	}
-	else
-	{
+	} else {
 		/*
 		Image was not found. We need to load it and then add it.
 		*/

@@ -60,7 +60,7 @@ ScreenElement::ScreenElement(const std::string &pName) :
 	mask(NULL),
 	mCollisionRect(0,0,-1,-1)
 {
-	if(!core::Core::globalCore)
+	if (!core::Core::globalCore)
 		throw GenericException("Plugins must be run in order to create screen elements.");
 }
 
@@ -68,15 +68,14 @@ ScreenElement::~ScreenElement()
 {
 	map<string, Action *>::iterator iter;
 
-	for(iter = actions.begin(); iter != actions.end(); iter++)
+	for (iter = actions.begin(); iter != actions.end(); iter++)
 		delete iter->second;
 }
 
 void ScreenElement::load(FileReader &confFile)
 {
-	try
-	{
-		if(!core::Core::globalCore)
+	try {
+		if (!core::Core::globalCore)
 			throw GenericException("Plugins must be run in order to create screen elements.");
 		Action *act = NULL;
 		ostringstream actionVar;
@@ -85,25 +84,23 @@ void ScreenElement::load(FileReader &confFile)
 		int i = 1;
 
 		mWidth = confFile.getInt("ScreenElement", "width",0);
-		if(mWidth <= 0)
+		if (mWidth <= 0)
 			throw LoadException("Bad width in file :", confFile.fileName());
 
 		mHeight = confFile.getInt("ScreenElement", "height",0);
-		if(mHeight <= 0)
+		if (mHeight <= 0)
 			throw LoadException("Bad height in file :", confFile.fileName());
 
 
 		actionVar << "action " << i;
-		while(confFile.hasVariable("ScreenElement",actionVar.str().c_str()))
-		{
+		while (confFile.hasVariable("ScreenElement",actionVar.str().c_str())) {
 			actionName = confFile.getString("ScreenElement",actionVar.str().c_str(),"");
 
 			/*
 				Useless, but the case where two action numbers refer to the same action is
 			handled. Saves from memory leaks in this case.
 			*/
-			if(actions.find(actionName) == actions.end())
-			{
+			if (actions.find(actionName) == actions.end()) {
 				act = new Action(confFile,actionName.c_str(),mWidth,mHeight);
 				actions[actionName] = act;
 			}
@@ -114,7 +111,7 @@ void ScreenElement::load(FileReader &confFile)
 			actionVar << "action " << i;
 		}
 
-		if(!confFile.hasVariable("ScreenElement","defaultAction"))
+		if (!confFile.hasVariable("ScreenElement","defaultAction"))
 			throw LoadException("This ScreenElement contains no default action.",confFile.fileName());
 
 		defaultActionName = confFile.getString("ScreenElement","defaultAction","");
@@ -123,34 +120,30 @@ void ScreenElement::load(FileReader &confFile)
 
 		ret = actions.find(defaultActionName);
 
-		if(ret == actions.end())
-		{
+		if (ret == actions.end()) {
 			act = new Action(confFile,defaultActionName.c_str(),mWidth,mHeight);
 			actions[defaultActionName] = act;
-		}
-		else
+		} else
 			act = ret->second;
 
 		currentAction = act;
 
 		walkable = confFile.hasVariable("ScreenElement","walkable");
-		if(!walkable)
+		if (!walkable)
 			mCollisionRect.set(_x,_y,mWidth,mHeight);
 
 		/*
 		* Editor only properties
 		*/
 
-	}
-	catch(const exception &e)
-	{
+	} catch (const exception &e) {
 		/**
 		 * This frees the loaded action in case an exception occurred during the
 		 * load of an action.
 		 */
 		map<string, Action *>::iterator iter;
 
-		for(iter = actions.begin(); iter != actions.end(); iter++)
+		for (iter = actions.begin(); iter != actions.end(); iter++)
 			delete iter->second;
 		throw;
 	}
@@ -158,7 +151,7 @@ void ScreenElement::load(FileReader &confFile)
 
 void ScreenElement::draw(draw::planes::PlaneType plane)
 {
-	if(currentAction)
+	if (currentAction)
 		currentAction->draw(_x, _y+_z, direction, plane);
 }
 
@@ -181,31 +174,26 @@ void ScreenElement::setSize(int pWidth, int pHeight)
 
 void ScreenElement::nextFrame()
 {
-	if(!currentAction)
+	if (!currentAction)
 		return;
 
-	if(currentAction->nextFrame())
-	{
+	if (currentAction->nextFrame()) {
 		const ActionFrame &action = currentAction->getCurrentFrame();
 		int i;
 		/*
 			Usually the user will want the rotation to be done only once per frame
 		*/
-		if(action.rotate_right > 0)
-		{
+		if (action.rotate_right > 0) {
 			/* Rotate the sprite like the user requested */
-			for(i=0 ; i < action.rotate_right ; i++)
+			for (i=0 ; i < action.rotate_right ; i++)
 				rotateRight();
-		}
-		else
-		{
+		} else {
 			/* if 0 we won't enter the loop anyway... so a test is useless */
-			for(i=0 ; i < -action.rotate_right ; i++)
+			for (i=0 ; i < -action.rotate_right ; i++)
 				rotateLeft();
 		}
 	}
-	if(currentAction->isOver())
-	{
+	if (currentAction->isOver()) {
 		/**
 		 * @todo find next action
 		 * This depends on which decision is choosen in screenelement.h regarding the queuedaction.
@@ -227,8 +215,7 @@ void ScreenElement::rotateLeft()
 
 directions::DirectionType ScreenElement::rright(directions::DirectionType dir)
 {
-	static directions::DirectionType rot[] =
-	{
+	static directions::DirectionType rot[] = {
 		directions::upRight,	// DIR_UP,
 		directions::downLeft,	// DIR_DOWN,
 		directions::upLeft,	// DIR_LEFT,
@@ -244,8 +231,7 @@ directions::DirectionType ScreenElement::rright(directions::DirectionType dir)
 
 directions::DirectionType ScreenElement::rleft(directions::DirectionType dir)
 {
-	static directions::DirectionType rot[] =
-	{
+	static directions::DirectionType rot[] = {
 		directions::upLeft,	// DIR_UP,
 		directions::downRight,	// DIR_DOWN,
 		directions::downLeft,	// DIR_LEFT,
@@ -271,8 +257,7 @@ inline void ScreenElement::move(int iForward, int iRight)
 	/*
 		perp[i] is the direction of i rotated by 90� to the right.
 	*/
-	static directions::DirectionType perp[] =
-	{
+	static directions::DirectionType perp[] = {
 		directions::right,		// DIR_UP,
 		directions::left,		// DIR_DOWN,
 		directions::up,			// DIR_LEFT,
@@ -284,8 +269,7 @@ inline void ScreenElement::move(int iForward, int iRight)
 		directions::downLeft,	// DIR_DOwN_RIGHT
 	};
 
-	static int xDir[] =
-	{
+	static int xDir[] = {
 		0,	// DIR_UP,
 		0,	// DIR_DOWN,
 		-1,	// DIR_LEFT,
@@ -297,8 +281,7 @@ inline void ScreenElement::move(int iForward, int iRight)
 		1,	// DIR_DOwN_RIGHT
 	};
 
-	static int yDir[] =
-	{
+	static int yDir[] = {
 		1,	// DIR_UP,
 		-1,	// DIR_DOWN,
 		0,	// DIR_LEFT,
@@ -316,7 +299,7 @@ inline void ScreenElement::move(int iForward, int iRight)
 
 void ScreenElement::updatePosition(/** @todo add a CollisionScreen parameter */)
 {
-	if(!currentAction)
+	if (!currentAction)
 		return;
 
 	const ActionFrame &action = currentAction->getCurrentFrame();
@@ -330,7 +313,7 @@ void ScreenElement::updatePosition(/** @todo add a CollisionScreen parameter */)
 	/*
 	 *	No need to check collisions if we're not moving !
 	 */
-	if(!action.move_forward && !action.move_right)
+	if (!action.move_forward && !action.move_right)
 		return;
 
 	checkCollision();
@@ -375,32 +358,29 @@ void ScreenElement::checkCollision()
 	*/
 	can_straight = tryDir(dir_NoMove,true,&collisions);
 
-	if(!can_straight)
-	{
+	if (!can_straight) {
 		/*
 			We try to go at the nearest directions to the left or the right. In case we already know there
 		is a collision, we just stop trying them since we will then use the normal direction.
 		*/
 		can_left = tryDir(dir_Left,false,&collisions);
 
-		if(!can_left)
-		{
+		if (!can_left) {
 			can_right = tryDir(dir_Right,false,&collisions);
 		}
 	}
 
-	if(can_straight)
+	if (can_straight)
 		direction = dir_NoMove;
-	else if(can_left)
+	else if (can_left)
 		direction = dir_Left;
-	else if(can_right)
+	else if (can_right)
 		direction = dir_Right;
-	else
-	{
+	else {
 		/* Do the collision as if we didn't try the other moves*/
 		direction = dir_NoMove;
 		CollisionList::iterator it;
-		for(it = collisions.begin(); it != collisions.end(); it++)
+		for (it = collisions.begin(); it != collisions.end(); it++)
 			collideWith(*it);
 		return;
 	}
@@ -425,25 +405,18 @@ bool ScreenElement::collideWith(Collision &collision)
 	const ScreenElement &dest = collision.destination;
 	Rect intersection = collisionRect().intersection(dest.collisionRect());
 
-	if(!intersection.isValid())
+	if (!intersection.isValid())
 		return false;
 
-	if(mask && dest.mask)
-	{
+	if (mask && dest.mask) {
 		//check the collision between the two masks
-	}
-	else if(!mask && !dest.mask)
-	{
+	} else if (!mask && !dest.mask) {
 		// we have a collision since we can only rely on the rects.
 		collision.rect = intersection;
 		return true;
-	}
-	else if(mask)
-	{
+	} else if (mask) {
 		// check the collision between the mask and intersection
-	}
-	else
-	{
+	} else {
 		// check the collision between el->mask and intersection
 	}
 	return false;
@@ -478,25 +451,19 @@ bool ScreenElement::tryDir(directions::DirectionType pDir, bool pSaveCollisions,
 	list<CollisionScreen*>::iterator i;
 	list<ScreenElement*>::iterator j;
 
-	for(i = collisionScreens.begin(); i != collisionScreens.end(); i++)
-	{
+	for (i = collisionScreens.begin(); i != collisionScreens.end(); i++) {
 		CollisionScreen *c = *i;
-		for(j = c->screenElements.begin(); j != c->screenElements.end(); j++)
-		{
+		for (j = c->screenElements.begin(); j != c->screenElements.end(); j++) {
 			ScreenElement *el = *j;
-			if(el == this)
+			if (el == this)
 				continue;
 
 			Collision coll(*this,*el);
-			if(collideWith(coll))
-			{
-				if(pSaveCollisions)
-				{
+			if (collideWith(coll)) {
+				if (pSaveCollisions) {
 					pCollisions->push_back(coll);
 					result = false;
-				}
-				else
-				{
+				} else {
 					rollbackFrame();
 					return false;
 				}
@@ -519,9 +486,8 @@ void ScreenElement::removeFromCollisionScreen(CollisionScreen *scr)
 
 bool ScreenElement::operator<(const ScreenElement &compareTo)
 {
-	if(_y==compareTo._y)
-	{
-		if(_x == compareTo._x)
+	if (_y==compareTo._y) {
+		if (_x == compareTo._x)
 			/*
 			 *	In last case, we use the pointer comparison.
 			 * This ensures that the items will always be ordered

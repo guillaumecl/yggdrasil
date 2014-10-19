@@ -19,7 +19,8 @@
  ***************************************************************************/
 #include "collision.h"
 
-namespace game {
+namespace game
+{
 
 Collision::Collision(ScreenElement &pSource, ScreenElement &pDestination) :
 	source(pSource),

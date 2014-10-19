@@ -27,7 +27,8 @@
 
 #include "screenelement.h"
 
-namespace editor {
+namespace editor
+{
 
 
 using namespace game;
@@ -46,14 +47,14 @@ ObjectDisplayer::~ObjectDisplayer()
 
 int ObjectDisplayer::insideWidth() const
 {
-	if(currentObject)
+	if (currentObject)
 		return currentObject->width();
 	return 0;
 }
 
 int ObjectDisplayer::insideHeight() const
 {
-	if(currentObject)
+	if (currentObject)
 		return currentObject->height();
 	return 0;
 }
@@ -73,7 +74,7 @@ void ObjectDisplayer::drawFunction()
 void ObjectDisplayer::inputFunction()
 {
 	//if(animated)
-		currentObject->nextFrame();
+	currentObject->nextFrame();
 	//if(animated_moving)
 	//currentObject->updatePositions();
 }
@@ -81,8 +82,7 @@ void ObjectDisplayer::inputFunction()
 void ObjectDisplayer::mousePressEvent(QMouseEvent *event)
 {
 	event->ignore();
-	if(currentObject != NULL && event->button() == Qt::LeftButton)
-	{
+	if (currentObject != NULL && event->button() == Qt::LeftButton) {
 
 	}
 	GLWrapper::mousePressEvent(event);
@@ -104,10 +104,8 @@ void ObjectDisplayer::dragEnterEvent(QDragEnterEvent *event)
 {
 	const QMimeData *data = event->mimeData();
 
-	if(data->hasFormat(mime::Object))
-	{
-		if(event->possibleActions() & Qt::MoveAction)
-		{
+	if (data->hasFormat(mime::Object)) {
+		if (event->possibleActions() & Qt::MoveAction) {
 			event->setDropAction(Qt::MoveAction);
 			event->accept();
 		}
@@ -117,8 +115,7 @@ void ObjectDisplayer::dragEnterEvent(QDragEnterEvent *event)
 void ObjectDisplayer::dropEvent(QDropEvent *event)
 {
 	const QMimeData *data = event->mimeData();
-	if(data->hasFormat(mime::Object))
-	{
+	if (data->hasFormat(mime::Object)) {
 		QByteArray encodedData = data->data(mime::Object);
 		QDataStream stream(&encodedData, QIODevice::ReadOnly);
 		quint32 t;
@@ -144,7 +141,7 @@ void ObjectDisplayer::loadObject(game::ScreenElement *element)
 
 void ObjectDisplayer::closeObject(game::ScreenElement *element)
 {
-	if(currentObject == element)
+	if (currentObject == element)
 		loadObject(NULL);
 }
 

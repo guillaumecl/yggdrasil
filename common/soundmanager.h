@@ -22,9 +22,9 @@
 
 /**
  * @namespace sound
- * 
+ *
  * @brief This namespace contains all of the tools that are needed to play sounds
- * 
+ *
  * All classes are implemented inside plugins, and possibly
  * architecture-dependent.
  */
@@ -34,9 +34,9 @@ namespace sound
 
 /**
  *	@brief Interface for the SoundManager class
- * 	
+ *
  * 	This is the handling class for all sounds in the game.
- * 
+ *
  * 	@author Lightning Flik <flik@baobob.org>
  */
 class SoundManager

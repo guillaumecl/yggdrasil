@@ -21,20 +21,21 @@
 
 #include <QDebug>
 
-namespace editor {
+namespace editor
+{
 
 namespace property
 {
 
 PropertyItemModel::PropertyItemModel(QObject *parent)
- : QStandardItemModel(parent)
+	: QStandardItemModel(parent)
 {
 	QStringList headers;
 	setColumnCount(2);
-	
+
 	headers.append(tr("Property"));
 	headers.append(tr("Value"));
-	
+
 	setHorizontalHeaderLabels(headers);
 }
 
@@ -73,7 +74,7 @@ void PropertyItemModel::appendRow(PropertyItem *label, PropertyItem *value)
 	QList<QStandardItem*> items;
 	items.append(label);
 	items.append(value);
-	
+
 	QStandardItemModel::appendRow(items);
 }
 

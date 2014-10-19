@@ -23,9 +23,11 @@
 #include <propertyitem.h>
 #include <QComboBox>
 
-namespace editor {
+namespace editor
+{
 
-namespace property {
+namespace property
+{
 
 /**
 	@author flik <flik@baobob.org>
@@ -36,26 +38,26 @@ class PropertyList : public QObject, public PropertyItem
 public:
 	PropertyList(const QVariant &defaultValue);
 
-    ~PropertyList();
-	
+	~PropertyList();
+
 	void clear();
 	void add(const QIcon &icon, const QString &label, const QVariant &value);
 	void add(const QString &label, const QVariant &value);
-	
+
 	virtual bool custom() const;
-	
+
 	virtual void setter(QWidget *editor);
 	virtual void getter(QWidget *editor);
-	
+
 	virtual void set(const QVariant &pData);
 	virtual QVariant get() const;
-	
+
 	virtual QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option);
-	
+
 private:
 	QComboBox *modelCombo;
 	QComboBox *currentCombo;
-	
+
 	QVariant currentData;
 private slots:
 	void updateSelection();

@@ -28,7 +28,8 @@
 #include "core.h"
 #include "qtdrawglmanager.h"
 
-namespace draw {
+namespace draw
+{
 
 using namespace core;
 
@@ -44,7 +45,7 @@ GLWidget::~GLWidget()
 }
 
 
-void GLWidget::resizeGL( int width, int height )
+void GLWidget::resizeGL(int width, int height)
 {
 	Core::getDrawManager()->initGraphics(width, height);
 }

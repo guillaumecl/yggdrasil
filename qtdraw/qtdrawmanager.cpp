@@ -45,7 +45,7 @@ QtDrawManager::QtDrawManager()
 QtDrawManager::~QtDrawManager()
 {
 	map<string,QtImage*>::iterator iter;
-	for(iter = openedImages.begin(); iter != openedImages.end(); iter++)
+	for (iter = openedImages.begin(); iter != openedImages.end(); iter++)
 		delete iter->second;
 }
 
@@ -72,21 +72,18 @@ Image &QtDrawManager::getImage(const char *fileName)
 	QtImage *img;
 	map<string,QtImage *>::iterator ret;
 
-	if(!fileName[0])
+	if (!fileName[0])
 		throw LoadException("No file to load.",fileName,0);
 
 	ret = openedImages.find(fileName);
 
-	if(ret != openedImages.end())
-	{
+	if (ret != openedImages.end()) {
 		/*
 		This image is already loaded. Increment its counter and return it.
 		* @todo: really increment the counter (check if its not done somewhere else)
 		*/
 		img = ret->second;
-	}
-	else
-	{
+	} else {
 		/*
 		Image was not found. We need to load it and then add it.
 		*/
@@ -108,7 +105,7 @@ void QtDrawManager::beginDraw()
 {
 	widgetPainter = new QPainter(widget);
 	painter = widgetPainter;
-	painter->fillRect(QRect(0,0,widget->width(), widget->height()),Qt::black );
+	painter->fillRect(QRect(0,0,widget->width(), widget->height()),Qt::black);
 }
 
 void QtDrawManager::endDraw()
@@ -157,7 +154,7 @@ int QtDrawManager::mapYCoordinate(int y)
 
 int QtDrawManager::mapXCoordinate(int x)
 {
-	return  (x - scrOriginX);
+	return (x - scrOriginX);
 }
 
 void QtDrawManager::restoreGraphicOrigin()
@@ -211,7 +208,7 @@ void QtDrawManager::draw(Image *img, int x, int y, int xImg, int yImg, int width
 	QtImage *image = (QtImage *)img;
 
 	painter->drawPixmap(QRect(mapXCoordinate(x), mapYCoordinate(y) - heightImg, widthImg, heightImg), image->pixmap,
-						QRect(xImg, yImg, widthImg, heightImg));
+	                    QRect(xImg, yImg, widthImg, heightImg));
 }
 
 

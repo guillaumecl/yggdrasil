@@ -41,23 +41,18 @@ bool ItemFilter::filterAcceptsRow(int sourceRow,const QModelIndex &sourceParent)
 {
 	QStandardItemModel *pModel = dynamic_cast<QStandardItemModel *>(sourceModel());
 	QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
-	if(pModel)
-	{
+	if (pModel) {
 		QStandardItem *pItem = pModel->itemFromIndex(index);
 
-		if(pItem)
-		{
-			if(pItem->type() == item::Object || pItem->type() == item::Screen)
-			{
+		if (pItem) {
+			if (pItem->type() == item::Object || pItem->type() == item::Screen) {
 				// IF this is an object in the screen tree, we don't filter it, but the screen instead.
 				// the screen is filtered by a previous call so just return true.
-				if(pItem->type() == item::Object && pItem->parent() && pItem->parent()->type() == item::Screen)
+				if (pItem->type() == item::Object && pItem->parent() && pItem->parent()->type() == item::Screen)
 					return true;
 
 				return pItem->text().contains(filterRegExp());
-			}
-			else if(pItem->type() == item::Folder)
-			{
+			} else if (pItem->type() == item::Folder) {
 				// hide folders with no items.
 				ObjectItem *item = dynamic_cast<ObjectItem*>(pItem);
 				return item->hasVisibleChildren(filterRegExp());
@@ -70,20 +65,17 @@ bool ItemFilter::filterAcceptsRow(int sourceRow,const QModelIndex &sourceParent)
 bool ItemFilter::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
 	QStandardItemModel *pModel = dynamic_cast<QStandardItemModel *>(sourceModel());
-	if(pModel)
-	{
+	if (pModel) {
 		ObjectItem *pLeft = dynamic_cast<ObjectItem*>(pModel->itemFromIndex(left));
 		ObjectItem *pRight = dynamic_cast<ObjectItem*>(pModel->itemFromIndex(right));
 
-		if(pLeft->type() == pRight->type())
-		{
+		if (pLeft->type() == pRight->type()) {
 			int ret = QString::localeAwareCompare(pLeft->text(), pRight->text());
-			if(ret == 0)
+			if (ret == 0)
 				return QString::localeAwareCompare(pLeft->name(), pRight->name()) > 0;
 			else
 				return ret > 0;
-		}
-		else if(pLeft->type() == item::Folder)
+		} else if (pLeft->type() == item::Folder)
 			return false;
 		else
 			return true;

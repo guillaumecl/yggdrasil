@@ -37,24 +37,27 @@ Sprite::Sprite(FileReader &confFile, const char *sectionName, int pWidth, int pH
 	currentFrame(0)
 {
 	string section = sectionName;
-	
+
 	numFrames = confFile.getInt(sectionName, "numFrames",1);
-	
-	
+
+
 	/*
-		The planes are optional. As they are initialized to NULL we don't have to handle 
+		The planes are optional. As they are initialized to NULL we don't have to handle
 		loading errors.
 	*/
-	
-	try {objectPlane = new Plane(confFile,sectionName,pWidth,pHeight); }
-	catch(const exception &e) {	}
-	
-	try	{foregroundPlane = new Plane(confFile,(section + " foreground").c_str(),pWidth,pHeight); }
-	catch(const exception &e) { }
-	
-	try {backgroundPlane = new Plane(confFile,(section + " background").c_str(),pWidth,pHeight); }
-	catch(const exception &e) { }
-	
+
+	try {
+		objectPlane = new Plane(confFile,sectionName,pWidth,pHeight);
+	} catch (const exception &e) {	}
+
+	try	{
+		foregroundPlane = new Plane(confFile,(section + " foreground").c_str(),pWidth,pHeight);
+	} catch (const exception &e) { }
+
+	try {
+		backgroundPlane = new Plane(confFile,(section + " background").c_str(),pWidth,pHeight);
+	} catch (const exception &e) { }
+
 	planes[foreground] = foregroundPlane;
 	planes[object] = objectPlane;
 	planes[background] = backgroundPlane;
@@ -70,14 +73,14 @@ Sprite::~Sprite()
 
 void Sprite::draw(int x, int y, game::directions::DirectionType direction, PlaneType plane)
 {
-	if(planes[plane])
+	if (planes[plane])
 		planes[plane]->draw(x,y,currentFrame, direction);
 }
 
 void Sprite::nextFrame()
 {
 	currentFrame++;
-	if(currentFrame >= numFrames)
+	if (currentFrame >= numFrames)
 		reset();
 }
 
@@ -93,13 +96,13 @@ int Sprite::getNumFrames()
 
 void Sprite::setSize(int pWidth, int pHeight)
 {
-	if(foregroundPlane)
+	if (foregroundPlane)
 		foregroundPlane->setSize(pWidth,pHeight);
-	
-	if(objectPlane)
+
+	if (objectPlane)
 		objectPlane->setSize(pWidth,pHeight);
-	
-	if(backgroundPlane)
+
+	if (backgroundPlane)
 		backgroundPlane->setSize(pWidth,pHeight);
 }
 

@@ -25,7 +25,8 @@
 
 #include "drawmanager.h"
 
-namespace core {
+namespace core
+{
 
 /**
  *	@author Lightning Flik <flik@baobob.org>
@@ -43,7 +44,7 @@ public:
 	virtual void setFrameRate(double pFrameRate);
 
 protected:
-	virtual void keyPressEvent( QKeyEvent *e );
+	virtual void keyPressEvent(QKeyEvent *e);
 
 	void timerEvent(QTimerEvent *event);
 

@@ -38,36 +38,35 @@ Action::Action(FileReader &confFile, const char *actionName, int pWidth, int pHe
 	frameTimer(0),
 	curFrame(0)
 {
-	if(!core::Core::globalCore)
+	if (!core::Core::globalCore)
 		throw GenericException("Plugins must be run in order to create actions.");
 	int numFrames = spr.getNumFrames();
 	int frameDelay;
 	frames.reserve(numFrames);
-	
+
 	/*
 		Load the action frames.
 	*/
-	
+
 	frameDelay = confFile.getInt(actionName,"Frame delay",1);
 	baseOffsetY = confFile.getInt(actionName,"baseOffsetY",0);
-	
+
 	ostringstream actFrame;
 	int i;
 	string baseActFrame = string(actionName) + " frame ";
 	string baseActFrameName;
 	ActionFrame *actionFrame;
-	
-	if(defaultFrame.frameDelay < 0)
+
+	if (defaultFrame.frameDelay < 0)
 		defaultFrame.frameDelay = frameDelay;
-	
-	for(i=0 ; i<numFrames ; i++)
-	{
+
+	for (i=0 ; i<numFrames ; i++) {
 		actFrame.clear();
 		actFrame.str("");
 		actFrame << baseActFrame << (i+1);
 		baseActFrameName = actFrame.str();
-		
-		if(confFile.hasSection(baseActFrameName.c_str()))
+
+		if (confFile.hasSection(baseActFrameName.c_str()))
 			actionFrame = new ActionFrame(defaultFrame,confFile, baseActFrameName.c_str());
 		else
 			actionFrame = &defaultFrame;
@@ -89,10 +88,9 @@ int Action::height()
 Action::~Action()
 {
 	vector<ActionFrame *>::iterator iter;
-	
-	for(iter = frames.begin() ; iter != frames.end() ; iter++)
-	{
-		if(*iter != &defaultFrame)
+
+	for (iter = frames.begin() ; iter != frames.end() ; iter++) {
+		if (*iter != &defaultFrame)
 			delete *iter;
 	}
 	frames.clear();
@@ -101,11 +99,10 @@ Action::~Action()
 bool Action::nextFrame()
 {
 	frameTimer++;
-	if(frameTimer >= getCurrentFrame().frameDelay)
-	{
+	if (frameTimer >= getCurrentFrame().frameDelay) {
 		frameTimer = 0;
 		curFrame++;
-		if(curFrame >= frames.size())
+		if (curFrame >= frames.size())
 			reset();
 		spr.nextFrame();
 		return true;

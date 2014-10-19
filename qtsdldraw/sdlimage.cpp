@@ -27,7 +27,8 @@
 
 using std::string;
 
-namespace draw {
+namespace draw
+{
 
 SdlImage::SdlImage(const char *fileName) :
 	Image(),
@@ -47,7 +48,7 @@ SdlImage::~SdlImage()
 {
 	if (image)
 		SDL_FreeSurface(image),
-		image = NULL;
+		                image = NULL;
 }
 
 unsigned int SdlImage::width()

@@ -27,30 +27,29 @@ namespace input
 namespace buttons
 {
 
-enum ButtonType
-{
-	up = 0,
-	down,
-	left,
-	right,
+enum ButtonType {
+        up = 0,
+        down,
+        left,
+        right,
 
-	b1,
-	b2,
-	b3,
-	b4,
+        b1,
+        b2,
+        b3,
+        b4,
 
-	l,
-	r,
+        l,
+        r,
 
-	start,
+        start,
 
-	// Maximum number of real buttons
-	max = start,
+        // Maximum number of real buttons
+        max = start,
 
-	anyDir,
+        anyDir,
 
-	// Maximum number of buttons including special keys (like "any dir")
-	maxSpecials = anyDir
+        // Maximum number of buttons including special keys (like "any dir")
+        maxSpecials = anyDir
 };
 
 }
@@ -61,22 +60,22 @@ enum ButtonType
 class InputCondition
 {
 public:
-    InputCondition();
+	InputCondition();
 
-    ~InputCondition();
-	
+	~InputCondition();
+
 	/**
 	 * @todo see if this should be converted into a bitset<32> like in Input.
 	 * Keys that must be pressed
 	 */
 	std::vector<buttons::ButtonType> pressed;
-	
+
 	/**
 	 * @todo see if this should be converted into a bitset<32> like in Input.
 	 * Keys that must not be pressed
 	 */
 	std::vector<buttons::ButtonType> released;
-	
+
 	/**
 	 * Combo (list of keys that must appear in the buffer in the right order)
 	 */

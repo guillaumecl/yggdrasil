@@ -38,12 +38,12 @@ public:
 	 * Loads the specified file.
 	 */
 	Plugin(const char *file);
-	
+
 	/**
 	 * Destructor for Plugin
 	 */
 	~Plugin();
-	
+
 	/**
 	 *	Returns an object created by the plugin. It is derivated from either :
 	 *		Core for core plugins
@@ -52,35 +52,35 @@ public:
 	 *	and so on.
 	 */
 	void *create();
-	
+
 	/**
 	 *	Type of the plugin.
 	 *
 	 *	It can be one of : "sound", "core", "draw", "input"
 	 */
 	const char *type();
-	
+
 	/**
 	 *	Description of the plugin (how to use it, incompatibilities, ...)
 	 */
 	const char *description();
-	
-	
+
+
 	/**
 	 *	Author(s) of the plugin along with their email addresses if they wish.
 	 */
 	const char *author();
-	
+
 	/**
 	 *	Name of the plugin
 	 */
 	const char *name();
-	
+
 	/**
 	 * Call a function with one parameter.
 	 */
 	void *call1(const char *pFileName, void *param);
-	
+
 private:
 #ifdef WIN32
 	HINSTANCE hinstDLL;
@@ -90,7 +90,7 @@ private:
 	 */
 	void *handler;
 #endif
-	
+
 	/**
 	 *	Calls the specified function with 0 parameter. Returns a pointer.
 	 */

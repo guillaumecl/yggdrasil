@@ -40,7 +40,9 @@ public:
 	int severity;
 
 	inline Logger(int pSeverity) : stream(new std::ostringstream()), numRef(1), severity(pSeverity) {}
-	inline Logger(const Logger &o):stream(o.stream) { ++numRef; }
+	inline Logger(const Logger &o):stream(o.stream) {
+		++numRef;
+	}
 	inline Logger &operator=(const Logger &other);
 	inline ~Logger() {
 		if (!--numRef) {
@@ -60,26 +62,77 @@ public:
 		}
 	}
 
-	inline Logger &operator<<(bool t) { *stream << (t ? "true" : "false"); return *this; }
-	inline Logger &operator<<(char t) { *stream << t; return *this; }
-	inline Logger &operator<<(signed short t) { *stream << t; return *this; }
-	inline Logger &operator<<(unsigned short t) { *stream << t; return *this; }
-	inline Logger &operator<<(signed int t) { *stream << t; return *this; }
-	inline Logger &operator<<(unsigned int t) { *stream << t; return *this; }
-	inline Logger &operator<<(signed long t) { *stream << t; return *this; }
-	inline Logger &operator<<(unsigned long t) { *stream << t; return *this; }
-	inline Logger &operator<<(float t) { *stream << t; return *this; }
-	inline Logger &operator<<(double t) { *stream << t; return *this; }
-	inline Logger &operator<<(const char* t) { *stream << t; return *this; }
-	inline Logger &operator<<(const void * t) { *stream << t; return *this; }
-	inline Logger &operator<<(std::string s) { *stream << s.c_str(); return *this; }
+	inline Logger &operator<<(bool t) {
+		*stream << (t ? "true" : "false");
+		return *this;
+	}
+	inline Logger &operator<<(char t) {
+		*stream << t;
+		return *this;
+	}
+	inline Logger &operator<<(signed short t) {
+		*stream << t;
+		return *this;
+	}
+	inline Logger &operator<<(unsigned short t) {
+		*stream << t;
+		return *this;
+	}
+	inline Logger &operator<<(signed int t) {
+		*stream << t;
+		return *this;
+	}
+	inline Logger &operator<<(unsigned int t) {
+		*stream << t;
+		return *this;
+	}
+	inline Logger &operator<<(signed long t) {
+		*stream << t;
+		return *this;
+	}
+	inline Logger &operator<<(unsigned long t) {
+		*stream << t;
+		return *this;
+	}
+	inline Logger &operator<<(float t) {
+		*stream << t;
+		return *this;
+	}
+	inline Logger &operator<<(double t) {
+		*stream << t;
+		return *this;
+	}
+	inline Logger &operator<<(const char* t) {
+		*stream << t;
+		return *this;
+	}
+	inline Logger &operator<<(const void * t) {
+		*stream << t;
+		return *this;
+	}
+	inline Logger &operator<<(std::string s) {
+		*stream << s.c_str();
+		return *this;
+	}
 
 };
 
-inline Logger fatal() { return Logger(4); }
-inline Logger error() { return Logger(3); }
-inline Logger warning() { return Logger(2); }
-inline Logger log() { return Logger(1); }
+inline Logger fatal()
+{
+	return Logger(4);
+}
+inline Logger error()
+{
+	return Logger(3);
+}
+inline Logger warning()
+{
+	return Logger(2);
+}
+inline Logger log()
+{
+	return Logger(1);
+}
 
 /*inline Logger &Logger::operator=(const Logger &other)
 {

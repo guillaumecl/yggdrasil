@@ -25,7 +25,8 @@
 
 #include "drawmanager.h"
 
-namespace draw {
+namespace draw
+{
 
 /**
  *	@author Lightning Flik <flik@baobob.org>
@@ -37,7 +38,7 @@ public:
 
 	virtual ~GLWidget();
 protected:
-	virtual void resizeGL( int width, int height );
+	virtual void resizeGL(int width, int height);
 	virtual void paintGL();
 };
 

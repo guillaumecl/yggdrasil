@@ -24,9 +24,11 @@
 
 #include "basictypes.h"
 
-namespace editor {
+namespace editor
+{
 
-namespace property {
+namespace property
+{
 
 /**
 	@author flik <flik@baobob.org>
@@ -35,16 +37,16 @@ class ScreenProperties : public PropertyTree
 {
 	Q_OBJECT
 public:
-    ScreenProperties(QWidget *parent=0);
+	ScreenProperties(QWidget *parent=0);
 
-    ~ScreenProperties();
+	~ScreenProperties();
 
 	virtual void sync(void *pItem);
 	virtual void itemUpdated(PropertyItem *item);
 	virtual void setReadOnly(bool pReadOnly);
-	
+
 	game::Screen *current;
-	
+
 	PropertyItem *width;
 	PropertyItem *height;
 };

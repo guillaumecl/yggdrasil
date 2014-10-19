@@ -24,7 +24,8 @@
 #include "propertyitemmodel.h"
 #include "screen.h"
 
-namespace editor {
+namespace editor
+{
 
 namespace property
 {
@@ -36,21 +37,21 @@ class PropertyTree : public QTreeView
 {
 	Q_OBJECT
 public:
-    PropertyTree(QWidget *parent=0);
+	PropertyTree(QWidget *parent=0);
 
-    ~PropertyTree();
-	
-    PropertyItem *insertSection(const QString &sectionName, PropertyItem *parent=0);
-	
+	~PropertyTree();
+
+	PropertyItem *insertSection(const QString &sectionName, PropertyItem *parent=0);
+
 	virtual void sync(void *item) = 0;
 	virtual void itemUpdated(PropertyItem *item) = 0;
-	
+
 	virtual void setReadOnly(bool bReadOnly) = 0;
 protected:
 	PropertyItemModel *model;
-	
+
 	void currentChanged(const QModelIndex &current, const QModelIndex &previous);
-	
+
 private slots:
 	void update(QStandardItem *item);
 signals:

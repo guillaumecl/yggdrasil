@@ -24,16 +24,18 @@
 
 #include "basictypes.h"
 
-namespace editor {
+namespace editor
+{
 
-namespace property {
+namespace property
+{
 
 /**
  *	@author flik <flik@baobob.org>
- * 
+ *
  * This class contains the properties for a ScreenElement that is located
  * inside a Screen.
- * 
+ *
  * It defines all attributes that are defined only in the screen, such as the coordinates.
  */
 class ScreenItemProperties : public ScreenElementProperties
@@ -42,8 +44,8 @@ class ScreenItemProperties : public ScreenElementProperties
 public:
 	ScreenItemProperties(QWidget *parent=0);
 
-    ~ScreenItemProperties();
-	
+	~ScreenItemProperties();
+
 	virtual void sync(void *item);
 	virtual void itemUpdated(PropertyItem *item);
 	virtual void setReadOnly(bool pReadOnly);
@@ -52,7 +54,7 @@ public:
 	PropertyItem *y;
 	PropertyItem *name;
 	PropertyItem *locked;
-	
+
 	game::ScreenElement *current;
 };
 

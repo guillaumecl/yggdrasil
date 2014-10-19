@@ -31,30 +31,27 @@ const QString Identifier = "yggdrasil/identifier";
 
 namespace drag
 {
-	enum DragData
-	{
-		Name = Qt::UserRole+1,
-		Type = Qt::UserRole+2,
-		Pointer = Qt::UserRole+3,
-	};
+enum DragData {
+        Name = Qt::UserRole+1,
+        Type = Qt::UserRole+2,
+        Pointer = Qt::UserRole+3,
+};
 
-	enum DragType
-	{
-		Screen = 0,
-		Object = 1,
-	};
+enum DragType {
+        Screen = 0,
+        Object = 1,
+};
 
 }
 
 namespace item
 {
-	enum ItemType
-	{
-		Folder = QStandardItem::UserType+1,
-		Object = QStandardItem::UserType+2,
-		Action = QStandardItem::UserType+3,
-		Screen = QStandardItem::UserType+4,
-	};
+enum ItemType {
+        Folder = QStandardItem::UserType+1,
+        Object = QStandardItem::UserType+2,
+        Action = QStandardItem::UserType+3,
+        Screen = QStandardItem::UserType+4,
+};
 }
 
 

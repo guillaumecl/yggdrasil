@@ -20,9 +20,11 @@
 #include "objectdockwidget.h"
 #include <QVBoxLayout>
 
-namespace editor {
+namespace editor
+{
 
-namespace custom {
+namespace custom
+{
 
 ObjectDockWidget::ObjectDockWidget(QDockWidget *parent) :
 	QWidget(parent),
@@ -30,11 +32,11 @@ ObjectDockWidget::ObjectDockWidget(QDockWidget *parent) :
 {
 	mObjectTree = new ObjectTree(this);
 	QVBoxLayout *la = new QVBoxLayout(this);
-	
+
 	la->addWidget(mObjectTree->insertFilter());
 	la->addWidget(mObjectTree);
 	setLayout(la);
-	
+
 	parent->setWidget(this);
 }
 

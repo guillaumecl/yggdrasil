@@ -20,7 +20,8 @@
 #include "propertyitem.h"
 #include "propertyitemmodel.h"
 
-namespace editor {
+namespace editor
+{
 
 namespace property
 {
@@ -63,7 +64,7 @@ void PropertyItem::appendRow(PropertyItem *label, PropertyItem *value)
 	QList<QStandardItem*> items;
 	items.append(label);
 	items.append(value);
-	
+
 	QStandardItem::appendRow(items);
 }
 
@@ -143,7 +144,7 @@ PropertySectionItem::PropertySectionItem(QString pSectionName) :
 	setEditable(false);
 	setSelectable(false);
 	setEnabled(false);
-	
+
 	setBackground(QBrush(Qt::gray));
 	setForeground(QBrush(Qt::white));
 	QFont fnt = font();

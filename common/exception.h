@@ -19,9 +19,9 @@
  ***************************************************************************/
 #ifndef EXCEPTION_H
 #define EXCEPTION_H
-		
+
 #include <string>
- 
+
 using std::exception;
 
 namespace exceptions
@@ -31,18 +31,18 @@ namespace exceptions
 
 /**
  *	@author Lightning Flik <flik@baobob.org>
- *		
- *	This class is a simple exception class. It logs the raised 
+ *
+ *	This class is a simple exception class. It logs the raised
  * exceptions in the log file according to their severity.
  *
  *	This exception class should be subclassed to allow nicer control.
- *	
+ *
  */
 class BaseException : public exception
 {
 public:
 	BaseException(std::string reason, int severity = 10);
-	
+
 	virtual ~BaseException() throw();
 
 	const char *what() const throw();
@@ -52,9 +52,9 @@ protected:
 	 *	This is the reason why the exception was raised.
 	 */
 	std::string m_reason;
-	
+
 	/**
-	 *	The severity of the exception represents how bad it will be to 
+	 *	The severity of the exception represents how bad it will be to
 	 * recover from it. According to the settings of the log, some exceptions
 	 * will not be shown if their severity is low.
 	 *
@@ -64,46 +64,41 @@ protected:
 	 *	20 : unrecoverable error
 	 */
 	int m_severity;
-	
+
 	BaseException(const BaseException &) : std::exception() {};
-	BaseException& operator =(const BaseException &) {return *this;};
-	
+	BaseException &operator =(const BaseException &) {
+		return *this;
+	};
+
 };
 
-struct MemoryException : public BaseException
-{
+struct MemoryException : public BaseException {
 	MemoryException(std::string reason, int severity = 10);
 };
 
-struct ImageFormatException : public BaseException
-{
+struct ImageFormatException : public BaseException {
 	ImageFormatException(std::string reason, std::string fileName, int severity = 10);
 };
 
 
-struct LoadException : public BaseException
-{
+struct LoadException : public BaseException {
 	LoadException(std::string reason, std::string fileName, int severity = 10);
 };
 
 
-struct FunctionException : public BaseException
-{
+struct FunctionException : public BaseException {
 	FunctionException(std::string reason, int severity = 10);
 };
 
-struct GenericException : public BaseException
-{
+struct GenericException : public BaseException {
 	GenericException(std::string reason, int severity = 10);
 };
 
-struct FontException : public BaseException
-{
+struct FontException : public BaseException {
 	FontException(std::string reason, int severity = 10);
 };
 
-struct KeyException : public BaseException
-{
+struct KeyException : public BaseException {
 	KeyException(std::string reason, int severity = 10);
 };
 

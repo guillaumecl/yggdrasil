@@ -30,8 +30,7 @@ int main(int argc, char *argv[])
 	Q_INIT_RESOURCE(application);
 	QApplication app(argc, argv);
 
-	try
-	{
+	try {
 		QString locale = QLocale::system().name();
 
 		QTranslator translator;
@@ -41,11 +40,9 @@ int main(int argc, char *argv[])
 		editor::yggdrasil_editor * mw = new editor::yggdrasil_editor();
 		mw->show();
 		return app.exec();
-	}
-	catch(const std::exception &e)
-	{
+	} catch (const std::exception &e) {
 		QMessageBox::warning(NULL, "Application",
-							 e.what());
+		                     e.what());
 	}
 }
 

@@ -33,7 +33,8 @@
 #endif
 #undef main
 
-namespace draw {
+namespace draw
+{
 
 /**
 	@author Lightning Flik <flik@baobob.org>

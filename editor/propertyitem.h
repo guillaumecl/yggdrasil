@@ -23,7 +23,8 @@
 #include <QStandardItem>
 #include <QStyleOptionViewItem>
 
-namespace editor {
+namespace editor
+{
 
 namespace property
 {
@@ -35,29 +36,29 @@ class PropertyItemModel;
 class PropertyItem : public QStandardItem
 {
 public:
-    PropertyItem();
+	PropertyItem();
 	PropertyItem(const QVariant &text);
-	
-    ~PropertyItem();
-	
+
+	~PropertyItem();
+
 	PropertyItemModel *model() const;
-	
+
 	virtual void appendRow(PropertyItem *value);
 	virtual void appendRow(const QString &propertyName, PropertyItem *value);
 	virtual void appendRow(PropertyItem *label, PropertyItem *value);
 	virtual void set(const QVariant &pData);
 	virtual QVariant get() const;
-	
+
 	virtual int type() const;
-	
+
 	virtual bool custom() const;
-	
+
 	virtual void setter(QWidget *editor);
 	virtual void getter(QWidget *editor);
-	
-	virtual QSize sizeHint (const QStyleOptionViewItem &option) const;
+
+	virtual QSize sizeHint(const QStyleOptionViewItem &option) const;
 	virtual bool paint(QPainter *painter, const QStyleOptionViewItem &option) const;
-	
+
 	virtual QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option);
 };
 
@@ -68,18 +69,18 @@ class PropertySectionItem : public PropertyItem
 {
 public:
 	PropertySectionItem(QString pSectionName);
-	
+
 	~PropertySectionItem();
-	
+
 	int type() const;
-	
+
 };
 
 class PropertyCaption: public PropertyItem
 {
 public:
 	PropertyCaption(const QString &text);
-	PropertyCaption(const QIcon &icon, const QString &text);	
+	PropertyCaption(const QIcon &icon, const QString &text);
 };
 
 }

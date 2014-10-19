@@ -25,9 +25,11 @@ using game::ScreenElement;
 using game::Action;
 using namespace game;
 
-namespace editor {
+namespace editor
+{
 
-namespace property {
+namespace property
+{
 
 ScreenElementProperties::ScreenElementProperties(QWidget *parent) :
 	PropertyTree(parent),
@@ -74,7 +76,7 @@ ScreenElementProperties::~ScreenElementProperties()
 void ScreenElementProperties::sync(void *item)
 {
 	ScreenElement *el = static_cast<ScreenElement*>(item);
-	if(!el)
+	if (!el)
 		return;
 
 	current = NULL;
@@ -88,8 +90,7 @@ void ScreenElementProperties::sync(void *item)
 
 	defaultAction->clear();
 	std::map<std::string, Action *>::iterator i;
-	for(i = el->actions.begin(); i != el->actions.end() ; i++)
-	{
+	for (i = el->actions.begin(); i != el->actions.end() ; i++) {
 		QString name = QString::fromStdString(i->first);
 		defaultAction->add(name,name);
 	}
@@ -100,18 +101,18 @@ void ScreenElementProperties::sync(void *item)
 
 void ScreenElementProperties::itemUpdated(PropertyItem *item)
 {
-	if(!current)
+	if (!current)
 		return;
-	if(item == direction)
+	if (item == direction)
 		current->direction = (directions::DirectionType) item->get().toInt();
 
-	if(item == defaultAction)
+	if (item == defaultAction)
 		current->defaultActionName = defaultAction->get().toString().toStdString();
 
-	if(item == height)
+	if (item == height)
 		current->setSize(current->width(),height->get().toInt());
 
-	if(item == width)
+	if (item == width)
 		current->setSize(width->get().toInt(),current->height());
 
 	//emit screenElementUpdated(current);

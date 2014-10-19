@@ -53,8 +53,7 @@ void FilterWidget::setFilterTextMode()
 void FilterWidget::focusInEvent(QFocusEvent *event)
 {
 	QLineEdit::focusInEvent(event);
-	if(noText)
-	{
+	if (noText) {
 		noText = false;
 		setText("");
 		QFont fnt = font();
@@ -66,7 +65,7 @@ void FilterWidget::focusInEvent(QFocusEvent *event)
 void FilterWidget::focusOutEvent(QFocusEvent *event)
 {
 	QLineEdit::focusOutEvent(event);
-	if(text().isEmpty())
+	if (text().isEmpty())
 		setFilterTextMode();
 }
 

@@ -27,7 +27,8 @@
 #include "exception.h"
 #include "core.h"
 
-namespace core {
+namespace core
+{
 
 GLWidget::GLWidget(QWidget *parent, const char *name) :
 	QGLWidget(QGLFormat(QGL::AlphaChannel), parent),
@@ -46,14 +47,14 @@ GLWidget::~GLWidget()
 void GLWidget::setFrameRate(double pFrameRate)
 {
 	int time;
-	if(runningTimer != -1)
+	if (runningTimer != -1)
 		killTimer(runningTimer);
-	
+
 	time = (int)(1000/pFrameRate);
 	runningTimer = startTimer((int)(1000/pFrameRate));
 }
 
-void GLWidget::resizeGL( int width, int height )
+void GLWidget::resizeGL(int width, int height)
 {
 	Core::getDrawManager()->initGraphics(width,height);
 }
@@ -61,24 +62,24 @@ void GLWidget::resizeGL( int width, int height )
 void GLWidget::paintGL()
 {
 	DrawManager *draw = Core::getDrawManager();
-	
+
 	draw->beginDraw();
-	
-	if(drawFunc)
+
+	if (drawFunc)
 		drawFunc();
-	
+
 	draw->endDraw();
 }
 
-void GLWidget::keyPressEvent( QKeyEvent *e )
+void GLWidget::keyPressEvent(QKeyEvent *e)
 {
-	
+
 }
 
 void GLWidget::timerEvent(QTimerEvent *event)
 {
 	updateGL();
-	if(inputFunc)
+	if (inputFunc)
 		inputFunc();
 }
 
@@ -86,7 +87,7 @@ void GLWidget::setFuncs(void (*pDrawFunc)(), void (*pInputFunc)())
 {
 	drawFunc = pDrawFunc;
 	inputFunc = pInputFunc;
-	
+
 	setFrameRate(60);
 }
 

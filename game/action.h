@@ -38,59 +38,59 @@ class Action
 public:
 	Action(FileReader &confFile, const char *actionName, int pWidth, int pHeight);
 
-    ~Action();
+	~Action();
 
 	const char *displayName() const;
-	
+
 	int priority() const;
-	
+
 	void draw(int x, int y, directions::DirectionType direction, draw::planes::PlaneType plane);
-	
+
 	bool nextFrame();
-	
+
 	bool isOver();
-	
+
 	void reset();
 	/*
 	int width();
 	int height();*/
-	
+
 	void setSize(int pWidth, int pHeight);
-	
+
 	const ActionFrame &getCurrentFrame();
-	
+
 	std::string name;
-	
+
 	const char *mDisplayName;
 
 	draw::Sprite spr;
-	
+
 	/**
-	 * @todo add a CollisionRectangle here. 
+	 * @todo add a CollisionRectangle here.
 	 * This will be the basic calculation for collision purposes.
 	 * the mask will always be located inside this rectangle. If a mask is provided, the collision rectangle
 	 * will be updated to be at the best size containing the mask. If not, only the rectangle will be used
 	 * to check the collision status.
-	 * 
+	 *
 	 * maybe this could/should be added to the sprite instead of the action.
 	 */
-	
+
 	int baseOffsetY;
-	
+
 private:
 	/**
 	 * Default movements for this action. Used to save space.
 	 */
 	ActionFrame defaultFrame;
-	
+
 	/**
 	 * Different action frames.
 	 */
 	std::vector<ActionFrame *> frames;
-	
+
 	int frameTimer;
 	unsigned int curFrame;
-	
+
 };
 
 }

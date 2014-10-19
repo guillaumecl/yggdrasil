@@ -23,7 +23,8 @@
 #include <list>
 #include "rect.h"
 
-namespace game {
+namespace game
+{
 
 class ScreenElement;
 
@@ -33,17 +34,16 @@ class ScreenElement;
 class Collision
 {
 public:
-    Collision(ScreenElement &pSource, ScreenElement &pDestination);
+	Collision(ScreenElement &pSource, ScreenElement &pDestination);
 
-    ~Collision();
+	~Collision();
 
 	ScreenElement &source;
 	ScreenElement &destination;
-	
+
 	Rect rect;
-	
-	struct status
-	{
+
+	struct status {
 		int cancel_move:1;
 		int attacked:1;
 		int defended:1;

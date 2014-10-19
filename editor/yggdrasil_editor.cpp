@@ -167,18 +167,18 @@ void yggdrasil_editor::writeSettings()
 
 bool yggdrasil_editor::maybeSave()
 {
-/*	if (textEdit->document()->isModified()) {
-		int ret = QMessageBox::warning(this, tr("Application"),
-					tr("The document has been modified.\n"
-					"Do you want to save your changes?"),
-					QMessageBox::Yes | QMessageBox::Default,
-					QMessageBox::No,
-					QMessageBox::Cancel | QMessageBox::Escape);
-		if (ret == QMessageBox::Yes)
-		return save();
-		else if (ret == QMessageBox::Cancel)
-		return false;
-	}*/
+	/*	if (textEdit->document()->isModified()) {
+			int ret = QMessageBox::warning(this, tr("Application"),
+						tr("The document has been modified.\n"
+						"Do you want to save your changes?"),
+						QMessageBox::Yes | QMessageBox::Default,
+						QMessageBox::No,
+						QMessageBox::Cancel | QMessageBox::Escape);
+			if (ret == QMessageBox::Yes)
+			return save();
+			else if (ret == QMessageBox::Cancel)
+			return false;
+		}*/
 	return true;
 }
 
@@ -187,18 +187,15 @@ void yggdrasil_editor::loadFile(const QString &fileName)
 	//delete currentScreen;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
-	try
-	{
+	try {
 		FileReader fr(fileName.toLatin1().data());
 		//currentScreen = new Screen(*draw,fr);
 
 		setCurrentFile(fileName);
 		statusBar()->showMessage(tr("File loaded"), 2000);
-	}
-	catch(exception &e)
-	{
+	} catch (exception &e) {
 		QMessageBox::warning(this, tr("Application"),
-							 tr(e.what()));
+		                     tr(e.what()));
 		//currentScreen = new Screen();
 	}
 	QApplication::restoreOverrideCursor();
@@ -262,8 +259,7 @@ void yggdrasil_editor::onMouseMoved(const QPoint &newPos)
 
 void yggdrasil_editor::initEngine()
 {
-	try
-	{
+	try {
 		corePlugin = new Plugin("qtcore");
 		/*
 		*	Until a better solution is found, the global core must be initialized by hand. This is because the
@@ -279,20 +275,23 @@ void yggdrasil_editor::initEngine()
 		core->setup(*draw,*sound);
 
 		displayWidget = core->getWidget();
-	}
-	catch(exception &e)
-	{
-		delete sound;		sound = NULL;
-		delete draw;		draw = NULL;
-		delete core;		core = NULL;
-		delete corePlugin;	corePlugin = NULL;
-		delete drawPlugin;	drawPlugin = NULL;
+	} catch (exception &e) {
+		delete sound;
+		sound = NULL;
+		delete draw;
+		draw = NULL;
+		delete core;
+		core = NULL;
+		delete corePlugin;
+		corePlugin = NULL;
+		delete drawPlugin;
+		drawPlugin = NULL;
 
 		displayWidget = NULL;
 
 		QMessageBox::warning(this, tr("Application"),
-							 tr("The following error happened while loading the plugins :\n\n%1\n\nYggdrasil Editor cannot function properly without plugins.")
-							 .arg(QString::fromUtf8(e.what())));
+		                     tr("The following error happened while loading the plugins :\n\n%1\n\nYggdrasil Editor cannot function properly without plugins.")
+		                     .arg(QString::fromUtf8(e.what())));
 	}
 }
 
@@ -314,9 +313,9 @@ void yggdrasil_editor::connectSignals()
 
 	connect(gameDisplayer,SIGNAL(objectCreated(game::Screen*, game::ScreenElement*)),screenTree, SLOT(on_objectAdded(game::Screen*, game::ScreenElement*)));
 
-	connect(gameDisplayer,SIGNAL(mouseMoved(const QPoint&)),this, SLOT(onMouseMoved(const QPoint&)));
+	connect(gameDisplayer,SIGNAL(mouseMoved(const QPoint &)),this, SLOT(onMouseMoved(const QPoint &)));
 
-	connect(objectDisplayer,SIGNAL(mouseMoved(const QPoint&)),this, SLOT(onMouseMoved(const QPoint&)));
+	connect(objectDisplayer,SIGNAL(mouseMoved(const QPoint &)),this, SLOT(onMouseMoved(const QPoint &)));
 
 	connect(screenTree,SIGNAL(itemSelected(game::Screen*, QString)),gameDisplayer,SLOT(selectItem(game::Screen*, QString)));
 	connect(screenTree,SIGNAL(loadScreen(game::Screen*)),gameDisplayer,SLOT(loadScreen(game::Screen*)));

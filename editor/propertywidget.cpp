@@ -24,9 +24,11 @@
 #include "screenproperties.h"
 #include "screenitemproperties.h"
 
-namespace editor {
+namespace editor
+{
 
-namespace property {
+namespace property
+{
 
 PropertyWidget::PropertyWidget(QWidget *parent) :
 	QStackedWidget(parent),
@@ -57,22 +59,20 @@ PropertyWidget::~PropertyWidget()
 
 void PropertyWidget::selectScreen(game::Screen *scr)
 {
-	if(scr)
-	{
+	if (scr) {
 		screenProperties->sync(scr);
 		setCurrentWidget(screenProperties);
-	}
-	else
+	} else
 		unselect();
 }
 
 void PropertyWidget::selectScreenItem(game::Screen *scr, const QString &elementName)
 {
 	game::ScreenElement *el = NULL;
-	if(scr)
+	if (scr)
 		el = scr->elements[elementName.toStdString()];
 
-	if(el)
+	if (el)
 		selectScreenItem(scr,el);
 	else
 		unselect();
@@ -80,12 +80,10 @@ void PropertyWidget::selectScreenItem(game::Screen *scr, const QString &elementN
 
 void PropertyWidget::selectScreenItem(game::Screen *scr, game::ScreenElement *el)
 {
-	if(el)
-	{
+	if (el) {
 		screenItemProperties->sync(el);
 		setCurrentWidget(screenItemProperties);
-	}
-	else
+	} else
 		unselect();
 	Q_UNUSED(scr);
 }
@@ -98,24 +96,20 @@ void PropertyWidget::unselect()
 
 void PropertyWidget::selectScreenElement(game::ScreenElement *el)
 {
-	if(el)
-	{
+	if (el) {
 		screenElementProperties->sync(el);
 		setCurrentWidget(screenElementProperties);
-	}
-	else
+	} else
 		unselect();
 }
 
 void PropertyWidget::selectAction(game::ScreenElement *el,game::Action *act)
 {
 	Q_UNUSED(el);
-	if(act)
-	{
+	if (act) {
 		actionProperties->sync(act);
 		setCurrentWidget(actionProperties);
-	}
-	else
+	} else
 		unselect();
 }
 

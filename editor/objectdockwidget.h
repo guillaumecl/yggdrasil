@@ -24,9 +24,11 @@
 #include <QDockWidget>
 #include "objecttree.h"
 
-namespace editor {
+namespace editor
+{
 
-namespace custom {
+namespace custom
+{
 
 /**
 	@author flik <flik@baobob.org>
@@ -36,9 +38,9 @@ class ObjectDockWidget : public QWidget
 	Q_OBJECT
 public:
 	ObjectDockWidget(QDockWidget *parent);
-    ~ObjectDockWidget();
-	
-    ObjectTree *objectTree() const;
+	~ObjectDockWidget();
+
+	ObjectTree *objectTree() const;
 private:
 	ObjectTree *mObjectTree;
 };

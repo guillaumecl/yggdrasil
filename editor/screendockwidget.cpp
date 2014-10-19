@@ -21,9 +21,11 @@
 
 #include <QVBoxLayout>
 
-namespace editor {
+namespace editor
+{
 
-namespace custom {
+namespace custom
+{
 
 ScreenDockWidget::ScreenDockWidget(QDockWidget *parent) :
 	QWidget(parent),
@@ -31,11 +33,11 @@ ScreenDockWidget::ScreenDockWidget(QDockWidget *parent) :
 {
 	mScreenTree = new ScreenTree(this);
 	QVBoxLayout *la = new QVBoxLayout(this);
-	
+
 	la->addWidget(mScreenTree->insertFilter());
 	la->addWidget(mScreenTree);
 	setLayout(la);
-	
+
 	parent->setWidget(this);
 }
 

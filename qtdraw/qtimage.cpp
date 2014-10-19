@@ -23,12 +23,13 @@
 
 #include <iostream>
 
-namespace draw {
+namespace draw
+{
 
 QtImage::QtImage(const char *fileName) :
 	Image()
 {
-	if(!pixmap.load(fileName))
+	if (!pixmap.load(fileName))
 		throw LoadException("Cannot load the image file",fileName);
 }
 

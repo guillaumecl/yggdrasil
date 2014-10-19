@@ -20,7 +20,8 @@
 #ifndef GAMERECT_H
 #define GAMERECT_H
 
-namespace game {
+namespace game
+{
 
 /**
 	@author flik <flik@baobob.org>
@@ -29,12 +30,12 @@ class Rect
 {
 public:
 	Rect();
-	
+
 	/**
 	 *	Convenience constructor: equivalent to Rect(baseX+x, baseY+y,width, height)
 	 */
 	Rect(int pBaseX, int pBaseY, int pX, int pY, int pWidth, int pHeight);
-	
+
 	/**
 	 * Creates a rect with the specified parameters
 	 */
@@ -44,33 +45,51 @@ public:
 	 * Creates a rect with the specified parameters
 	 */
 	Rect(int pX, int pX2, int pY, int pY2, bool unused);
-	
+
 	/**
 	 * Creates a new Rect which is the intersection between this one and the other.
 	 * If there is no intersection, the given rect will not be valid (width or height will be negative)
 	 */
 	Rect intersection(const Rect &Rect) const;
-	
-	inline int &rx() {return mX;}
-	inline int &ry() {return mY;}
-	
-	inline int x() const {return mX;}
-	inline int y() const {return mY;}
-	inline int width() const {return mWidth;}
-	inline int height() const {return mHeight;}
-	
-	inline int x2() const {return mX + mWidth;}
-	inline int y2() const {return mY + mHeight;}
-	
-	inline bool isValid() const {return mWidth > 0 && mHeight > 0;}
-	
+
+	inline int &rx() {
+		return mX;
+	}
+	inline int &ry() {
+		return mY;
+	}
+
+	inline int x() const {
+		return mX;
+	}
+	inline int y() const {
+		return mY;
+	}
+	inline int width() const {
+		return mWidth;
+	}
+	inline int height() const {
+		return mHeight;
+	}
+
+	inline int x2() const {
+		return mX + mWidth;
+	}
+	inline int y2() const {
+		return mY + mHeight;
+	}
+
+	inline bool isValid() const {
+		return mWidth > 0 && mHeight > 0;
+	}
+
 	void set(int pX, int pY, int pWidth, int pHeight);
 private:
 	int mX;
 	int mY;
 	int mWidth;
 	int mHeight;
-	
+
 	//Rect &operator=(const Rect&);
 	//Rect(const Rect&);
 };

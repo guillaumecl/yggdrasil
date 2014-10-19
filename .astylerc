@@ -1,0 +1,9 @@
+style=linux
+indent=tab=8
+pad-header
+unpad-paren
+align-reference=name
+#remove-brackets
+#close-templates
+#max-code-length=80
+#break-after-logical

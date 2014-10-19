@@ -22,15 +22,17 @@
 #include <QDebug>
 //#include <QFontMetrics>
 
-namespace editor {
+namespace editor
+{
 
-namespace property {
+namespace property
+{
 
 PropertyList::PropertyList(const QVariant &defaultValue) :
 	PropertyItem()
 {
 	modelCombo = new QComboBox();
-	
+
 	set(defaultValue);
 }
 
@@ -76,10 +78,9 @@ void PropertyList::getter(QWidget *editor)
 void PropertyList::set(const QVariant &pData)
 {
 	currentData = pData;
-	
+
 	int index = modelCombo->findData(get());
-	if(index >= 0)
-	{
+	if (index >= 0) {
 		setData(modelCombo->itemText(index), Qt::DisplayRole);
 		setData(modelCombo->itemIcon(index), Qt::DecorationRole);
 	}
@@ -105,7 +106,7 @@ QWidget *PropertyList::createEditor(QWidget *parent, const QStyleOptionViewItem 
 	connect(currentCombo,SIGNAL(currentIndexChanged(int)),
 	        this,SLOT(updateSelection()));
 	return currentCombo;
-	
+
 	Q_UNUSED(parent);
 	Q_UNUSED(option);
 }

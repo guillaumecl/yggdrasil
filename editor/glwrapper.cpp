@@ -23,19 +23,20 @@
 
 #include <iostream>
 
-namespace editor {
+namespace editor
+{
 
 
 inline static int min(int x, int y)
 {
-	if(x < y)
+	if (x < y)
 		return x;
 	return y;
 }
 
 inline static int max(int x, int y)
 {
-	if(x > y)
+	if (x > y)
 		return x;
 	return y;
 }
@@ -45,13 +46,13 @@ bool GLWrapper::widgetSetup = false;
 
 void GLWrapper::drawFunc()
 {
-	if(editor)
+	if (editor)
 		editor->baseDrawFunction();
 }
 
 void GLWrapper::inputFunc()
 {
-	if(editor)
+	if (editor)
 		editor->baseInputFunction();
 }
 
@@ -118,8 +119,7 @@ GLWrapper::GLWrapper(core::QtCore *pCore, draw::DrawManager *pDraw, sound::Sound
 
 	setFocusPolicy(Qt::WheelFocus);
 
-	if(!widgetSetup)
-	{
+	if (!widgetSetup) {
 		editor = NULL;
 		displayWidget->setFuncs(GLWrapper::drawFunc,GLWrapper::inputFunc);
 		displayWidget->setMouseTracking(true);
@@ -127,14 +127,13 @@ GLWrapper::GLWrapper(core::QtCore *pCore, draw::DrawManager *pDraw, sound::Sound
 	}
 }
 
-void GLWrapper::resizeEvent (QResizeEvent *event)
+void GLWrapper::resizeEvent(QResizeEvent *event)
 {
 	int w,h;
-	if(!isVisible())
+	if (!isVisible())
 		return;
 
-	if(!hasObject())
-	{
+	if (!hasObject()) {
 		horizontalScrollBar->setVisible(false);
 		verticalScrollBar->setVisible(false);
 		hWidget->setVisible(false);
@@ -145,30 +144,24 @@ void GLWrapper::resizeEvent (QResizeEvent *event)
 	QSize newSize = event->size();
 
 	w = (int)(insideWidth() * scale) - newSize.width();
-	if(w > 0)
-	{
+	if (w > 0) {
 		horizontalScrollBar->setVisible(true);
 		horizontalScrollBar->setMaximum(w);
 		horizontalScrollBar->setSingleStep(max(horizontalScrollBar->maximum() / 200,1));
 		horizontalScrollBar->setPageStep(max(horizontalScrollBar->maximum() / 20,200));
-	}
-	else
-	{
+	} else {
 		horizontalScrollBar->setVisible(false);
 		horizontalScrollBar->setMaximum(0);
 	}
 
 	h = (int)(insideHeight() * scale) - newSize.height();
-	if(h > 0)
-	{
+	if (h > 0) {
 		verticalScrollBar->setVisible(true);
 		verticalScrollBar->setMaximum(h);
 		verticalScrollBar->setSingleStep(max(verticalScrollBar->maximum() / 200,1));
 		verticalScrollBar->setPageStep(max(verticalScrollBar->maximum() / 20,200));
 		hWidget->setVisible(true);
-	}
-	else
-	{
+	} else {
 		verticalScrollBar->setVisible(false);
 		verticalScrollBar->setMaximum(0);
 		hWidget->setVisible(false);
@@ -178,20 +171,18 @@ void GLWrapper::resizeEvent (QResizeEvent *event)
 		Adjust the size according to the presence of the scrollbars. If we don't do this,
 	we lose about 16 pixels of width/height (they're not attainable by scrolling)
 	*/
-	if(w > 0 && verticalScrollBar->isVisible())
+	if (w > 0 && verticalScrollBar->isVisible())
 		verticalScrollBar->setMaximum(verticalScrollBar->maximum() + horizontalScrollBar->height());
-	if(h > 0 && horizontalScrollBar->isVisible())
+	if (h > 0 && horizontalScrollBar->isVisible())
 		horizontalScrollBar->setMaximum(horizontalScrollBar->maximum() + verticalScrollBar->width());
 
-	if(w <= 0)
-	{
-		newSize.setWidth( (int)(insideWidth() * scale));
+	if (w <= 0) {
+		newSize.setWidth((int)(insideWidth() * scale));
 		horizontalScrollBar->setValue(0);
 	}
 
-	if(h <= 0)
-	{
-		newSize.setHeight( (int)(insideHeight() * scale));
+	if (h <= 0) {
+		newSize.setHeight((int)(insideHeight() * scale));
 		verticalScrollBar->setValue(0);
 	}
 
@@ -209,8 +200,7 @@ GLWrapper::~GLWrapper()
 
 void GLWrapper::baseDrawFunction()
 {
-	if(hasObject() && isVisible())
-	{
+	if (hasObject() && isVisible()) {
 		draw->setGraphicOrigin(hValue(), verticalScrollBar->maximum() - vValue());
 		draw->scale(scale);
 
@@ -223,16 +213,14 @@ void GLWrapper::baseDrawFunction()
 
 void GLWrapper::baseInputFunction()
 {
-	if(hasObject() && isVisible())
+	if (hasObject() && isVisible())
 		inputFunction();
 }
 
 void GLWrapper::mousePressEvent(QMouseEvent *event)
 {
-	if(event->button() == Qt::MidButton)
-	{
-		if(!event->isAccepted())
-		{
+	if (event->button() == Qt::MidButton) {
+		if (!event->isAccepted()) {
 			moveStart = event->globalPos();
 			scrollStart = QPoint(hValue(),vValue());
 			moving = true;
@@ -243,14 +231,12 @@ void GLWrapper::mousePressEvent(QMouseEvent *event)
 
 void GLWrapper::mouseMoveEvent(QMouseEvent *event)
 {
-	if(!event->isAccepted())
-	{
+	if (!event->isAccepted()) {
 		QPoint pos = getInsidePosition(event->pos());
-		if(isValidPosition(pos))
+		if (isValidPosition(pos))
 			emit mouseMoved(pos);
 	}
-	if(moving)
-	{
+	if (moving) {
 		QPoint diffPos = event->globalPos() - moveStart;
 
 		QPoint newPos = scrollStart - diffPos;
@@ -262,10 +248,9 @@ void GLWrapper::mouseMoveEvent(QMouseEvent *event)
 
 void GLWrapper::mouseReleaseEvent(QMouseEvent *event)
 {
-	if(event->button() != Qt::MidButton)
+	if (event->button() != Qt::MidButton)
 		return;
-	if(!event->isAccepted() && moving)
-	{
+	if (!event->isAccepted() && moving) {
 		moving = false;
 		event->accept();
 		QApplication::restoreOverrideCursor();
@@ -274,8 +259,7 @@ void GLWrapper::mouseReleaseEvent(QMouseEvent *event)
 
 void GLWrapper::wheelEvent(QWheelEvent *event)
 {
-	if (event->orientation() == Qt::Horizontal)
-	{
+	if (event->orientation() == Qt::Horizontal) {
 		event->ignore();
 		return;
 	}
@@ -284,28 +268,25 @@ void GLWrapper::wheelEvent(QWheelEvent *event)
 	double x = (hValue() + event->x()) / scale;
 	double y = (vValue() + event->y()) / scale;
 
-	if(event->delta() > 0)
-	{
-		if(scale < 40)
+	if (event->delta() > 0) {
+		if (scale < 40)
 			scale *= 1.5;
-	}
-	else
-	{
-		if(scale > 0.08)
+	} else {
+		if (scale > 0.08)
 			scale /= 1.5;
 	}
 
-	if(scale < 1.5 && scale > 1/1.5)
+	if (scale < 1.5 && scale > 1/1.5)
 		scale = 1.0;
 
 	QResizeEvent q(size(),size()) ;
 	resizeEvent(&q);
 
-	horizontalScrollBar->setValue( (int)(x * scale) - event->x());
-	verticalScrollBar->setValue( (int)(y * scale) - event->y());
+	horizontalScrollBar->setValue((int)(x * scale) - event->x());
+	verticalScrollBar->setValue((int)(y * scale) - event->y());
 
 	QPoint pos = getInsidePosition(event->pos());
-	if(isValidPosition(pos))
+	if (isValidPosition(pos))
 		emit mouseMoved(pos);
 }
 
@@ -313,25 +294,25 @@ QPoint GLWrapper::getInsidePosition(QPoint relPos)
 {
 	relPos = displayWidget->mapFrom(this,relPos);
 	int x = (int)((hValue() + relPos.x()) / scale);
-	int y = (int)((double)insideHeight() - ((vValue() + relPos.y() ) / scale));
+	int y = (int)((double)insideHeight() - ((vValue() + relPos.y()) / scale));
 
 	return QPoint(x,y);
 }
 
 bool GLWrapper::isValidPosition(QPoint insidePos)
 {
-	if(!hasObject())
+	if (!hasObject())
 		return false;
 
-	if(insidePos.x() >= 0 && insidePos.y() >= 0 &&
-		insidePos.x() < insideWidth() && insidePos.y() < insideHeight())
+	if (insidePos.x() >= 0 && insidePos.y() >= 0 &&
+	    insidePos.x() < insideWidth() && insidePos.y() < insideHeight())
 		return true;
 	return false;
 }
 
 void GLWrapper::activate()
 {
-	if(!displayWidget)
+	if (!displayWidget)
 		return;
 
 	displayWidget->setParent(this);
@@ -345,7 +326,7 @@ void GLWrapper::activate()
 
 void GLWrapper::deactivate()
 {
-	if(!displayWidget)
+	if (!displayWidget)
 		return;
 	editor = NULL;
 	hboxLayout->removeWidget(displayWidget);

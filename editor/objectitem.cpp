@@ -63,21 +63,21 @@ void *ObjectItem::pointer() const
 
 Screen *ObjectItem::screen() const
 {
-	if(type() == item::Screen)
+	if (type() == item::Screen)
 		return (Screen*)pointer();
 	return NULL;
 }
 
 ScreenElement *ObjectItem::screenElement() const
 {
-	if(type() == item::Object)
+	if (type() == item::Object)
 		return (ScreenElement*)pointer();
 	return NULL;
 }
 
 Action *ObjectItem::action() const
 {
-	if(type() == item::Action)
+	if (type() == item::Action)
 		return (Action*)pointer();
 	return NULL;
 }
@@ -96,8 +96,7 @@ void ObjectItem::setName(const QString &pName)
 void ObjectItem::setPointer(void *pPointer)
 {
 	hasPointer = pPointer != NULL;
-	if(hasPointer)
-	{
+	if (hasPointer) {
 		QFont fnt = font();
 		fnt.setBold(true);
 		setFont(fnt);
@@ -129,18 +128,15 @@ bool ObjectItem::isLoaded() const
 bool ObjectItem::hasVisibleChildren(QRegExp pFilter)
 {
 	int i;
-	for(i=0;i<rowCount();i++)
-	{
+	for (i=0; i<rowCount(); i++) {
 		ObjectItem *el = dynamic_cast<ObjectItem*>(child(i,0));
-		if(el)
-		{
-			if(el->type() == item::Object && el->text().contains(pFilter))
+		if (el) {
+			if (el->type() == item::Object && el->text().contains(pFilter))
 				return true;
-			else if(el->type() == item::Screen && el->text().contains(pFilter))
+			else if (el->type() == item::Screen && el->text().contains(pFilter))
 				return true;
-			else if(el->type() == item::Folder)
-			{
-				if(el->hasVisibleChildren(pFilter))
+			else if (el->type() == item::Folder) {
+				if (el->hasVisibleChildren(pFilter))
 					return true;
 			}
 		}

@@ -24,9 +24,11 @@
 
 #include "propertyitemmodel.h"
 
-namespace editor {
+namespace editor
+{
 
-namespace property {
+namespace property
+{
 
 /**
 	@author flik <flik@baobob.org>
@@ -37,20 +39,20 @@ class PropertyItemDelegate : public QItemDelegate
 public:
 	PropertyItemDelegate(QObject *parent=0, PropertyItemModel *pModel=0);
 
-    ~PropertyItemDelegate();
-	
+	~PropertyItemDelegate();
+
 	virtual QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-	
+
 	virtual void setEditorData(QWidget *editor, const QModelIndex &index) const;
-	
-	
+
+
 	virtual void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
-	
-	virtual QSize sizeHint (const QStyleOptionViewItem &option, const QModelIndex &index) const;
-	
-	virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const;
+
+	virtual QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+	virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 	void try_connect(QWidget *editor,const char *sigName,const char *signal) const;
-	
+
 	PropertyItemModel *model;
 private slots:
 	virtual void valueChanged();

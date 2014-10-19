@@ -28,11 +28,11 @@ using std::string;
 namespace draw
 {
 
-	Image& getImage(FileReader &confFile, const char *sectionName)
+Image &getImage(FileReader &confFile, const char *sectionName)
 {
 	string imageName = confFile.getString(sectionName,"image","");
 
-	if(imageName.size() == 0)
+	if (imageName.size() == 0)
 		throw new LoadException("no input", imageName, 0);
 	string path = confFile.directory() + "/" + imageName;
 
@@ -47,15 +47,14 @@ try:
 	offsetY = confFile.getInt(sectionName,"offsetY",0);
 	mWidth = confFile.getInt(sectionName,"width",defaultWidth);
 	mHeight = confFile.getInt(sectionName,"height",defaultHeight);
-}
-catch(...)
+} catch (...)
 {
 	/*
 		We don't want to log the error if there is just no plane actually.
 		This is why we put 0 to severity.
 	*/
 	string fName = confFile.getString(sectionName,"image","");
-	if(fName.empty())
+	if (fName.empty())
 		throw LoadException("Image not specified in section",sectionName, 0);
 	throw LoadException("Cannot load image : ",fName);
 }

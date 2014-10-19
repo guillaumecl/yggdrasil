@@ -51,18 +51,17 @@ typedef std::list<CollisionScreen*> CollisionScreenPList;
  */
 namespace directions
 {
-	enum DirectionType
-	{
-		up,
-		down,
-		left,
-		right,
+enum DirectionType {
+        up,
+        down,
+        left,
+        right,
 
-		upLeft,
-		upRight,
-		downLeft,
-		downRight
-	};
+        upLeft,
+        upRight,
+        downLeft,
+        downRight
+};
 };
 
 
@@ -70,19 +69,18 @@ namespace directions
 
 namespace draw
 {
-	/**
-	 * @namespace draw::planes
-	 * The three planes used by a sprite.
-	 */
-	namespace planes
-	{
-		enum PlaneType
-		{
-			background,
-			foreground,
-			object
-		};
-	};
+/**
+ * @namespace draw::planes
+ * The three planes used by a sprite.
+ */
+namespace planes
+{
+enum PlaneType {
+        background,
+        foreground,
+        object
+};
+};
 };
 
 class FileReader;

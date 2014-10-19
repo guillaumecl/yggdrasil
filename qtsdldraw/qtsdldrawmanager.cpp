@@ -33,12 +33,12 @@ namespace draw
 
 QtSdlDrawManager::QtSdlDrawManager()
 	: QtDrawManagerBase(),
-		scrWidth(0),
-		scrHeight(0),
-		scrOriginX(0),
-		scrOriginY(0),
-		widget(NULL),
-		curScale(1.0)
+	  scrWidth(0),
+	  scrHeight(0),
+	  scrOriginX(0),
+	  scrOriginY(0),
+	  widget(NULL),
+	  curScale(1.0)
 {
 }
 
@@ -46,14 +46,13 @@ QtSdlDrawManager::QtSdlDrawManager()
 QtSdlDrawManager::~QtSdlDrawManager()
 {
 	map<string, SdlImage*>::iterator iter;
-	for(iter = openedImages.begin(); iter != openedImages.end(); iter++)
+	for (iter = openedImages.begin(); iter != openedImages.end(); iter++)
 		delete iter->second;
 }
 
 QWidget *QtSdlDrawManager::getWidget(QWidget *parent, const char *name)
 {
-	if (widget == NULL)
-	{
+	if (widget == NULL) {
 		widget = new QRenderWidget(parent);
 	}
 
@@ -75,21 +74,18 @@ Image &QtSdlDrawManager::getImage(const char *fileName)
 	SdlImage *img;
 	map<string,SdlImage *>::iterator ret;
 
-	if(!fileName[0])
+	if (!fileName[0])
 		throw LoadException("No file to load.",fileName,0);
 
 	ret = openedImages.find(fileName);
 
-	if(ret != openedImages.end())
-	{
+	if (ret != openedImages.end()) {
 		/*
 		This image is already loaded. Increment its counter and return it.
 		* @todo: really increment the counter (check if its not done somewhere else)
 		*/
 		img = ret->second;
-	}
-	else
-	{
+	} else {
 		/*
 		Image was not found. We need to load it and then add it.
 		*/
@@ -185,10 +181,8 @@ void QtSdlDrawManager::fadeRect(unsigned char p, unsigned long color, int x, int
 	if (maxX >= widget->screen->w)	maxX = widget->screen->w - 1;
 	if (maxY >= widget->screen->h)	maxY = widget->screen->h - 1;
 
-	for (y = minY ; y < maxY ; y++)
-	{
-		for (x = minX ; x < maxX ; x++)
-		{
+	for (y = minY ; y < maxY ; y++) {
+		for (x = minX ; x < maxX ; x++) {
 			int index = (y * widget->screen->w + x) << 2;
 
 			surfacePtr[index+2] = (surfacePtr[index+2] * (256L - p) + rgba[2] * p) >> 8;
@@ -204,8 +198,7 @@ void QtSdlDrawManager::scale(double pScale)
 	curScale = pScale;
 
 	map<string, SdlImage*>::iterator iter;
-	for(iter = openedImages.begin(); iter != openedImages.end(); iter++)
-	{
+	for (iter = openedImages.begin(); iter != openedImages.end(); iter++) {
 		iter->second->scale(pScale);
 	}
 }
@@ -222,7 +215,7 @@ int QtSdlDrawManager::mapYCoordinate(int y)
 
 int QtSdlDrawManager::mapXCoordinate(int x)
 {
-	return  (x - scrOriginX);
+	return (x - scrOriginX);
 }
 
 void QtSdlDrawManager::draw(Image *img, int x, int y)
@@ -235,8 +228,7 @@ void QtSdlDrawManager::draw(Image *img, int x, int y)
 void QtSdlDrawManager::draw(Image *img, int x, int y, int xImg, int yImg, int widthImg, int heightImg)
 {
 	SdlImage *image = (SdlImage*)img;
-	if (widthImg > image->width() || heightImg > image->height())
-	{
+	if (widthImg > image->width() || heightImg > image->height()) {
 		drawTiled(image, x, y, widthImg, heightImg);
 		return;
 	}
@@ -246,28 +238,24 @@ void QtSdlDrawManager::draw(Image *img, int x, int y, int xImg, int yImg, int wi
 	x = mapXCoordinate(x);
 	y = mapYCoordinate(y + heightImg);
 
-	if (x < 0)
-	{
+	if (x < 0) {
 		xImg -= x;
 		widthImg += x;
 		x = 0;
 	}
 
-	if (y < 0)
-	{
+	if (y < 0) {
 		yImg -= y;
 		heightImg += y;
 		y = 0;
 	}
 
-	if (y + heightImg >= scrHeight)
-	{
+	if (y + heightImg >= scrHeight) {
 		int diff = scrHeight - y - heightImg;
 		heightImg += diff;
 	}
 
-	if (x + widthImg >= scrWidth)
-	{
+	if (x + widthImg >= scrWidth) {
 		int diff = scrWidth - x - widthImg;
 		widthImg += diff;
 	}
@@ -293,10 +281,8 @@ void QtSdlDrawManager::drawTiled(SdlImage *image, int xDst, int yDst, int widthI
 	if (tileY == 0)
 		tileY = 1;
 
-	for (int y = 0;  y < tileY; y++)
-	{
-		for (int x = 0; x < tileX; x++)
-		{
+	for (int y = 0;  y < tileY; y++) {
+		for (int x = 0; x < tileX; x++) {
 			int _x = xDst + x * image->width();
 			int _y = yDst + y * image->height();
 

@@ -26,19 +26,19 @@ namespace game
 ActionFrame::ActionFrame(const ActionFrame &defaultFrame,FileReader &confFile, const char *sectionName)
 {
 	*this = defaultFrame;
-	if(confFile.hasVariable(sectionName,"Frame delay"))
+	if (confFile.hasVariable(sectionName,"Frame delay"))
 		frameDelay = confFile.getInt(sectionName, "Frame delay",-1);
 
-	if(confFile.hasVariable(sectionName,"forward"))
+	if (confFile.hasVariable(sectionName,"forward"))
 		move_forward = confFile.getInt(sectionName, "forward",0);
 
-	if(confFile.hasVariable(sectionName,"move_height"))
+	if (confFile.hasVariable(sectionName,"move_height"))
 		move_height = confFile.getInt(sectionName, "move_height",0);
 
-	if(confFile.hasVariable(sectionName,"right"))
+	if (confFile.hasVariable(sectionName,"right"))
 		move_right = confFile.getInt(sectionName, "right",0);
 
-	if(confFile.hasVariable(sectionName,"rotate_right"))
+	if (confFile.hasVariable(sectionName,"rotate_right"))
 		rotate_right = confFile.getInt(sectionName, "rotate_right",0);
 
 

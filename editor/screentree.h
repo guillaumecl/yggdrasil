@@ -61,7 +61,7 @@ signals:
 	void removeObject(game::Screen *Screen, game::ScreenElement *el);
 
 private slots:
-	void openItem(const QModelIndex&);
+	void openItem(const QModelIndex &);
 	void on_close();
 	void on_refresh();
 	void on_load();

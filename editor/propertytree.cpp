@@ -22,7 +22,8 @@
 #include "propertyitemdelegate.h"
 
 
-namespace editor {
+namespace editor
+{
 
 namespace property
 {
@@ -35,20 +36,20 @@ PropertyTree::PropertyTree(QWidget *parent) :
 	model = new PropertyItemModel(this);
 	setModel(model);
 	setColumnWidth(0,100);
-	
+
 	setAllColumnsShowFocus(true);
 	setRootIsDecorated(false);
 	setIndentation(0);
-	
+
 	setItemDelegate(new PropertyItemDelegate(this,model));
-	
+
 	connect(model,SIGNAL(itemChanged(QStandardItem *)),this,SLOT(update(QStandardItem*)));
 }
 
 void PropertyTree::update(QStandardItem *item)
 {
 	PropertyItem *it = dynamic_cast<PropertyItem*>(item);
-	if(it)
+	if (it)
 		itemUpdated(it);
 }
 
@@ -60,13 +61,10 @@ PropertyItem *PropertyTree::insertSection(const QString &sectionName, PropertyIt
 {
 	PropertyItem *it;
 	it = new PropertySectionItem(sectionName);
-	if(pParent)
-	{
+	if (pParent) {
 		pParent->appendRow(it);
 		setFirstColumnSpanned(it->row(),pParent->index(),true);
-	}
-	else
-	{
+	} else {
 		model->appendRow(it);
 		setFirstColumnSpanned(it->row(),model->invisibleRootItem()->index(),true);
 	}
@@ -77,7 +75,7 @@ PropertyItem *PropertyTree::insertSection(const QString &sectionName, PropertyIt
 void PropertyTree::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
 	PropertyItem *item = model->itemFromIndex(current);
-	if(item->isEditable())
+	if (item->isEditable())
 		edit(current);
 	Q_UNUSED(previous);
 }

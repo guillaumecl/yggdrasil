@@ -33,7 +33,8 @@
 #include "screenelement.h"
 
 
-namespace editor {
+namespace editor
+{
 
 
 using namespace game;
@@ -67,51 +68,51 @@ bool GameDisplayer::hasObject() const
 
 int GameDisplayer::insideHeight() const
 {
-	if(currentScreen)
+	if (currentScreen)
 		return currentScreen->height();
 	return 0;
 }
 
 int GameDisplayer::insideWidth() const
 {
-	if(currentScreen)
+	if (currentScreen)
 		return currentScreen->width();
 	return 0;
 }
 
 void GameDisplayer::drawFunction()
 {
-	if(!currentScreen)
+	if (!currentScreen)
 		return;
 	currentScreen->drawBackground();
 	currentScreen->drawObject();
 	currentScreen->drawForeground();
 
-	if(selectingItems)
+	if (selectingItems)
 		draw->fadeRect(0x40,selectionRectangleColor,
-					   selectionRectangle.x(),
-					   selectionRectangle.y(),
-					   selectionRectangle.width(),
-					   selectionRectangle.height());
+		               selectionRectangle.x(),
+		               selectionRectangle.y(),
+		               selectionRectangle.width(),
+		               selectionRectangle.height());
 
-	foreach(ScreenElement *el, selectedItems)
+	foreach(ScreenElement *el, selectedItems) {
 		showSelection(el,selectionColor);
+	}
 }
 
 void GameDisplayer::inputFunction()
 {
 	//if(animated)
-		currentScreen->nextFrame();
+	currentScreen->nextFrame();
 	//if(animated_moving)
-		currentScreen->updatePositions();
+	currentScreen->updatePositions();
 }
 
 bool GameDisplayer::posContainsSelection(QPoint pos)
 {
 	ScreenElement* el;
 
-	foreach(el, selectedItems)
-	{
+	foreach(el, selectedItems) {
 		if (QRect(el->x(),el->y(),el->width(),el->height()).contains(pos))
 			return true;
 	}
@@ -121,37 +122,32 @@ bool GameDisplayer::posContainsSelection(QPoint pos)
 void GameDisplayer::mousePressEvent(QMouseEvent *event)
 {
 	event->ignore();
-	if(event->button() == Qt::MidButton
-		|| (event->button() == Qt::LeftButton && event->modifiers() & Qt::ShiftModifier)
-		|| (event->button() == Qt::LeftButton && posContainsSelection(getInsidePosition(event->pos()))))
-	{
-		if(!displayWidget->isAncestorOf(childAt(event->pos())))
+	if (event->button() == Qt::MidButton
+	    || (event->button() == Qt::LeftButton && event->modifiers() & Qt::ShiftModifier)
+	    || (event->button() == Qt::LeftButton && posContainsSelection(getInsidePosition(event->pos())))) {
+		if (!displayWidget->isAncestorOf(childAt(event->pos())))
 			return;
 		processMove(getInsidePosition(event->pos()));
-		if(movingItem)
+		if (movingItem)
 			event->accept();
-	}
-	else if(currentScreen != NULL && event->button() == Qt::LeftButton)
-	{
+	} else if (currentScreen != NULL && event->button() == Qt::LeftButton) {
 		selectionStart = getInsidePosition(event->pos());
 		selectionRectangle = QRect(selectionStart,QSize(1,1));
 		selectingItems = true;
 
-		foreach(ScreenElement *el,selectedItems)
+		foreach(ScreenElement *el,selectedItems) {
 			emit itemUnselected(currentScreen,el);
+		}
 
-		if(!(event->modifiers() & Qt::ControlModifier))
+		if (!(event->modifiers() & Qt::ControlModifier))
 			selectedItems.clear();
 		previousSelection = selectedItems;
 
 		updateSelection(getInsidePosition(event->pos()));
 
 		event->accept();
-	}
-	else if(event->button() == Qt::RightButton)
-	{
-		if(selectedItems.size() > 0)
-		{
+	} else if (event->button() == Qt::RightButton) {
+		if (selectedItems.size() > 0) {
 			QMenu menu(this);
 			menu.addAction(deleteAction);
 			menu.addAction(lockAction);
@@ -164,25 +160,22 @@ void GameDisplayer::mousePressEvent(QMouseEvent *event)
 void GameDisplayer::mouseMoveEvent(QMouseEvent *event)
 {
 	event->ignore();
-	if(movingItem)
-	{
+	if (movingItem) {
 		QPoint insidePos = getInsidePosition(event->pos());
 		int i;
 
-		for(i=0;i<selectedItems.size(); i++)
-		{
+		for (i=0; i<selectedItems.size(); i++) {
 			ScreenElement *el = selectedItems[i];
 			const QPoint &pos = initialPositions[i];
 
 			QPoint newPos = insidePos - pos;
 			el->setPosition(newPos.x(), newPos.y());
 
-			if(selectedItems.size()==1)
+			if (selectedItems.size()==1)
 				emit itemChanged(currentScreen,el);
 		}
 	}
-	if(selectingItems)
-	{
+	if (selectingItems) {
 		updateSelection(getInsidePosition(event->pos()));
 	}
 	GLWrapper::mouseMoveEvent(event);
@@ -191,20 +184,17 @@ void GameDisplayer::mouseMoveEvent(QMouseEvent *event)
 void GameDisplayer::mouseReleaseEvent(QMouseEvent *event)
 {
 	event->ignore();
-	if(movingItem)
-	{
+	if (movingItem) {
 		movingItem = false;
 		event->accept();
 		QApplication::restoreOverrideCursor();
 	}
-	if(selectingItems)
-	{
+	if (selectingItems) {
 		QPoint newPos = getInsidePosition(event->pos());
-		if((selectionRectangle.topLeft() - selectionRectangle.bottomRight()).manhattanLength() < 3)
-		{
-		/*
-			Selecting only one item !
-		*/
+		if ((selectionRectangle.topLeft() - selectionRectangle.bottomRight()).manhattanLength() < 3) {
+			/*
+				Selecting only one item !
+			*/
 
 			QPoint pos = newPos;
 			QMenu menu(this);
@@ -219,13 +209,11 @@ void GameDisplayer::mouseReleaseEvent(QMouseEvent *event)
 
 			selectedItems = previousSelection;
 
-			for(it = currentScreen->elements.begin(); it != currentScreen->elements.end(); it++)
-			{
+			for (it = currentScreen->elements.begin(); it != currentScreen->elements.end(); it++) {
 				el = it->second;
-				if(!el->locked &&
-				   x >= el->x() && x < el->x() + el->width() &&
-				   y >= el->y() && y < el->y() + el->height())
-				{
+				if (!el->locked &&
+				    x >= el->x() && x < el->x() + el->width() &&
+				    y >= el->y() && y < el->y() + el->height()) {
 					name = QString::fromStdString(el->getName());
 					QAction *act = menu.addAction(name);
 					act->setData(QVariant::fromValue((void*)el));
@@ -234,24 +222,21 @@ void GameDisplayer::mouseReleaseEvent(QMouseEvent *event)
 				}
 			}
 
-			if(numItems > 1)
-			{
+			if (numItems > 1) {
 				QAction *act = menu.exec(QCursor::pos());
-				if(act == NULL)
+				if (act == NULL)
 					selected = NULL; /* simulate "nothing found at cursor" */
 				else
 					selected = (ScreenElement*)act->data().value<void*>();
 			}
 
-			if(selected)
-			{
-				if(selectedItems.contains(selected))
+			if (selected) {
+				if (selectedItems.contains(selected))
 					selectedItems.removeAll(selected);
 				else
 					selectedItems.append(selected);
 			}
-		}
-		else
+		} else
 			updateSelection(newPos);
 		selectingItems = false;
 	}
@@ -262,18 +247,14 @@ void GameDisplayer::dragEnterEvent(QDragEnterEvent *event)
 {
 	const QMimeData *data = event->mimeData();
 
-	if(data->hasFormat(mime::Screen))
-	{
-		if(event->possibleActions() & Qt::MoveAction)
-		{
+	if (data->hasFormat(mime::Screen)) {
+		if (event->possibleActions() & Qt::MoveAction) {
 			event->setDropAction(Qt::MoveAction);
 			event->accept();
 		}
 	}
-	if(currentScreen && data->hasFormat(mime::Object))
-	{
-		if(event->possibleActions() & Qt::CopyAction)
-		{
+	if (currentScreen && data->hasFormat(mime::Object)) {
+		if (event->possibleActions() & Qt::CopyAction) {
 			event->setDropAction(Qt::CopyAction);
 			event->accept();
 		}
@@ -283,8 +264,7 @@ void GameDisplayer::dragEnterEvent(QDragEnterEvent *event)
 void GameDisplayer::dropEvent(QDropEvent *event)
 {
 	const QMimeData *data = event->mimeData();
-	if(data->hasFormat(mime::Screen))
-	{
+	if (data->hasFormat(mime::Screen)) {
 		QByteArray encodedData = data->data(mime::Screen);
 		QDataStream stream(&encodedData, QIODevice::ReadOnly);
 		Screen *screen;
@@ -298,10 +278,8 @@ void GameDisplayer::dropEvent(QDropEvent *event)
 
 		event->setDropAction(Qt::MoveAction);
 		event->accept();
-	}
-	else if(currentScreen && data->hasFormat(mime::Object))
-	{
-		if(!displayWidget->isAncestorOf(childAt(event->pos())))
+	} else if (currentScreen && data->hasFormat(mime::Object)) {
+		if (!displayWidget->isAncestorOf(childAt(event->pos())))
 			return;
 		QByteArray encodedData = data->data(mime::Identifier);
 		QDataStream stream(&encodedData, QIODevice::ReadOnly);
@@ -313,14 +291,12 @@ void GameDisplayer::dropEvent(QDropEvent *event)
 		nm.setName(name);
 		QApplication::setOverrideCursor(Qt::ArrowCursor);
 		//nm.setText(name);
-		if(nm.exec() == QDialog::Accepted && nm.text().size() > 0)
-		{
+		if (nm.exec() == QDialog::Accepted && nm.text().size() > 0) {
 			std::string stlString = nm.text().toStdString();
 
 			QPoint pos = getInsidePosition(event->pos());
 
-			try
-			{
+			try {
 				FileReader fr(name.toLatin1().data());
 				ScreenElement *el = new ScreenElement(fr,stlString);
 
@@ -332,11 +308,9 @@ void GameDisplayer::dropEvent(QDropEvent *event)
 				event->accept();
 
 				emit objectCreated(currentScreen,el);
-			}
-			catch(exception &e)
-			{
+			} catch (exception &e) {
 				QMessageBox::warning(this, tr("Yggdrasil Editor"),
-									tr(e.what()));
+				                     tr(e.what()));
 			}
 		}
 		QApplication::restoreOverrideCursor();
@@ -346,10 +320,10 @@ void GameDisplayer::dropEvent(QDropEvent *event)
 
 void GameDisplayer::loadScreen(game::Screen *screen)
 {
-	if(currentScreen != screen)
-	{
-		foreach(ScreenElement *el, selectedItems)
+	if (currentScreen != screen) {
+		foreach(ScreenElement *el, selectedItems) {
 			emit itemUnselected(currentScreen,el);
+		}
 		selectedItems.clear();
 	}
 	currentScreen = screen;
@@ -360,26 +334,25 @@ void GameDisplayer::loadScreen(game::Screen *screen)
 
 void GameDisplayer::closeScreen(game::Screen *screen)
 {
-	if(currentScreen == screen)
+	if (currentScreen == screen)
 		loadScreen(NULL);
 }
 
 void GameDisplayer::selectItem(game::Screen *screen, const QString &elName)
 {
-	if(!screen)
+	if (!screen)
 		return;
 
 	std::string name = elName.toStdString();
 	ScreenElement *scrEl = screen->elements[name];
 
-	if(!scrEl)
-	{
+	if (!scrEl) {
 		QMessageBox::warning(this, tr("Application"),
-							 tr("Element named %1 was not found in the screen.").arg(elName));
+		                     tr("Element named %1 was not found in the screen.").arg(elName));
 		return;
 	}
 
-	if(currentScreen != screen)
+	if (currentScreen != screen)
 		loadScreen(screen);
 
 	selectedItems.clear();
@@ -402,8 +375,7 @@ void GameDisplayer::updateSelection(const QPoint &newPos)
 
 	selectionRectangle = QRect(QPoint(x1,y1),QSize(x2-x1+1,y2-y1+1));
 
-	if((selectionRectangle.topLeft() - selectionRectangle.bottomRight()).manhattanLength() < 3)
-	{
+	if ((selectionRectangle.topLeft() - selectionRectangle.bottomRight()).manhattanLength() < 3) {
 
 	}
 	QList<game::ScreenElement*> currentSelection = selectedItems;
@@ -413,22 +385,19 @@ void GameDisplayer::updateSelection(const QPoint &newPos)
 
 	std::map<std::string, ScreenElement *>::iterator it;
 
-	for(it = currentScreen->elements.begin(); it != currentScreen->elements.end(); it++)
-	{
+	for (it = currentScreen->elements.begin(); it != currentScreen->elements.end(); it++) {
 		el = it->second;
-		if(!el->locked &&
-			selectionRectangle.intersects(QRect(el->x(),el->y(),el->width(),el->height())))
-		{
-			if(previousSelection.contains(el))
+		if (!el->locked &&
+		    selectionRectangle.intersects(QRect(el->x(),el->y(),el->width(),el->height()))) {
+			if (previousSelection.contains(el))
 				selectedItems.removeAll(el);
 			else
 				selectedItems.append(el);
 		}
 	}
 
-	if(selectedItems != currentSelection)
-	{
-		if(selectedItems.size() == 1)
+	if (selectedItems != currentSelection) {
+		if (selectedItems.size() == 1)
 			emit itemSelected(currentScreen,selectedItems[0]);
 		else
 			emit itemUnselected(currentScreen, NULL);
@@ -438,22 +407,19 @@ void GameDisplayer::updateSelection(const QPoint &newPos)
 void GameDisplayer::processMove(const QPoint &inPos)
 {
 	bool needMove = false;
-	foreach(ScreenElement *el,selectedItems)
-	{
-		if(	inPos.x() >= el->x() && inPos.x() < el->x() + el->width() &&
-			inPos.y() > el->y() && inPos.y() <= el->y() + el->height())
-		{
+	foreach(ScreenElement *el,selectedItems) {
+		if (inPos.x() >= el->x() && inPos.x() < el->x() + el->width() &&
+		    inPos.y() > el->y() && inPos.y() <= el->y() + el->height()) {
 			needMove = true;
 			break;
 		}
 	}
 
 	initialPositions.clear();
-	if(!needMove)
+	if (!needMove)
 		return;
 
-	for(int i=0;i<selectedItems.size();i++)
-	{
+	for (int i=0; i<selectedItems.size(); i++) {
 		ScreenElement *el = selectedItems[i];
 
 		initialPositions.append(inPos - QPoint(el->x(),el->y()));
@@ -464,8 +430,7 @@ void GameDisplayer::processMove(const QPoint &inPos)
 
 void GameDisplayer::keyPressEvent(QKeyEvent *event)
 {
-	if(event->key() == Qt::Key_Delete)
-	{
+	if (event->key() == Qt::Key_Delete) {
 		deleteSelected();
 		return;
 	}
@@ -476,12 +441,10 @@ void GameDisplayer::keyPressEvent(QKeyEvent *event)
 
 void GameDisplayer::removeItem(game::Screen *pScr, game::ScreenElement *pEl)
 {
-	if(currentScreen == pScr)
-	{
-		if(selectedItems.contains(pEl))
-		{
+	if (currentScreen == pScr) {
+		if (selectedItems.contains(pEl)) {
 			selectedItems.removeAll(pEl);
-			if(selectedItems.size() == 0)
+			if (selectedItems.size() == 0)
 				emit itemUnselected(currentScreen,pEl);
 		}
 	}
@@ -490,8 +453,7 @@ void GameDisplayer::removeItem(game::Screen *pScr, game::ScreenElement *pEl)
 
 void GameDisplayer::deleteSelected()
 {
-	while(selectedItems.size() > 0)
-	{
+	while (selectedItems.size() > 0) {
 		ScreenElement *el = selectedItems.takeFirst();
 
 		emit objectRemoved(currentScreen,el);
@@ -502,8 +464,7 @@ void GameDisplayer::deleteSelected()
 void GameDisplayer::lockSelected()
 {
 	ScreenElement *el;
-	foreach(el, selectedItems)
-	{
+	foreach(el, selectedItems) {
 		el->locked = true;
 
 		emit itemChanged(currentScreen, el);
@@ -512,4 +473,3 @@ void GameDisplayer::lockSelected()
 
 
 }
-

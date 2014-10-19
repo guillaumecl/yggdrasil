@@ -27,29 +27,30 @@
 /**
  *	@author Lightning Flik <flik@baobob.org>
  */
-class FileReader{
+class FileReader
+{
 public:
-    FileReader(const char *fileName);
+	FileReader(const char *fileName);
 
-    ~FileReader();
-	
-	std::string getString( const char *section, const char *varName, const char *defValue);
+	~FileReader();
+
+	std::string getString(const char *section, const char *varName, const char *defValue);
 	int getInt(const char *section, const char *varName, int defValue);
 	bool hasSection(const char *section) const;
 	bool hasVariable(const char *section, const char *varName);
-	
+
 	const std::string fileName() const;
 	const std::string directory() const;
-	
+
 private:
-	FileReader(FileReader&);
-	FileReader& operator=(FileReader&);
-	
+	FileReader(FileReader &);
+	FileReader &operator=(FileReader &);
+
 	bool goToSection(const char *section);
 	std::ifstream file;
 	std::map<std::string, int> sections;
 	std::string m_fileName;
-	
+
 	static std::string trim(std::string scr);
 };
 

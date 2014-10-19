@@ -29,20 +29,21 @@ namespace game
  * What to do at a specific frame of the action. This includes the movements and the delay until next frame.
  * @author Lightning Flik <flik@baobob.org>
 */
-class ActionFrame{
+class ActionFrame
+{
 public:
 	/**
 	 * Default constructor for ActionFrame
 	 */
 	ActionFrame(const ActionFrame &defaultAction, FileReader &confFile, const char *sectionName);
 	ActionFrame();
-	
+
 	int move_forward;	/* Movement to the direction of the char (backwards if negative) */
-	
+
 	int move_right;		/* Movement to the right of the char (to the left if negative) */
-	
+
 	int move_height;	/* Movement of the char in the Z axis (for jumps) */
-	
+
 	int rotate_right;	/* Number of rotations of 45� to the right (to the left if negative) */
 
 	int frameDelay;		/* Delay before the next frame */

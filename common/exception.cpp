@@ -35,20 +35,20 @@ BaseException::BaseException(string reason, int severity) :
 	m_reason(reason),
 	m_severity(severity)
 {
-	if(severity == 0)
+	if (severity == 0)
 		return;
-	else if(severity <= 2)
+	else if (severity <= 2)
 		log() << m_reason;
-	else if(severity < 10)
+	else if (severity < 10)
 		warning() << m_reason;
-	else if(severity < 20)
+	else if (severity < 20)
 		error() << m_reason;
 	else
 		fatal() << m_reason;
 }
 
 BaseException::~BaseException()
-	throw()
+throw()
 {
 }
 

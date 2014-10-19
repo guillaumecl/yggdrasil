@@ -28,9 +28,11 @@
 #include "screenitemproperties.h"
 #include "actionproperties.h"
 
-namespace editor {
+namespace editor
+{
 
-namespace property {
+namespace property
+{
 
 /**
 	@author flik <flik@baobob.org>

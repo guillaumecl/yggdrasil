@@ -24,15 +24,17 @@
 
 using game::Screen;
 
-namespace editor {
+namespace editor
+{
 
-namespace property {
+namespace property
+{
 
 ScreenProperties::ScreenProperties(QWidget *parent) :
 	PropertyTree(parent)
 {
 	PropertyItem *section = insertSection(tr("Screen"));
-	
+
 	width = new PropertyItem(0);
 	height = new PropertyItem(0);
 	section->appendRow(tr("width"), width);
@@ -47,28 +49,28 @@ ScreenProperties::~ScreenProperties()
 void ScreenProperties::sync(void *item)
 {
 	Screen *scr = static_cast<Screen*>(item);
-	if(!scr)
+	if (!scr)
 		return;
-	
+
 	/* This disables updating during the sync. (i.e. don't do itemUpdated) */
 	current = NULL;
-	
+
 	width->set(scr->width());
 	height->set(scr->height());
-	
+
 	current = scr;
 }
 
 void ScreenProperties::itemUpdated(PropertyItem *item)
 {
-	if(!current)
+	if (!current)
 		return;
-	
-	if(item == width)
+
+	if (item == width)
 		current->setWidth(width->get().toInt());
-	else if(item == height)
+	else if (item == height)
 		current->setHeight(height->get().toInt());
-	
+
 	emit screenUpdated(current);
 }
 

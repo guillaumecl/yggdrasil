@@ -82,8 +82,8 @@ private:
 	void setType(ObjectItem *it, int type);
 	int getType(ObjectItem *it);
 
-	ObjectItem *itemAt(const QPoint&);
-	ObjectItem *itemAt(const QModelIndex&);
+	ObjectItem *itemAt(const QPoint &);
+	ObjectItem *itemAt(const QModelIndex &);
 
 	QStandardItemModel *itemModel;
 	ItemFilter *filterModel;
@@ -94,7 +94,7 @@ private:
 	void scanObject(ObjectItem *obj);
 
 protected:
-	void mouseDoubleClickEvent (QMouseEvent *event);
+	void mouseDoubleClickEvent(QMouseEvent *event);
 	void mousePressEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
 	void currentChanged(const QModelIndex &selected, const QModelIndex &previous);

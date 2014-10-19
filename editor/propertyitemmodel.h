@@ -23,7 +23,8 @@
 #include <QStandardItemModel>
 #include "propertyitem.h"
 
-namespace editor {
+namespace editor
+{
 
 namespace property
 {
@@ -41,18 +42,18 @@ class PropertyItemModel : public QStandardItemModel
 {
 	Q_OBJECT
 public:
-    PropertyItemModel(QObject *parent=0);
+	PropertyItemModel(QObject *parent=0);
 
-    ~PropertyItemModel();
-	
+	~PropertyItemModel();
+
 	PropertyItem *item(int row, int column = 0) const;
-	PropertyItem *itemFromIndex (const QModelIndex & index) const;
-	
+	PropertyItem *itemFromIndex(const QModelIndex &index) const;
+
 	virtual void appendRow(PropertyItem *value);
 	virtual void appendRow(const QString &propertyName, PropertyItem *value);
 	virtual void appendRow(PropertyItem *label, PropertyItem *value);
-	
-	PropertyItem *takeItem (int row, int column = 0);
+
+	PropertyItem *takeItem(int row, int column = 0);
 };
 
 }

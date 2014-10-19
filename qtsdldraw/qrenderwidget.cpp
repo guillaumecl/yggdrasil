@@ -28,19 +28,17 @@ QRenderWidget::~QRenderWidget()
 	SDL_Quit();
 }
 
-void QRenderWidget::paintEvent (QPaintEvent *event)
+void QRenderWidget::paintEvent(QPaintEvent *event)
 {
 
 }
 
-void QRenderWidget::resizeEvent (QResizeEvent *event)
+void QRenderWidget::resizeEvent(QResizeEvent *event)
 {
 	core::Core::getDrawManager()->initGraphics(width(), height());
-	if(windowInitialized)
-	{
+	if (windowInitialized) {
 		screen = SDL_SetVideoMode(width(), height(), 32, SDL_SWSURFACE);
-		if (!screen)
-		{
+		if (!screen) {
 			log() << "Couldn't set video mode: " << SDL_GetError() << std::endl;
 		}
 	}
@@ -48,8 +46,7 @@ void QRenderWidget::resizeEvent (QResizeEvent *event)
 
 void QRenderWidget::showEvent(QShowEvent *e)
 {
-	if(!windowInitialized)
-	{
+	if (!windowInitialized) {
 		// C'est ici qu'on dis à SDL d'utiliser notre widget
 		char windowid[64];
 		WId windowIdNumber = winId();
@@ -62,15 +59,13 @@ void QRenderWidget::showEvent(QShowEvent *e)
 		SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_NOPARACHUTE);
 
 		// Initialisation du système vidéo de SDL
-		if((SDL_Init(SDL_INIT_VIDEO) == -1))
-		{
+		if ((SDL_Init(SDL_INIT_VIDEO) == -1)) {
 			log() << "Could not initialize SDL: " << SDL_GetError() << std::endl;
 		}
 
 		IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 		screen = SDL_SetVideoMode(width(), height(), 32, SDL_SWSURFACE);
-		if (!screen)
-		{
+		if (!screen) {
 			log() << "Couldn't set video mode: " << SDL_GetError() << std::endl;
 		}
 		windowInitialized = true;

@@ -23,7 +23,8 @@
 #include "drawmanager.h"
 #include <QPixmap>
 
-namespace draw {
+namespace draw
+{
 
 /**
 	@author Lightning Flik <flik@baobob.org>

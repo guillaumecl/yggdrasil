@@ -38,7 +38,7 @@ using std::string;
 #ifdef WIN32
 
 Plugin::Plugin(const char *file) :
-		hinstDLL(NULL)
+	hinstDLL(NULL)
 {
 	string sFile(file);
 
@@ -46,7 +46,7 @@ Plugin::Plugin(const char *file) :
 
 	hinstDLL=LoadLibraryA(sFile.c_str());
 
-	if(!hinstDLL)
+	if (!hinstDLL)
 		throw LoadException("LoadLibrary",sFile.c_str());
 
 	log() << "Loading plugin \"" << name() << "\" which is a " << type() << " plugin written by " << author() << ".\n\n Information on this plugin : \n" << description();
@@ -54,7 +54,7 @@ Plugin::Plugin(const char *file) :
 
 Plugin::~Plugin()
 {
-	if(hinstDLL)
+	if (hinstDLL)
 		FreeLibrary(hinstDLL);
 }
 
@@ -82,27 +82,27 @@ Plugin::Plugin(const char *file) :
 {
 	string sFile(file);
 
-	if(sFile[0] != '/')
+	if (sFile[0] != '/')
 		sFile = string("./lib") + sFile;
 
 	sFile += ".so";
 
 	dlerror();
 	handler = dlopen(sFile.c_str(), RTLD_LAZY);
-	if(handler == NULL)
+	if (handler == NULL)
 		throw LoadException(dlerror(),sFile.c_str());
 	log() << "Loading plugin \"" << name() << "\" which is a " << type() << " plugin written by " << author() << ".\n\n Information on this plugin : \n" << description() << "\n";
 }
 
 Plugin::~Plugin()
 {
-	if(handler)
+	if (handler)
 		dlclose(handler);
 }
 
 void *Plugin::call0(const char *funcName)
 {
-/* clear the dl error status */
+	/* clear the dl error status */
 	dlerror();
 	PVoidFunc func = (PVoidFunc) dlsym(handler, funcName);
 	const char *dlsym_error = dlerror();
@@ -113,7 +113,7 @@ void *Plugin::call0(const char *funcName)
 
 void *Plugin::call1(const char *funcName, void *param)
 {
-/* clear the dl error status */
+	/* clear the dl error status */
 	dlerror();
 	PVoidFunc1 func = (PVoidFunc1) dlsym(handler, funcName);
 	const char *dlsym_error = dlerror();

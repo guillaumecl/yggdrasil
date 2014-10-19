@@ -72,7 +72,7 @@ public:
 	/**
 	 * @brief Image destructor
 	 */
-	virtual ~Image(){}
+	virtual ~Image() {}
 };
 
 
@@ -155,11 +155,11 @@ public:
 	/**
 	 * Default (unused) constructor. If removed, some compilers won't compile.
 	 */
-	DrawManager(){};
+	DrawManager() {};
 	/**
 	 *	@brief Destructor for the Draw Manager
 	 */
-	virtual ~DrawManager(){}
+	virtual ~DrawManager() {}
 
 	/**
 	 * 	Returns the specified image. If the image wasn't loaded yet, this function loads it.
