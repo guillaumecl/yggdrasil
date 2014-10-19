@@ -118,7 +118,7 @@ void ObjectDisplayer::dropEvent(QDropEvent *event)
 	if (data->hasFormat(mime::Object)) {
 		QByteArray encodedData = data->data(mime::Object);
 		QDataStream stream(&encodedData, QIODevice::ReadOnly);
-		quint32 t;
+		quintptr t;
 
 		stream >> t;
 

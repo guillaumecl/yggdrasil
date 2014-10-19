@@ -37,8 +37,8 @@ FileReader::FileReader(const char *fileName) :
 		Build the section list.
 	*/
 	while (getline(file,line)) {
-		unsigned int begin = line.find_first_not_of(" 	");
-		unsigned int end = line.find_last_of(']');
+		size_t begin = line.find_first_not_of(" 	");
+		size_t end = line.find_last_of(']');
 		if (begin != string::npos && line[begin] == '[' && end != string::npos) {
 			/*
 				This is a section.
@@ -76,8 +76,8 @@ string FileReader::getString(const char *section, const char *varName, const cha
 		return defValue;
 
 	while (getline(file,line)) {
-		unsigned int begin = line.find_first_not_of(" 	");
-		unsigned int end = line.find_first_of('=',begin);
+		size_t begin = line.find_first_not_of(" 	");
+		size_t end = line.find_first_of('=',begin);
 
 		if (begin != string::npos && line[begin] == '[') {
 			/*
@@ -90,7 +90,7 @@ string FileReader::getString(const char *section, const char *varName, const cha
 				This is a variable name.
 			*/
 			string variableName = line.substr(begin,end);
-			unsigned int realEnd = variableName.find_last_not_of(" 	");
+			size_t realEnd = variableName.find_last_not_of(" 	");
 			if (realEnd != string::npos)
 				variableName = variableName.substr(0,realEnd+1);
 

@@ -228,7 +228,7 @@ void ObjectTree::mouseMoveEvent(QMouseEvent *event)
 	QByteArray encodedData;
 	QDataStream stream(&encodedData, QIODevice::WriteOnly);
 
-	stream << (quint32)scrEl;
+	stream << (quintptr)scrEl;
 	data->setData(mime::Object, encodedData);
 
 	QDataStream streamId(&encodedData,QIODevice::WriteOnly);

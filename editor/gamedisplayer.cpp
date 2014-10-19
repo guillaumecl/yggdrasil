@@ -268,7 +268,7 @@ void GameDisplayer::dropEvent(QDropEvent *event)
 		QByteArray encodedData = data->data(mime::Screen);
 		QDataStream stream(&encodedData, QIODevice::ReadOnly);
 		Screen *screen;
-		quint32 t;
+		quintptr t;
 
 		stream >> t;
 
