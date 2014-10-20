@@ -54,6 +54,7 @@ public:
 
 protected:
 	void closeEvent(QCloseEvent *event);
+	void contextMenuEvent(QContextMenuEvent *event);
 
 private slots:
 	void on_fileNew_triggered();

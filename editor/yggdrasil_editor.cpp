@@ -25,6 +25,7 @@
 #include <QTextEdit>
 #include <QTextStream>
 #include <QCloseEvent>
+#include <QContextMenuEvent>
 #include <QFileDialog>
 
 #include "common/archiver.h"
@@ -110,6 +111,16 @@ void yggdrasil_editor::closeEvent(QCloseEvent *event)
 	} else {
 		event->ignore();
 	}
+}
+
+void yggdrasil_editor::contextMenuEvent(QContextMenuEvent *event)
+{
+	QMenu popup;
+
+	popup.addMenu(menuDocks);
+	popup.addMenu(menuToolbars);
+
+	popup.exec(event->globalPos());
 }
 
 void yggdrasil_editor::on_fileNew_triggered()
