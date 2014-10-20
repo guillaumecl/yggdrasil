@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Main</class>
- <widget class="QMainWindow" name="Main">
+ <class>yggdrasil_editor</class>
+ <widget class="QMainWindow" name="yggdrasil_editor">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -95,7 +95,7 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>false</bool>
+    <bool>true</bool>
    </attribute>
    <addaction name="fileNew"/>
    <addaction name="fileOpen"/>
@@ -268,6 +268,17 @@
     <string>E&amp;xit</string>
    </property>
   </action>
+  <action name="lockToolBars">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Lock toolbars</string>
+   </property>
+   <property name="toolTip">
+    <string>Lock the toolbars</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="resources/application.qrc"/>
@@ -276,7 +287,7 @@
   <connection>
    <sender>fileExit</sender>
    <signal>triggered()</signal>
-   <receiver>Main</receiver>
+   <receiver>yggdrasil_editor</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

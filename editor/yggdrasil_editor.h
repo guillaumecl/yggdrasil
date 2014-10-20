@@ -43,7 +43,7 @@ class QTextEdit;
 namespace editor
 {
 
-class yggdrasil_editor:public QMainWindow, public Ui_Main
+class yggdrasil_editor:public QMainWindow, public Ui_yggdrasil_editor
 {
 	Q_OBJECT
 
@@ -60,6 +60,7 @@ private slots:
 	void on_fileOpen_triggered();
 	bool on_fileSave_triggered();
 	bool on_fileSaveAs_triggered();
+	void on_lockToolBars_toggled(bool);
 	void onMouseMoved(const QPoint &newPos);
 	void viewScreen();
 	void viewObject();

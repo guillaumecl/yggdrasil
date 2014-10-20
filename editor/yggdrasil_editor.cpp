@@ -63,6 +63,8 @@ yggdrasil_editor::yggdrasil_editor() :
 	menuToolbars->addAction(fileToolBar->toggleViewAction());
 	menuToolbars->addAction(editToolBar->toggleViewAction());
 	menuToolbars->addAction(typeToolBar->toggleViewAction());
+	menuToolbars->addSeparator();
+	menuToolbars->addAction(lockToolBars);
 
 	QPalette palette = menuBar()->palette();
 	palette.setColor(QPalette::Button, menuToolBar->palette().color(QPalette::Window));
@@ -155,6 +157,7 @@ void yggdrasil_editor::readSettings()
 
 	restoreGeometry(settings.value("geometry").toByteArray());
 	restoreState(settings.value("windowState").toByteArray());
+	lockToolBars->setChecked(settings.value("toolBars/locked").toBool());
 
 	currentGameDirectory = settings.value("currentGameDirectory", ".").toString();
 	QDir::setCurrent(currentGameDirectory);
@@ -169,6 +172,7 @@ void yggdrasil_editor::writeSettings()
 	settings.setValue("geometry", saveGeometry());
 	settings.setValue("windowState", saveState());
 	settings.setValue("currentGameDirectory", currentGameDirectory);
+	settings.setValue("toolBars/locked", lockToolBars->isChecked());
 }
 
 bool yggdrasil_editor::maybeSave()
@@ -347,6 +351,14 @@ void yggdrasil_editor::connectSignals()
 	connect(objectTree,SIGNAL(loadObject(game::ScreenElement*)),this,SLOT(viewObject()));
 
 	connect(objectTree,SIGNAL(actionSelected(game::ScreenElement*, game::Action*)),propertyWidget,SLOT(selectAction(game::ScreenElement*,game::Action*)));
+
+}
+
+void yggdrasil_editor::on_lockToolBars_toggled(bool locked)
+{
+	foreach(QToolBar *tb, findChildren<QToolBar*>()) {
+		tb->setMovable(not locked);
+	}
 }
 
 
