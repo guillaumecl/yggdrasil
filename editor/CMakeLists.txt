@@ -42,7 +42,7 @@ set(yggdrasil_editor_UIS
 QT4_WRAP_UI(UIS ${yggdrasil_editor_UIS})
 
 set(yggdrasil_editor_RSCS
-  application.qrc
+  resources/application.qrc
 )
 
 QT4_ADD_RESOURCES(RSCS ${yggdrasil_editor_RSCS})
