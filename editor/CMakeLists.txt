@@ -17,7 +17,6 @@ set(yggdrasil_editor_SRCS
   objectitem.cpp
   filterwidget.cpp
   itemfilter.cpp
-  objectdockwidget.cpp
   propertytree.cpp
   propertyitemmodel.cpp
   propertyitem.cpp
@@ -58,7 +57,6 @@ set(yggdrasil_editor_MOCS
   objecttree.h
   namechoose.h
   filterwidget.h
-  objectdockwidget.h
   propertytree.h
   propertyitemmodel.h
   objectdisplayer.h
