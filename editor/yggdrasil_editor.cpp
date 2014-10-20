@@ -59,9 +59,15 @@ yggdrasil_editor::yggdrasil_editor() :
 	menuDocks->addAction(dockProperties->toggleViewAction());
 	menuDocks->addAction(dockLog->toggleViewAction());
 
+	menuToolbars->addAction(menuToolBar->toggleViewAction());
 	menuToolbars->addAction(fileToolBar->toggleViewAction());
 	menuToolbars->addAction(editToolBar->toggleViewAction());
 	menuToolbars->addAction(typeToolBar->toggleViewAction());
+
+	QPalette palette = menuBar()->palette();
+	palette.setColor(QPalette::Button, menuToolBar->palette().color(QPalette::Window));
+	menuToolBar->setPalette(palette);
+	menuToolBar->addWidget(menuBar());
 
 	ScreenDockWidget *scrDock = new ScreenDockWidget(dockScreen);
 	screenTree = scrDock->screenTree();
