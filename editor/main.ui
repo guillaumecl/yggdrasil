@@ -23,7 +23,7 @@
      <x>0</x>
      <y>0</y>
      <width>567</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -189,7 +189,7 @@
   </widget>
   <action name="fileNew">
    <property name="icon">
-    <iconset resource="application.qrc">
+    <iconset resource="resources/application.qrc">
      <normaloff>:/filenew.xpm</normaloff>:/filenew.xpm</iconset>
    </property>
    <property name="text">
@@ -198,7 +198,7 @@
   </action>
   <action name="fileOpen">
    <property name="icon">
-    <iconset resource="application.qrc">
+    <iconset resource="resources/application.qrc">
      <normaloff>:/fileopen.xpm</normaloff>:/fileopen.xpm</iconset>
    </property>
    <property name="text">
@@ -207,7 +207,7 @@
   </action>
   <action name="fileSave">
    <property name="icon">
-    <iconset resource="application.qrc">
+    <iconset resource="resources/application.qrc">
      <normaloff>:/filesave.xpm</normaloff>:/filesave.xpm</iconset>
    </property>
    <property name="text">
@@ -221,7 +221,7 @@
   </action>
   <action name="editCut">
    <property name="icon">
-    <iconset resource="application.qrc">
+    <iconset resource="resources/application.qrc">
      <normaloff>:/editcut.xpm</normaloff>:/editcut.xpm</iconset>
    </property>
    <property name="text">
@@ -230,7 +230,7 @@
   </action>
   <action name="editCopy">
    <property name="icon">
-    <iconset resource="application.qrc">
+    <iconset resource="resources/application.qrc">
      <normaloff>:/editcopy.xpm</normaloff>:/editcopy.xpm</iconset>
    </property>
    <property name="text">
@@ -239,7 +239,7 @@
   </action>
   <action name="editPaste">
    <property name="icon">
-    <iconset resource="application.qrc">
+    <iconset resource="resources/application.qrc">
      <normaloff>:/editpaste.xpm</normaloff>:/editpaste.xpm</iconset>
    </property>
    <property name="text">
@@ -253,7 +253,7 @@
   </action>
  </widget>
  <resources>
-  <include location="application.qrc"/>
+  <include location="resources/application.qrc"/>
  </resources>
  <connections>
   <connection>
