@@ -1,12 +1,11 @@
 project(yggdrasil_editor)
-cmake_minimum_required(VERSION 2.6)
+
 find_package(Qt4 REQUIRED)
 include (${QT_USE_FILE})
 include_directories(
-	${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}
-	${QT_QTCORE_INCLUDE_DIR} ${QT_QTGUI_INCLUDE_DIR} ${QT_QTOPENGL_INCLUDE_DIR}
+  ${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}
+  ${QT_QTCORE_INCLUDE_DIR} ${QT_QTGUI_INCLUDE_DIR}
 )
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
 set(yggdrasil_editor_SRCS
   yggdrasil_editor.cpp
@@ -77,7 +76,7 @@ set(yggdrasil_editor_MOCS
 QT4_WRAP_CPP(MOCS ${yggdrasil_editor_MOCS})
 
 add_executable(yggdrasil_editor ${yggdrasil_editor_SRCS} ${UIS} ${RSCS} ${TRS} ${MOCS})
-target_link_libraries(yggdrasil_editor ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${QT_QTOPENGL_LIBRARY}
+target_link_libraries(yggdrasil_editor ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY}
   common
   game
 )

@@ -1,5 +1,7 @@
 cmake_minimum_required( VERSION 2.6 )
 
+include_directories(${CMAKE_SOURCE_DIR})
+
 set(game_SRCS
   action.cpp
   actionframe.cpp

@@ -4,3 +4,6 @@ Makefile
 data/yggdrasil_editor
 *.pro.user
 build
+GPATH
+GRTAGS
+GTAGS

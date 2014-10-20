@@ -25,7 +25,6 @@
 #include <QScrollBar>
 
 #include "qtcore/qtcore.h"
-#include "glwidget.h"
 #include "common/drawmanager.h"
 
 namespace editor

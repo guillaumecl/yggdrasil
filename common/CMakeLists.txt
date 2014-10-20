@@ -1,5 +1,3 @@
-cmake_minimum_required( VERSION 2.6 )
-
 set(common_SRCS
   core.cpp
   exception.cpp
