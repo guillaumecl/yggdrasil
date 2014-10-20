@@ -49,19 +49,14 @@
 #include <config.h>
 #endif
 
-#include "log.h"
-#include "core.h"
-#include "exception.h"
-#include "screen.h"
+#include "common/log.h"
+#include "common/core.h"
+#include "common/exception.h"
+#include "game/screen.h"
 
-#include "plugin.h"
+#include "common/plugin.h"
 
-#include "filereader.h"
-
-namespace
-{
-Log log;
-}
+#include "common/archiver.h"
 
 using draw::DrawManager;
 using core::Core;
@@ -98,7 +93,7 @@ int main(int argc, char *argv[])
 	Plugin *drawLoader = NULL;
 
 	try {
-		log << "Loading the plugin loaders...\n";
+		//log << "Loading the plugin loaders...\n";
 
 		coreLoader = new Plugin("qtcore");
 		drawLoader = new Plugin("qtdraw");
@@ -120,7 +115,7 @@ int main(int argc, char *argv[])
 
 		delete mainScreen;
 
-		log << "Main loop over. Freeing resources.\n";
+		//log << "Main loop over. Freeing resources.\n";
 
 		delete drawManager;
 		drawManager = NULL;			/* in case any of the destructors throw exceptions */
@@ -131,7 +126,7 @@ int main(int argc, char *argv[])
 		delete core;
 		core = NULL;
 	} catch (exception &e) {
-		log << "Exception in main : " << e.what() << "\n";
+		//log << "Exception in main : " << e.what() << "\n";
 
 		delete drawManager;
 		delete soundManager;
