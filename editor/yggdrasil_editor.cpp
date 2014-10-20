@@ -30,7 +30,6 @@
 
 #include "common/archiver.h"
 #include "common/exception.h"
-#include "screendockwidget.h"
 #include "objectdockwidget.h"
 
 #include "qteditorlog.h"
@@ -72,8 +71,7 @@ yggdrasil_editor::yggdrasil_editor() :
 	menuToolBar->setPalette(palette);
 	menuToolBar->addWidget(menuBar());
 
-	ScreenDockWidget *scrDock = new ScreenDockWidget(dockScreen);
-	screenTree = scrDock->screenTree();
+	screenTree->setFilterWidget(screenTreeFilter);
 
 	ObjectDockWidget *objDock = new ObjectDockWidget(dockObject);
 	objectTree = objDock->objectTree();

@@ -34,8 +34,15 @@
 namespace editor
 {
 
+namespace custom
+{
+class FilterWidget;
+}
+
 using custom::ObjectItem;
 using custom::ItemFilter;
+using custom::FilterWidget;
+
 
 /**
  *	@author Lightning Flik <flik@baobob.org>
@@ -58,6 +65,7 @@ public:
 	QString getName(QStandardItem *it);
 
 	QWidget *insertFilter();
+	void setFilterWidget(FilterWidget *filter);
 
 	QIcon iconObject;
 	QIcon iconAction;

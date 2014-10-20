@@ -467,6 +467,12 @@ QWidget *ScreenTree::insertFilter()
 	return lineEd;
 }
 
+void ScreenTree::setFilterWidget(FilterWidget *filter)
+{
+	connect(filter, SIGNAL(textEdited(const QString &)),
+	        filterModel, SLOT(setFilterWildcard(const QString &)));
+}
+
 void ScreenTree::on_objectRemoved(game::Screen *scr, game::ScreenElement *scrEl)
 {
 	ObjectItem *base = getWidgetForScreen(scr);

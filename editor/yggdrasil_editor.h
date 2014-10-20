@@ -81,7 +81,6 @@ private:
 	GameDisplayer *gameDisplayer;
 	ObjectDisplayer *objectDisplayer;
 
-	ScreenTree *screenTree;
 	ObjectTree *objectTree;
 	property::PropertyWidget *propertyWidget;
 

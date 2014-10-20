@@ -93,6 +93,12 @@ QWidget *ObjectTree::insertFilter()
 	return lineEd;
 }
 
+void ObjectTree::setFilterWidget(FilterWidget *filter)
+{
+	connect(filter, SIGNAL(textEdited(const QString &)),
+	        filterModel, SLOT(setFilterWildcard(const QString &)));
+}
+
 ObjectTree::~ObjectTree()
 {
 	QList<QStandardItem *> items = itemModel->findItems("*", Qt::MatchRecursive | Qt::MatchWildcard);
