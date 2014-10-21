@@ -29,8 +29,14 @@
 #include <QContextMenuEvent>
 #include <QFileDialog>
 
+#include "gamedisplayer.h"
+#include "objectdisplayer.h"
+#include "propertywidget.h"
+
 #include "common/archiver.h"
 #include "common/exception.h"
+#include "common/plugin.h"
+#include "common/drawmanager.h"
 
 #include "qteditorlog.h"
 

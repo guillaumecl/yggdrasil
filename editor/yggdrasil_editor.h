@@ -23,20 +23,15 @@
 #define YGGDRASIL_EDITOR_H
 
 #include <QMainWindow>
-#include <QTabWidget>
-#include <QCloseEvent>
 
-#include "gamedisplayer.h"
-#include "objectdisplayer.h"
-#include "screentree.h"
-#include "objecttree.h"
-#include "propertywidget.h"
+#include "ui_types.h"
+#include "common/common_types.h"
 
-#include "common/plugin.h"
+#include "qtcore/qtcore_types.h"
+#include "game/basictypes.h"
 
-class QAction;
-class QMenu;
 class QTextEdit;
+class QTabWidget;
 
 class Ui_yggdrasil_editor;
 

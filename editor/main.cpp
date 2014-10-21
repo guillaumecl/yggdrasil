@@ -23,6 +23,7 @@
 #include "yggdrasil_editor.h"
 #include <QMessageBox>
 #include <QTranslator>
+#include <QLocale>
 
 int main(int argc, char *argv[])
 {
@@ -45,4 +46,3 @@ int main(int argc, char *argv[])
 		                     e.what());
 	}
 }
-
