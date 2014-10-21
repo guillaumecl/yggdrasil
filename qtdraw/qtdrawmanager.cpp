@@ -35,9 +35,7 @@ QtDrawManager::QtDrawManager()
 	  widget(NULL),
 	  curScale(1),
 	  scrWidth(0),
-	  scrHeight(0),
-	  scrOriginX(0),
-	  scrOriginY(0)
+	  scrHeight(0)
 {
 }
 
@@ -143,24 +141,21 @@ unsigned int QtDrawManager::getTextWidth(const char *text)
 
 void QtDrawManager::setGraphicOrigin(int x, int y)
 {
-	scrOriginX = x;
-	scrOriginY = y;
+	painter->translate(-x, y);
 }
 
 int QtDrawManager::mapYCoordinate(int y)
 {
-	return (scrHeight - y + scrOriginY);
+	return scrHeight / curScale - y;
 }
 
 int QtDrawManager::mapXCoordinate(int x)
 {
-	return (x - scrOriginX);
+	return x;
 }
 
 void QtDrawManager::restoreGraphicOrigin()
 {
-	scrOriginX = 0;
-	scrOriginY = 0;
 }
 
 void QtDrawManager::shake(int strength)

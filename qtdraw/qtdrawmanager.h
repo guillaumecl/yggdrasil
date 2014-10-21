@@ -95,9 +95,6 @@ private:
 
 	unsigned int scrWidth;
 	unsigned int scrHeight;
-
-	unsigned int scrOriginX;
-	unsigned int scrOriginY;
 };
 
 }
