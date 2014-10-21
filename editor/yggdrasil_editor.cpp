@@ -21,6 +21,7 @@
 #include <QtGui>
 #include <QDebug>
 #include "yggdrasil_editor.h"
+#include "ui_main.h"
 
 #include <QTextEdit>
 #include <QTextStream>
@@ -44,46 +45,47 @@ yggdrasil_editor::yggdrasil_editor() :
 	sound(NULL),
 	displayWidget(NULL),
 	corePlugin(NULL),
-	drawPlugin(NULL)
+	drawPlugin(NULL),
+	ui(new Ui_yggdrasil_editor)
 {
-	setupUi(this);
+	ui->setupUi(this);
 	setAttribute(Qt::WA_DeleteOnClose);
 
-	dockLog->setWidget(new QtEditorLog(this));
+	ui->dockLog->setWidget(new QtEditorLog(this));
 
 	initEngine();
 
-	menuDocks->addAction(dockScreen->toggleViewAction());
-	menuDocks->addAction(dockObject->toggleViewAction());
-	menuDocks->addAction(dockProperties->toggleViewAction());
-	menuDocks->addAction(dockLog->toggleViewAction());
+	ui->menuDocks->addAction(ui->dockScreen->toggleViewAction());
+	ui->menuDocks->addAction(ui->dockObject->toggleViewAction());
+	ui->menuDocks->addAction(ui->dockProperties->toggleViewAction());
+	ui->menuDocks->addAction(ui->dockLog->toggleViewAction());
 
-	menuToolbars->addAction(menuToolBar->toggleViewAction());
-	menuToolbars->addAction(fileToolBar->toggleViewAction());
-	menuToolbars->addAction(editToolBar->toggleViewAction());
-	menuToolbars->addAction(typeToolBar->toggleViewAction());
-	menuToolbars->addSeparator();
-	menuToolbars->addAction(lockToolBars);
+	ui->menuToolbars->addAction(ui->menuToolBar->toggleViewAction());
+	ui->menuToolbars->addAction(ui->fileToolBar->toggleViewAction());
+	ui->menuToolbars->addAction(ui->editToolBar->toggleViewAction());
+	ui->menuToolbars->addAction(ui->typeToolBar->toggleViewAction());
+	ui->menuToolbars->addSeparator();
+	ui->menuToolbars->addAction(ui->lockToolBars);
 
 	QPalette palette = menuBar()->palette();
-	palette.setColor(QPalette::Button, menuToolBar->palette().color(QPalette::Window));
-	menuToolBar->setPalette(palette);
-	menuToolBar->addWidget(menuBar());
+	palette.setColor(QPalette::Button, ui->menuToolBar->palette().color(QPalette::Window));
+	ui->menuToolBar->setPalette(palette);
+	ui->menuToolBar->addWidget(menuBar());
 
-	screenTree->setFilterWidget(screenTreeFilter);
-	objectTree->setFilterWidget(objectTreeFilter);
+	ui->screenTree->setFilterWidget(ui->screenTreeFilter);
+	ui->objectTree->setFilterWidget(ui->objectTreeFilter);
 
-	propertyWidget = new property::PropertyWidget(dockProperties);
-	dockProperties->setWidget(propertyWidget);
+	propertyWidget = new property::PropertyWidget(ui->dockProperties);
+	ui->dockProperties->setWidget(propertyWidget);
 
 	tabs = new QTabWidget(this);
 
 	gameDisplayer = new GameDisplayer(core,draw,sound,displayWidget);
 	objectDisplayer = new ObjectDisplayer(core,draw,sound,displayWidget);
 
-	tabs->addTab(gameDisplayer,screenTree->iconScreen, tr("Screen editor"));
-	tabs->addTab(objectDisplayer,objectTree->iconObject, tr("Object editor"));
-	tabs->addTab(new QWidget(),objectTree->iconAction, tr("Action editor"));
+	tabs->addTab(gameDisplayer,ui->screenTree->iconScreen, tr("Screen editor"));
+	tabs->addTab(objectDisplayer,ui->objectTree->iconObject, tr("Object editor"));
+	tabs->addTab(new QWidget(),ui->objectTree->iconAction, tr("Action editor"));
 
 	setCentralWidget(tabs);
 
@@ -112,8 +114,8 @@ void yggdrasil_editor::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu popup;
 
-	popup.addMenu(menuDocks);
-	popup.addMenu(menuToolbars);
+	popup.addMenu(ui->menuDocks);
+	popup.addMenu(ui->menuToolbars);
 
 	popup.exec(event->globalPos());
 }
@@ -163,12 +165,12 @@ void yggdrasil_editor::readSettings()
 
 	restoreGeometry(settings.value("geometry").toByteArray());
 	restoreState(settings.value("windowState").toByteArray());
-	lockToolBars->setChecked(settings.value("toolBars/locked").toBool());
+	ui->lockToolBars->setChecked(settings.value("toolBars/locked").toBool());
 
 	currentGameDirectory = settings.value("currentGameDirectory", ".").toString();
 	QDir::setCurrent(currentGameDirectory);
-	screenTree->scan(QDir(currentGameDirectory));
-	objectTree->scan(QDir(currentGameDirectory));
+	ui->screenTree->scan(QDir(currentGameDirectory));
+	ui->objectTree->scan(QDir(currentGameDirectory));
 }
 
 void yggdrasil_editor::writeSettings()
@@ -178,7 +180,7 @@ void yggdrasil_editor::writeSettings()
 	settings.setValue("geometry", saveGeometry());
 	settings.setValue("windowState", saveState());
 	settings.setValue("currentGameDirectory", currentGameDirectory);
-	settings.setValue("toolBars/locked", lockToolBars->isChecked());
+	settings.setValue("toolBars/locked", ui->lockToolBars->isChecked());
 }
 
 bool yggdrasil_editor::maybeSave()
@@ -266,6 +268,8 @@ yggdrasil_editor::~yggdrasil_editor()
 
 	delete drawPlugin;
 	delete corePlugin;
+
+	delete ui;
 }
 
 void yggdrasil_editor::onMouseMoved(const QPoint &newPos)
@@ -323,23 +327,26 @@ void yggdrasil_editor::viewObject()
 
 void yggdrasil_editor::connectSignals()
 {
-	connect(gameDisplayer,SIGNAL(itemSelected(game::Screen*, game::ScreenElement*)),screenTree, SLOT(on_selectItem(game::Screen*, game::ScreenElement*)));
+	connect(gameDisplayer,SIGNAL(itemSelected(game::Screen*, game::ScreenElement*)),
+		ui->screenTree, SLOT(on_selectItem(game::Screen*, game::ScreenElement*)));
 
-	connect(gameDisplayer,SIGNAL(itemUnselected(game::Screen*, game::ScreenElement*)),screenTree, SLOT(on_unselectItem(game::Screen*, game::ScreenElement*)));
+	connect(gameDisplayer,SIGNAL(itemUnselected(game::Screen*, game::ScreenElement*)),
+		ui->screenTree, SLOT(on_unselectItem(game::Screen*, game::ScreenElement*)));
 
-	connect(gameDisplayer,SIGNAL(objectCreated(game::Screen*, game::ScreenElement*)),screenTree, SLOT(on_objectAdded(game::Screen*, game::ScreenElement*)));
+	connect(gameDisplayer,SIGNAL(objectCreated(game::Screen*, game::ScreenElement*)),
+		ui->screenTree, SLOT(on_objectAdded(game::Screen*, game::ScreenElement*)));
 
 	connect(gameDisplayer,SIGNAL(mouseMoved(const QPoint &)),this, SLOT(onMouseMoved(const QPoint &)));
 
 	connect(objectDisplayer,SIGNAL(mouseMoved(const QPoint &)),this, SLOT(onMouseMoved(const QPoint &)));
 
-	connect(screenTree,SIGNAL(itemSelected(game::Screen*, QString)),gameDisplayer,SLOT(selectItem(game::Screen*, QString)));
-	connect(screenTree,SIGNAL(loadScreen(game::Screen*)),gameDisplayer,SLOT(loadScreen(game::Screen*)));
-	connect(screenTree,SIGNAL(loadScreen(game::Screen*)),this,SLOT(viewScreen()));
-	connect(screenTree,SIGNAL(closeScreen(game::Screen*)),gameDisplayer,SLOT(closeScreen(game::Screen*)));
-	connect(screenTree,SIGNAL(screenSelected(game::Screen*)),propertyWidget,SLOT(selectScreen(game::Screen*)));
-	connect(screenTree,SIGNAL(removeObject(game::Screen*, game::ScreenElement*)),gameDisplayer,SLOT(removeItem(game::Screen*, game::ScreenElement*)));
-	connect(screenTree,SIGNAL(itemSelected(game::Screen*, QString)),propertyWidget,SLOT(selectScreenItem(game::Screen*, QString)));
+	connect(ui->screenTree,SIGNAL(itemSelected(game::Screen*, QString)),gameDisplayer,SLOT(selectItem(game::Screen*, QString)));
+	connect(ui->screenTree,SIGNAL(loadScreen(game::Screen*)),gameDisplayer,SLOT(loadScreen(game::Screen*)));
+	connect(ui->screenTree,SIGNAL(loadScreen(game::Screen*)),this,SLOT(viewScreen()));
+	connect(ui->screenTree,SIGNAL(closeScreen(game::Screen*)),gameDisplayer,SLOT(closeScreen(game::Screen*)));
+	connect(ui->screenTree,SIGNAL(screenSelected(game::Screen*)),propertyWidget,SLOT(selectScreen(game::Screen*)));
+	connect(ui->screenTree,SIGNAL(removeObject(game::Screen*, game::ScreenElement*)),gameDisplayer,SLOT(removeItem(game::Screen*, game::ScreenElement*)));
+	connect(ui->screenTree,SIGNAL(itemSelected(game::Screen*, QString)),propertyWidget,SLOT(selectScreenItem(game::Screen*, QString)));
 
 	connect(gameDisplayer,SIGNAL(itemUnselected(game::Screen*, game::ScreenElement*)),propertyWidget,SLOT(unselect()));
 
@@ -347,16 +354,16 @@ void yggdrasil_editor::connectSignals()
 
 	connect(gameDisplayer,SIGNAL(itemChanged(game::Screen*, game::ScreenElement*)),propertyWidget,SLOT(selectScreenItem(game::Screen*, game::ScreenElement*)));
 
-	connect(gameDisplayer,SIGNAL(objectRemoved(game::Screen*, game::ScreenElement*)),screenTree,SLOT(on_objectRemoved(game::Screen*,game::ScreenElement*)));
+	connect(gameDisplayer,SIGNAL(objectRemoved(game::Screen*, game::ScreenElement*)),ui->screenTree,SLOT(on_objectRemoved(game::Screen*,game::ScreenElement*)));
 
 	connect(propertyWidget,SIGNAL(screenUpdated(game::Screen*)),gameDisplayer,SLOT(loadScreen(game::Screen*)));
 
-	connect(objectTree,SIGNAL(objectSelected(game::ScreenElement*)),propertyWidget,SLOT(selectScreenElement(game::ScreenElement*)));
+	connect(ui->objectTree,SIGNAL(objectSelected(game::ScreenElement*)),propertyWidget,SLOT(selectScreenElement(game::ScreenElement*)));
 
-	connect(objectTree,SIGNAL(loadObject(game::ScreenElement*)),objectDisplayer,SLOT(loadObject(game::ScreenElement*)));
-	connect(objectTree,SIGNAL(loadObject(game::ScreenElement*)),this,SLOT(viewObject()));
+	connect(ui->objectTree,SIGNAL(loadObject(game::ScreenElement*)),objectDisplayer,SLOT(loadObject(game::ScreenElement*)));
+	connect(ui->objectTree,SIGNAL(loadObject(game::ScreenElement*)),this,SLOT(viewObject()));
 
-	connect(objectTree,SIGNAL(actionSelected(game::ScreenElement*, game::Action*)),propertyWidget,SLOT(selectAction(game::ScreenElement*,game::Action*)));
+	connect(ui->objectTree,SIGNAL(actionSelected(game::ScreenElement*, game::Action*)),propertyWidget,SLOT(selectAction(game::ScreenElement*,game::Action*)));
 
 }
 

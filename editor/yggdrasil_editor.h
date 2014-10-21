@@ -32,18 +32,18 @@
 #include "objecttree.h"
 #include "propertywidget.h"
 
-#include "ui_main.h"
-
 #include "common/plugin.h"
 
 class QAction;
 class QMenu;
 class QTextEdit;
 
+class Ui_yggdrasil_editor;
+
 namespace editor
 {
 
-class yggdrasil_editor:public QMainWindow, public Ui_yggdrasil_editor
+class yggdrasil_editor: public QMainWindow
 {
 	Q_OBJECT
 
@@ -116,6 +116,8 @@ private:
 	QTabWidget *tabs;
 
 	void connectSignals();
+
+	Ui_yggdrasil_editor *ui;
 };
 
 
