@@ -22,6 +22,8 @@
 
 #include "game/screen.h"
 
+#include "propertyitem.h"
+
 using game::Screen;
 
 namespace editor

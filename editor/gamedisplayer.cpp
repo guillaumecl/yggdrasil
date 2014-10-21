@@ -26,11 +26,13 @@
 
 #include <map>
 
+#include "common/drawmanager.h"
 #include "common/exception.h"
 #include "gamedisplayer.h"
 #include "mime.h"
 #include "game/screen.h"
 #include "game/screenelement.h"
+#include "qtcore/displaywidget.h"
 
 
 namespace editor

@@ -20,11 +20,13 @@
 #ifndef EDITORSCREENTREE_H
 #define EDITORSCREENTREE_H
 
+#include "ui_types.h"
 #include "game/basictypes.h"
 #include <QTreeView>
-#include "objectitem.h"
-#include "itemfilter.h"
 #include <QDir>
+
+class QStandardItem;
+class QStandardItemModel;
 
 namespace editor
 {

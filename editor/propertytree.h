@@ -21,8 +21,10 @@
 #define QTREEVIEWPROPERTYTREE_H
 
 #include <QTreeView>
-#include "propertyitemmodel.h"
+#include "ui_types.h"
 #include "game/screen.h"
+
+class QStandardItem;
 
 namespace editor
 {

@@ -21,8 +21,8 @@
 #define EDITOR_PROPERTYSCREENELEMENTPROPERTIES_H
 
 #include "propertytree.h"
-#include "propertylist.h"
 
+#include "ui_types.h"
 #include "game/basictypes.h"
 
 namespace editor

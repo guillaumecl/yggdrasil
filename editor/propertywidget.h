@@ -22,11 +22,8 @@
 
 #include <QStackedWidget>
 #include "game/basictypes.h"
-#include "propertytree.h"
 
-#include "screenproperties.h"
-#include "screenitemproperties.h"
-#include "actionproperties.h"
+#include "ui_types.h"
 
 namespace editor
 {

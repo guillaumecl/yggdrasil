@@ -21,6 +21,8 @@
 #include <QDebug>
 #include "game/screenelement.h"
 
+#include "propertylist.h"
+
 using game::ScreenElement;
 using game::Action;
 using namespace game;

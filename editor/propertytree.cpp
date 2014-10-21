@@ -20,6 +20,8 @@
 #include "propertytree.h"
 #include <QDebug>
 #include "propertyitemdelegate.h"
+#include "propertyitemmodel.h"
+#include "propertyitem.h"
 
 
 namespace editor

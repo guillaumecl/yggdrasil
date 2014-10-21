@@ -22,7 +22,7 @@
 
 #include <QItemDelegate>
 
-#include "propertyitemmodel.h"
+#include "ui_types.h"
 
 namespace editor
 {

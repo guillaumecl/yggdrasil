@@ -23,6 +23,8 @@
 
 #include "screenproperties.h"
 #include "screenitemproperties.h"
+#include "screenelementproperties.h"
+#include "actionproperties.h"
 
 namespace editor
 {

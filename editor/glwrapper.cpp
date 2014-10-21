@@ -19,7 +19,11 @@
  ***************************************************************************/
 
 #include <QResizeEvent>
+#include <QApplication>
+
 #include "glwrapper.h"
+#include "qtcore/qtcore.h"
+#include "qtcore/displaywidget.h"
 
 #include <iostream>
 
@@ -367,6 +371,3 @@ QSize GLWrapper::sizeHint() const
 }
 
 }
-
-
-

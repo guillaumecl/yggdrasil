@@ -22,6 +22,8 @@
 #include <QDebug>
 #include <QApplication>
 
+#include "propertyitem.h"
+
 using namespace game;
 using game::Action;
 

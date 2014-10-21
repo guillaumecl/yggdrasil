@@ -32,6 +32,9 @@
 #include "game/screen.h"
 #include "game/screenelement.h"
 
+#include "objectitem.h"
+#include "itemfilter.h"
+
 #include "filterwidget.h"
 
 using editor::custom::FilterWidget;

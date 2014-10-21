@@ -21,7 +21,7 @@
 #define EDITORPROPERTYIDEMMODEL_H
 
 #include <QStandardItemModel>
-#include "propertyitem.h"
+#include "ui_types.h"
 
 namespace editor
 {

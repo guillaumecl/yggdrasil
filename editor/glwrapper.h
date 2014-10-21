@@ -24,8 +24,8 @@
 #include <QHBoxLayout>
 #include <QScrollBar>
 
-#include "qtcore/qtcore.h"
-#include "common/drawmanager.h"
+#include "qtcore/qtcore_types.h"
+#include "common/common_types.h"
 
 namespace editor
 {

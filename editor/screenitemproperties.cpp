@@ -20,6 +20,7 @@
 #include "screenitemproperties.h"
 
 #include "game/screenelement.h"
+#include "propertyitem.h"
 
 using game::ScreenElement;
 

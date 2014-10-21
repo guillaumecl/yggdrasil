@@ -22,6 +22,8 @@
 #include <QDebug>
 
 #include <QMetaMethod>
+#include "propertyitem.h"
+#include "propertyitemmodel.h"
 
 namespace editor
 {
@@ -129,4 +131,3 @@ void PropertyItemDelegate::try_connect(QWidget *editor,const char *sigName, cons
 }
 
 }
-

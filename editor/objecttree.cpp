@@ -30,10 +30,13 @@
 #include <QStandardItemModel>
 #include <QLineEdit>
 #include <QVBoxLayout>
-#include "filterwidget.h"
 #include <QMessageBox>
 
 #include "mime.h"
+#include "itemfilter.h"
+#include "filterwidget.h"
+#include "objectitem.h"
+
 #include "common/exception.h"
 #include "common/archiver.h"
 #include "game/screenelement.h"
