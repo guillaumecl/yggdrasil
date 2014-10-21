@@ -76,8 +76,6 @@ private:
 	GameDisplayer *gameDisplayer;
 	ObjectDisplayer *objectDisplayer;
 
-	property::PropertyWidget *propertyWidget;
-
 	/**
 	 * Core object that was created in the constructor
 	 */

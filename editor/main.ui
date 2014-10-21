@@ -194,7 +194,13 @@
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockPropertiesContents"/>
+   <widget class="QWidget" name="dockPropertiesContents">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="editor::property::PropertyWidget" name="propertyWidget"/>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QToolBar" name="typeToolBar">
    <property name="windowTitle">
@@ -310,6 +316,12 @@
    <class>editor::ObjectTree</class>
    <extends>QTreeView</extends>
    <header>editor/objecttree.h</header>
+  </customwidget>
+  <customwidget>
+   <class>editor::property::PropertyWidget</class>
+   <extends>QStackedWidget</extends>
+   <header>editor/propertywidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

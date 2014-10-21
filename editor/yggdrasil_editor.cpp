@@ -81,9 +81,6 @@ yggdrasil_editor::yggdrasil_editor() :
 	ui->screenTree->setFilterWidget(ui->screenTreeFilter);
 	ui->objectTree->setFilterWidget(ui->objectTreeFilter);
 
-	propertyWidget = new property::PropertyWidget(ui->dockProperties);
-	ui->dockProperties->setWidget(propertyWidget);
-
 	tabs = new QTabWidget(this);
 
 	gameDisplayer = new GameDisplayer(core,draw,sound,displayWidget);
@@ -350,26 +347,26 @@ void yggdrasil_editor::connectSignals()
 	connect(ui->screenTree,SIGNAL(loadScreen(game::Screen*)),gameDisplayer,SLOT(loadScreen(game::Screen*)));
 	connect(ui->screenTree,SIGNAL(loadScreen(game::Screen*)),this,SLOT(viewScreen()));
 	connect(ui->screenTree,SIGNAL(closeScreen(game::Screen*)),gameDisplayer,SLOT(closeScreen(game::Screen*)));
-	connect(ui->screenTree,SIGNAL(screenSelected(game::Screen*)),propertyWidget,SLOT(selectScreen(game::Screen*)));
+	connect(ui->screenTree,SIGNAL(screenSelected(game::Screen*)),ui->propertyWidget,SLOT(selectScreen(game::Screen*)));
 	connect(ui->screenTree,SIGNAL(removeObject(game::Screen*, game::ScreenElement*)),gameDisplayer,SLOT(removeItem(game::Screen*, game::ScreenElement*)));
-	connect(ui->screenTree,SIGNAL(itemSelected(game::Screen*, QString)),propertyWidget,SLOT(selectScreenItem(game::Screen*, QString)));
+	connect(ui->screenTree,SIGNAL(itemSelected(game::Screen*, QString)),ui->propertyWidget,SLOT(selectScreenItem(game::Screen*, QString)));
 
-	connect(gameDisplayer,SIGNAL(itemUnselected(game::Screen*, game::ScreenElement*)),propertyWidget,SLOT(unselect()));
+	connect(gameDisplayer,SIGNAL(itemUnselected(game::Screen*, game::ScreenElement*)),ui->propertyWidget,SLOT(unselect()));
 
-	connect(gameDisplayer,SIGNAL(itemSelected(game::Screen*, game::ScreenElement*)),propertyWidget,SLOT(selectScreenItem(game::Screen*, game::ScreenElement*)));
+	connect(gameDisplayer,SIGNAL(itemSelected(game::Screen*, game::ScreenElement*)),ui->propertyWidget,SLOT(selectScreenItem(game::Screen*, game::ScreenElement*)));
 
-	connect(gameDisplayer,SIGNAL(itemChanged(game::Screen*, game::ScreenElement*)),propertyWidget,SLOT(selectScreenItem(game::Screen*, game::ScreenElement*)));
+	connect(gameDisplayer,SIGNAL(itemChanged(game::Screen*, game::ScreenElement*)),ui->propertyWidget,SLOT(selectScreenItem(game::Screen*, game::ScreenElement*)));
 
 	connect(gameDisplayer,SIGNAL(objectRemoved(game::Screen*, game::ScreenElement*)),ui->screenTree,SLOT(on_objectRemoved(game::Screen*,game::ScreenElement*)));
 
-	connect(propertyWidget,SIGNAL(screenUpdated(game::Screen*)),gameDisplayer,SLOT(loadScreen(game::Screen*)));
+	connect(ui->propertyWidget,SIGNAL(screenUpdated(game::Screen*)),gameDisplayer,SLOT(loadScreen(game::Screen*)));
 
-	connect(ui->objectTree,SIGNAL(objectSelected(game::ScreenElement*)),propertyWidget,SLOT(selectScreenElement(game::ScreenElement*)));
+	connect(ui->objectTree,SIGNAL(objectSelected(game::ScreenElement*)),ui->propertyWidget,SLOT(selectScreenElement(game::ScreenElement*)));
 
 	connect(ui->objectTree,SIGNAL(loadObject(game::ScreenElement*)),objectDisplayer,SLOT(loadObject(game::ScreenElement*)));
 	connect(ui->objectTree,SIGNAL(loadObject(game::ScreenElement*)),this,SLOT(viewObject()));
 
-	connect(ui->objectTree,SIGNAL(actionSelected(game::ScreenElement*, game::Action*)),propertyWidget,SLOT(selectAction(game::ScreenElement*,game::Action*)));
+	connect(ui->objectTree,SIGNAL(actionSelected(game::ScreenElement*, game::Action*)),ui->propertyWidget,SLOT(selectAction(game::ScreenElement*,game::Action*)));
 
 }
 
