@@ -1,78 +1,79 @@
-<!DOCTYPE TS><TS>
-<defaultcodec></defaultcodec>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="fr_FR">
 <context>
     <name>Main</name>
     <message>
         <source>MainWindow</source>
-        <translation>Fenêtre principale</translation>
+        <translation type="obsolete">Fenêtre principale</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Fichier</translation>
+        <translation type="obsolete">Fichier</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Édition</translation>
+        <translation type="obsolete">Édition</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>Affichage</translation>
+        <translation type="obsolete">Affichage</translation>
     </message>
     <message>
         <source>Dock Windows</source>
-        <translation>Boîtes à outils</translation>
+        <translation type="obsolete">Boîtes à outils</translation>
     </message>
     <message>
         <source>Toolbars</source>
-        <translation>Barres d&apos;outil</translation>
+        <translation type="obsolete">Barres d&apos;outil</translation>
     </message>
     <message>
         <source>Screens</source>
-        <translation>Écrans</translation>
+        <translation type="obsolete">Écrans</translation>
     </message>
     <message>
         <source>Objects</source>
-        <translation>Objets</translation>
+        <translation type="obsolete">Objets</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation>Propriétés</translation>
+        <translation type="obsolete">Propriétés</translation>
     </message>
     <message>
         <source>View type</source>
-        <translation>Type d&apos;affichage</translation>
+        <translation type="obsolete">Type d&apos;affichage</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Nouveau</translation>
+        <translation type="obsolete">&amp;Nouveau</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation>&amp;Ouvrir</translation>
+        <translation type="obsolete">&amp;Ouvrir</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Enregistrer</translation>
+        <translation type="obsolete">&amp;Enregistrer</translation>
     </message>
     <message>
         <source>Save &amp;as...</source>
-        <translation>Enre&amp;gistrer sous...</translation>
+        <translation type="obsolete">Enre&amp;gistrer sous...</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>Co&amp;uper</translation>
+        <translation type="obsolete">Co&amp;uper</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Copier</translation>
+        <translation type="obsolete">&amp;Copier</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>Co&amp;ller</translation>
+        <translation type="obsolete">Co&amp;ller</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>&amp;Quitter</translation>
+        <translation type="obsolete">&amp;Quitter</translation>
     </message>
     <message>
         <source>Screen View</source>
@@ -87,7 +88,7 @@
     </message>
     <message>
         <source>GameDisplayer</source>
-        <translation>Éditeur d&apos;écrans</translation>
+        <translation type="obsolete">Éditeur d&apos;écrans</translation>
     </message>
     <message>
         <source>Application</source>
@@ -97,12 +98,35 @@
         <source>Element named %1 was not found in the screen.</source>
         <translation>L&apos;élément appelé %1 n&apos;a pas été trouvé dans l&apos;écran.</translation>
     </message>
+    <message>
+        <source>Delete</source>
+        <translation>Supprimer</translation>
+    </message>
+    <message>
+        <source>Lock</source>
+        <translation>Verroiller</translation>
+    </message>
+</context>
+<context>
+    <name>editor::NameChoose</name>
+    <message>
+        <source>Yggdrasil Editor</source>
+        <translation>Yggdrasil Editor</translation>
+    </message>
+    <message>
+        <source>All items must have a name.</source>
+        <translation>Tous les objets doivent avoir un nom.</translation>
+    </message>
+    <message>
+        <source>An element with this name already exists : %1.</source>
+        <translation>Un élément avec ce nom existe déjà : %1.</translation>
+    </message>
 </context>
 <context>
     <name>editor::ObjectDisplayer</name>
     <message>
         <source>ObjectDisplayer</source>
-        <translation>Éditeur d&apos;objets</translation>
+        <translation type="obsolete">Éditeur d&apos;objets</translation>
     </message>
 </context>
 <context>
@@ -208,6 +232,10 @@
         <source>Y Offset</source>
         <translation>Décalage Y</translation>
     </message>
+    <message>
+        <source>Base Offset Y</source>
+        <translation>Décalage de base Y</translation>
+    </message>
 </context>
 <context>
     <name>editor::property::PropertyItemModel</name>
@@ -276,7 +304,7 @@
     </message>
     <message>
         <source>classification</source>
-        <translation>Classification</translation>
+        <translation type="obsolete">Classification</translation>
     </message>
     <message>
         <source>icon</source>
@@ -289,6 +317,10 @@
     <message>
         <source>offsetY</source>
         <translation>Décalage Y</translation>
+    </message>
+    <message>
+        <source>defaultAction</source>
+        <translation>Action par défaut</translation>
     </message>
 </context>
 <context>
@@ -385,6 +417,97 @@ Yggdrasil Editor ne peut pas fonctionner correctement sans ces plugins.</transla
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Annuler</translation>
+    </message>
+</context>
+<context>
+    <name>yggdrasil_editor</name>
+    <message>
+        <source>Yggdrasil Editor</source>
+        <translation>Yggdrasil Editor</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Fichier</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Édition</translation>
+    </message>
+    <message>
+        <source>View</source>
+        <translation>Affichage</translation>
+    </message>
+    <message>
+        <source>Dock Windows</source>
+        <translation>Boîtes à outils</translation>
+    </message>
+    <message>
+        <source>Toolbars</source>
+        <translation>Barres d&apos;outil</translation>
+    </message>
+    <message>
+        <source>Menu</source>
+        <translation>Menu</translation>
+    </message>
+    <message>
+        <source>Screens</source>
+        <translation>Écrans</translation>
+    </message>
+    <message>
+        <source>Objects</source>
+        <translation>Objets</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation>Propriétés</translation>
+    </message>
+    <message>
+        <source>View type</source>
+        <translation>Type d&apos;affichage</translation>
+    </message>
+    <message>
+        <source>Messages</source>
+        <translation>Messages</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Nouveau</translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation>&amp;Ouvrir</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>&amp;Enregistrer</translation>
+    </message>
+    <message>
+        <source>Save &amp;as...</source>
+        <translation>Enre&amp;gistrer sous...</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>Co&amp;uper</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Copier</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>Co&amp;ller</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>&amp;Quitter</translation>
+    </message>
+    <message>
+        <source>Lock toolbars</source>
+        <translation>Verrouiller les barres d&apos;outils</translation>
+    </message>
+    <message>
+        <source>Lock the toolbars</source>
+        <translation>Verrouiller les barres d&apos;outils</translation>
     </message>
 </context>
 </TS>
