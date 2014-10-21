@@ -24,14 +24,17 @@
 #include "game/screen.h"
 #include "common/archiver.h"
 
+#include "ui_nameChoose.h"
+
 namespace editor
 {
 
 NameChoose::NameChoose(QWidget* parent, game::Screen *pScr, Qt::WFlags fl) :
 	QDialog(parent, fl),
-	scr(pScr)
+	scr(pScr),
+	ui(new Ui::nameChoose)
 {
-	setupUi(this);
+	ui->setupUi(this);
 }
 
 NameChoose::~NameChoose()
@@ -40,13 +43,13 @@ NameChoose::~NameChoose()
 
 QString NameChoose::text()
 {
-	return txtName->text();
+	return ui->txtName->text();
 }
 
 void NameChoose::setText(QString pText)
 {
-	txtName->setText(pText);
-	txtName->selectAll();
+	ui->txtName->setText(pText);
+	ui->txtName->selectAll();
 }
 
 void NameChoose::on_buttonOk_clicked()

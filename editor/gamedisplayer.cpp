@@ -23,6 +23,7 @@
 #include <QMouseEvent>
 #include "namechoose.h"
 #include <QList>
+#include <QApplication>
 
 #include <map>
 

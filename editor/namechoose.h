@@ -23,12 +23,16 @@
 
 #include <QDialog>
 #include "game/basictypes.h"
-#include "ui_nameChoose.h"
+
+namespace Ui
+{
+class nameChoose;
+}
 
 namespace editor
 {
 
-class NameChoose : public QDialog, private Ui::nameChoose
+class NameChoose : public QDialog
 {
 	Q_OBJECT
 
@@ -43,6 +47,9 @@ private:
 	game::Screen *scr;
 public slots:
 	void on_buttonOk_clicked();
+
+private:
+	Ui::nameChoose *ui;
 };
 
 }
