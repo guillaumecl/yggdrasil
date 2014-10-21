@@ -274,13 +274,13 @@ void GLWrapper::wheelEvent(QWheelEvent *event)
 
 	if (event->delta() > 0) {
 		if (scale < 40)
-			scale *= 1.5;
+			scale *= 1.3;
 	} else {
-		if (scale > 0.08)
-			scale /= 1.5;
+		if (scale > 1/40.0)
+			scale /= 1.3;
 	}
 
-	if (scale < 1.5 && scale > 1/1.5)
+	if (scale < 1.29 && scale > 1/1.29)
 		scale = 1.0;
 
 	QResizeEvent q(size(),size()) ;
