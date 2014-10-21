@@ -285,11 +285,11 @@ extern "C"
 
 	const char *description()
 	{
-		return "A portable draw manager that relies on Qt. Use with QtCore.";
+		return "A portable draw manager that relies on Qt and OpenGL. Use with QtCore.";
 	}
 
 	const char *name()
 	{
-		return "Qt Draw";
+		return "Qt Draw GL";
 	}
 }
