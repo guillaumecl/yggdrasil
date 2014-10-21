@@ -2,93 +2,10 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fr_FR">
 <context>
-    <name>Main</name>
-    <message>
-        <source>MainWindow</source>
-        <translation type="obsolete">Fenêtre principale</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Fichier</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Édition</translation>
-    </message>
-    <message>
-        <source>View</source>
-        <translation type="obsolete">Affichage</translation>
-    </message>
-    <message>
-        <source>Dock Windows</source>
-        <translation type="obsolete">Boîtes à outils</translation>
-    </message>
-    <message>
-        <source>Toolbars</source>
-        <translation type="obsolete">Barres d&apos;outil</translation>
-    </message>
-    <message>
-        <source>Screens</source>
-        <translation type="obsolete">Écrans</translation>
-    </message>
-    <message>
-        <source>Objects</source>
-        <translation type="obsolete">Objets</translation>
-    </message>
-    <message>
-        <source>Properties</source>
-        <translation type="obsolete">Propriétés</translation>
-    </message>
-    <message>
-        <source>View type</source>
-        <translation type="obsolete">Type d&apos;affichage</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="obsolete">&amp;Nouveau</translation>
-    </message>
-    <message>
-        <source>&amp;Open</source>
-        <translation type="obsolete">&amp;Ouvrir</translation>
-    </message>
-    <message>
-        <source>&amp;Save</source>
-        <translation type="obsolete">&amp;Enregistrer</translation>
-    </message>
-    <message>
-        <source>Save &amp;as...</source>
-        <translation type="obsolete">Enre&amp;gistrer sous...</translation>
-    </message>
-    <message>
-        <source>Cu&amp;t</source>
-        <translation type="obsolete">Co&amp;uper</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="obsolete">&amp;Copier</translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation type="obsolete">Co&amp;ller</translation>
-    </message>
-    <message>
-        <source>E&amp;xit</source>
-        <translation type="obsolete">&amp;Quitter</translation>
-    </message>
-    <message>
-        <source>Screen View</source>
-        <translation type="obsolete">Affichage de l&apos;écran</translation>
-    </message>
-</context>
-<context>
     <name>editor::GameDisplayer</name>
     <message>
         <source>Yggdrasil Editor</source>
         <translation>Yggdrasil Editor</translation>
-    </message>
-    <message>
-        <source>GameDisplayer</source>
-        <translation type="obsolete">Éditeur d&apos;écrans</translation>
     </message>
     <message>
         <source>Application</source>
@@ -123,13 +40,6 @@
     </message>
 </context>
 <context>
-    <name>editor::ObjectDisplayer</name>
-    <message>
-        <source>ObjectDisplayer</source>
-        <translation type="obsolete">Éditeur d&apos;objets</translation>
-    </message>
-</context>
-<context>
     <name>editor::ObjectTree</name>
     <message>
         <source>Application</source>
@@ -138,10 +48,6 @@
     <message>
         <source>Load</source>
         <translation>Charger</translation>
-    </message>
-    <message>
-        <source>The object %1 was ignored because it has no classification.</source>
-        <translation type="obsolete">L&apos;objet %1 a été ignoré car il n&apos;a pas de classification.</translation>
     </message>
 </context>
 <context>
@@ -301,10 +207,6 @@
     <message>
         <source>ScreenEditor</source>
         <translation>Editeur d&apos;écrans</translation>
-    </message>
-    <message>
-        <source>classification</source>
-        <translation type="obsolete">Classification</translation>
     </message>
     <message>
         <source>icon</source>
