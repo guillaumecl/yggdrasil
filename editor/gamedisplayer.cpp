@@ -311,7 +311,7 @@ void GameDisplayer::dropEvent(QDropEvent *event)
 				event->accept();
 
 				emit objectCreated(currentScreen,el);
-			} catch (std::exception &e) {
+			} catch (const std::exception &e) {
 				QMessageBox::warning(this, tr("Yggdrasil Editor"),
 				                     tr(e.what()));
 			}

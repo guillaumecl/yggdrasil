@@ -147,7 +147,7 @@ bool FileReader::hasVariable(const char *section, const char *varName)
 	try {
 		getString(section,varName,NULL);
 		return true;
-	} catch (std::exception &e) {
+	} catch (const std::exception &e) {
 		return false;
 	}
 }

@@ -156,7 +156,7 @@ void ScreenTree::openItem(const QModelIndex &ind)
 		if (!scr) {
 			try {
 				scr = new Screen;
-			} catch (std::exception &e) {
+			} catch (const std::exception &e) {
 				QMessageBox::warning(this, tr("Application"),
 				                     tr(e.what()));
 			}
@@ -221,7 +221,7 @@ void ScreenTree::mouseMoveEvent(QMouseEvent *event)
 	if (!screen) {
 		try {
 			screen = new Screen();
-		} catch (std::exception &e) {
+		} catch (const std::exception &e) {
 			QMessageBox::warning(this, tr("Application"),
 			                     tr(e.what()));
 		}
@@ -268,7 +268,7 @@ void ScreenTree::loadScreenInfo(ObjectItem *it)
 		screen->load(fr);
 
 		updateScreenInfo(it);
-	} catch (std::exception &e) {
+	} catch (const std::exception &e) {
 		QMessageBox::warning(this, tr("Application"),
 		                     tr(e.what()));
 	}
@@ -336,7 +336,7 @@ void ScreenTree::on_load()
 		item->setScreen(new Screen());
 		loadScreenInfo(item);
 		emit screenSelected(item->screen());
-	} catch (std::exception &e) {
+	} catch (const std::exception &e) {
 		QMessageBox::warning(this, tr("Application"),
 		                     tr(e.what()));
 	}

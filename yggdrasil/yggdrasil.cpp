@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
 
 		delete core;
 		core = NULL;
-	} catch (std::exception &e) {
+	} catch (const std::exception &e) {
 		//log << "Exception in main : " << e.what() << "\n";
 
 		delete drawManager;

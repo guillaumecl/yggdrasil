@@ -229,7 +229,7 @@ void ObjectTree::mouseMoveEvent(QMouseEvent *event)
 	if (!scrEl) {
 		try {
 			scrEl = new ScreenElement();
-		} catch (std::exception &e) {
+		} catch (const std::exception &e) {
 			QMessageBox::warning(this, tr("Application"),
 			                     tr(e.what()));
 		}

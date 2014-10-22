@@ -214,7 +214,7 @@ void yggdrasil_editor::loadFile(const QString &fileName)
 
 		setCurrentFile(fileName);
 		statusBar()->showMessage(tr("File loaded"), 2000);
-	} catch (std::exception &e) {
+	} catch (const std::exception &e) {
 		QMessageBox::warning(this, tr("Application"),
 		                     tr(e.what()));
 		//currentScreen = new Screen();
@@ -298,7 +298,7 @@ void yggdrasil_editor::initEngine()
 		core->setup(*draw,*sound);
 
 		displayWidget = core->getWidget();
-	} catch (std::exception &e) {
+	} catch (const std::exception &e) {
 		delete sound;
 		sound = NULL;
 		delete draw;
