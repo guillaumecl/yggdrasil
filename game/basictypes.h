@@ -18,8 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef GAME__BASIC__TYPES
-#define GAME__BASIC__TYPES
+#pragma once
 
 #include <list>
 
@@ -84,5 +83,3 @@ enum PlaneType {
 };
 
 class FileReader;
-
-#endif

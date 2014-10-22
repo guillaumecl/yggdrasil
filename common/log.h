@@ -17,8 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef LOGLOG_H
-#define LOGLOG_H
+#pragma once
 
 #include <sstream>
 #include <string>
@@ -138,6 +137,3 @@ inline Logger log()
 {
 	return *this;
 }*/
-
-
-#endif

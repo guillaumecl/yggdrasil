@@ -17,8 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef EDITOR_CUSTOMFILTERWIDGET_H
-#define EDITOR_CUSTOMFILTERWIDGET_H
+#pragma once
 
 #include <QLineEdit>
 
@@ -51,5 +50,3 @@ private:
 }
 
 }
-
-#endif

@@ -17,8 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef EDITORPROPERTYITEM_H
-#define EDITORPROPERTYITEM_H
+#pragma once
 
 #include <QStandardItem>
 #include <QStyleOptionViewItem>
@@ -86,5 +85,3 @@ public:
 }
 
 }
-
-#endif

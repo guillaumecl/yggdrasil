@@ -17,8 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef CORE_H
-#define CORE_H
+#pragma once
 
 #include "drawmanager.h"
 #include "soundmanager.h"
@@ -125,5 +124,3 @@ public:
 };
 
 }
-
-#endif

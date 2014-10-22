@@ -17,8 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef EDITOR_PROPERTYPROPERTYWIDGET_H
-#define EDITOR_PROPERTYPROPERTYWIDGET_H
+#pragma once
 
 #include <QStackedWidget>
 #include "game/basictypes.h"
@@ -63,5 +62,3 @@ signals:
 }
 
 }
-
-#endif

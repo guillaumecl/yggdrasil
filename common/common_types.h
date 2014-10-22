@@ -1,5 +1,4 @@
-#ifndef COMMON_TYPES_H
-#define COMMON_TYPES_H
+#pragma once
 
 class FileReader;
 class Plugin;
@@ -20,6 +19,3 @@ namespace sound
 {
 class SoundManager;
 }
-
-
-#endif

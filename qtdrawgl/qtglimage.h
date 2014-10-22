@@ -17,8 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef DRAWQTIMAGE_H
-#define DRAWQTIMAGE_H
+#pragma once
 
 #include "common/drawmanager.h"
 
@@ -54,5 +53,3 @@ protected:
 };
 
 }
-
-#endif

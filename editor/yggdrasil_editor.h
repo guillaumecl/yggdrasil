@@ -19,8 +19,7 @@
  ***************************************************************************/
 
 
-#ifndef YGGDRASIL_EDITOR_H
-#define YGGDRASIL_EDITOR_H
+#pragma once
 
 #include <QMainWindow>
 
@@ -154,5 +153,3 @@ private:
  * @todo implement the handling of a "readonly" item, and readonly trees.
  */
 }
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef QTEDITORLOG_H
-#define QTEDITORLOG_H
+#pragma once
 
 #include "qtcore/qtcore.h"
 #include <QListWidget>
@@ -11,5 +10,3 @@ public:
 
 	virtual void addLog(int severity, std::string log);
 };
-
-#endif // QTEDITORLOG_H

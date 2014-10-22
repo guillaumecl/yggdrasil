@@ -17,8 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef EDITOR_PROPERTYACTIONPROPERTIES_H
-#define EDITOR_PROPERTYACTIONPROPERTIES_H
+#pragma once
 
 #include "propertytree.h"
 #include "game/basictypes.h"
@@ -91,5 +90,3 @@ public:
 }
 
 }
-
-#endif

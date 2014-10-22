@@ -1,5 +1,4 @@
-#ifndef QTDRAWMANAGERBASE_H
-#define QTDRAWMANAGERBASE_H
+#pragma once
 
 #include "common/drawmanager.h"
 #include "qtcore/qtcore.h"
@@ -26,5 +25,3 @@ public:
 };
 
 }
-
-#endif // QTDRAWMANAGERBASE_H

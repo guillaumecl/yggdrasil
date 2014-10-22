@@ -1,5 +1,4 @@
-#ifndef QTLOG_H
-#define QTLOG_H
+#pragma once
 
 #include "log.h"
 #include <iostream>
@@ -12,5 +11,3 @@ public:
 
 	std::stringbuf buffer;
 };
-
-#endif // QTLOG_H

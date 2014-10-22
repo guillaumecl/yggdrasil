@@ -1,5 +1,4 @@
-#ifndef QRENDERWIDGET_H
-#define QRENDERWIDGET_H
+#pragma once
 
 #include <QWidget>
 
@@ -32,5 +31,3 @@ protected:
 };
 
 }
-
-#endif // QRENDERWIDGET_H

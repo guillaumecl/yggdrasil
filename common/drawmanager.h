@@ -17,8 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef DRAWMANAGER_H
-#define DRAWMANAGER_H
+#pragma once
 
 /**
  * @namespace draw
@@ -340,5 +339,3 @@ public:
 
 
 }
-
-#endif

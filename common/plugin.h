@@ -17,8 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef PLUGINLOADER_H
-#define PLUGINLOADER_H
+#pragma once
 
 #ifdef WIN32
 #include <windows.h>
@@ -96,6 +95,3 @@ private:
 	 */
 	void *call0(const char *funcName);
 };
-
-
-#endif

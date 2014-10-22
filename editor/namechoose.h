@@ -18,8 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef NAMECHOOSE_H
-#define NAMECHOOSE_H
+#pragma once
 
 #include <QDialog>
 #include "game/basictypes.h"
@@ -53,5 +52,3 @@ private:
 };
 
 }
-
-#endif

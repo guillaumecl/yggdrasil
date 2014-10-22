@@ -17,8 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef COREDISPLAYWIDGET_H
-#define COREDISPLAYWIDGET_H
+#pragma once
 
 #include <QWidget>
 #include <QDebug>
@@ -58,5 +57,3 @@ private:
 };
 
 }
-
-#endif

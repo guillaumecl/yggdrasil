@@ -17,8 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef DRAWPLANE_H
-#define DRAWPLANE_H
+#pragma once
 
 #include "basictypes.h"
 #include "common/drawmanager.h"
@@ -90,5 +89,3 @@ public:
 };
 
 }
-
-#endif

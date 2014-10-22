@@ -17,8 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef EDITORSCREENTREE_H
-#define EDITORSCREENTREE_H
+#pragma once
 
 #include "ui_types.h"
 #include "game/basictypes.h"
@@ -110,5 +109,3 @@ private:
 };
 
 }
-
-#endif

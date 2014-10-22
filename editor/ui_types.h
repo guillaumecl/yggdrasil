@@ -1,5 +1,4 @@
-#ifndef UI_TYPES_H
-#define UI_TYPES_H
+#pragma once
 
 namespace editor
 {
@@ -28,5 +27,3 @@ class FilterWidget;
 }
 
 }
-
-#endif
