@@ -29,7 +29,7 @@ FileReader::FileReader(const char *fileName) :
 	file(fileName), m_fileName(fileName)
 {
 	if (!file)
-		throw LoadException("Cannot open the file", fileName);
+		throw exceptions::LoadException("Cannot open the file", fileName);
 
 	string line;
 
@@ -147,7 +147,7 @@ bool FileReader::hasVariable(const char *section, const char *varName)
 	try {
 		getString(section,varName,NULL);
 		return true;
-	} catch (exception &e) {
+	} catch (std::exception &e) {
 		return false;
 	}
 }

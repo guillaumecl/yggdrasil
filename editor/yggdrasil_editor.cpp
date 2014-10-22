@@ -214,7 +214,7 @@ void yggdrasil_editor::loadFile(const QString &fileName)
 
 		setCurrentFile(fileName);
 		statusBar()->showMessage(tr("File loaded"), 2000);
-	} catch (exception &e) {
+	} catch (std::exception &e) {
 		QMessageBox::warning(this, tr("Application"),
 		                     tr(e.what()));
 		//currentScreen = new Screen();
@@ -293,12 +293,12 @@ void yggdrasil_editor::initEngine()
 
 		drawPlugin = new Plugin("qtdrawgl");
 		draw = static_cast<draw::DrawManager*>(drawPlugin->create());
-		sound = new SoundManager();
+		sound = new sound::SoundManager();
 
 		core->setup(*draw,*sound);
 
 		displayWidget = core->getWidget();
-	} catch (exception &e) {
+	} catch (std::exception &e) {
 		delete sound;
 		sound = NULL;
 		delete draw;

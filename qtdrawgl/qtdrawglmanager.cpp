@@ -69,7 +69,7 @@ Image &QtDrawGlManager::getImage(const char *fileName)
 	map<string,QtGlImage *>::iterator ret;
 
 	if (!fileName[0])
-		throw LoadException("No file to load.",fileName,0);
+		throw exceptions::LoadException("No file to load.",fileName,0);
 
 	ret = openedImages.find(fileName);
 

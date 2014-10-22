@@ -174,7 +174,7 @@ buttons::ButtonType key(const char *name)
 		if (!strcmp(keyName(static_cast<buttons::ButtonType>(i)),name))
 			return static_cast<buttons::ButtonType>(i);
 	}
-	throw KeyException(name);
+	throw exceptions::KeyException(name);
 }
 
 void Input::resetCombo()

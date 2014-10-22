@@ -21,8 +21,6 @@
 
 #include <string>
 
-using std::exception;
-
 namespace exceptions
 {
 
@@ -37,7 +35,7 @@ namespace exceptions
  *	This exception class should be subclassed to allow nicer control.
  *
  */
-class BaseException : public exception
+class BaseException : public std::exception
 {
 public:
 	BaseException(std::string reason, int severity = 10);
@@ -103,5 +101,3 @@ struct KeyException : public BaseException {
 
 
 }
-
-using namespace exceptions;

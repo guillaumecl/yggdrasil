@@ -61,7 +61,7 @@ ScreenElement::ScreenElement(const std::string &pName) :
 	mCollisionRect(0,0,-1,-1)
 {
 	if (!core::Core::globalCore)
-		throw GenericException("Plugins must be run in order to create screen elements.");
+		throw exceptions::GenericException("Plugins must be run in order to create screen elements.");
 }
 
 ScreenElement::~ScreenElement()
@@ -76,7 +76,7 @@ void ScreenElement::load(FileReader &confFile)
 {
 	try {
 		if (!core::Core::globalCore)
-			throw GenericException("Plugins must be run in order to create screen elements.");
+			throw exceptions::GenericException("Plugins must be run in order to create screen elements.");
 		Action *act = NULL;
 		ostringstream actionVar;
 		string actionName;
@@ -85,11 +85,11 @@ void ScreenElement::load(FileReader &confFile)
 
 		mWidth = confFile.getInt("ScreenElement", "width",0);
 		if (mWidth <= 0)
-			throw LoadException("Bad width in file :", confFile.fileName());
+			throw exceptions::LoadException("Bad width in file :", confFile.fileName());
 
 		mHeight = confFile.getInt("ScreenElement", "height",0);
 		if (mHeight <= 0)
-			throw LoadException("Bad height in file :", confFile.fileName());
+			throw exceptions::LoadException("Bad height in file :", confFile.fileName());
 
 
 		actionVar << "action " << i;
@@ -112,7 +112,7 @@ void ScreenElement::load(FileReader &confFile)
 		}
 
 		if (!confFile.hasVariable("ScreenElement","defaultAction"))
-			throw LoadException("This ScreenElement contains no default action.",confFile.fileName());
+			throw exceptions::LoadException("This ScreenElement contains no default action.",confFile.fileName());
 
 		defaultActionName = confFile.getString("ScreenElement","defaultAction","");
 

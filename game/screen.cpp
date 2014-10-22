@@ -42,7 +42,7 @@ static bool compare(ScreenElement *el1, ScreenElement *el2)
 Screen::Screen(FileReader &confFile)
 {
 	if (!core::Core::globalCore)
-		throw GenericException("Plugins must be run in order to create screens.");
+		throw exceptions::GenericException("Plugins must be run in order to create screens.");
 	load(confFile);
 }
 
@@ -105,7 +105,7 @@ Screen::Screen() :
 	mHeight(2000)
 {
 	if (!core::Core::globalCore)
-		throw GenericException("Plugins must be run in order to create screens.");
+		throw exceptions::GenericException("Plugins must be run in order to create screens.");
 }
 
 /**
@@ -114,7 +114,7 @@ Screen::Screen() :
 void Screen::addObject(std::string name, ScreenElement *element)
 {
 	if (elements.find(name) != elements.end())
-		throw GenericException("This object already exists.");
+		throw exceptions::GenericException("This object already exists.");
 
 	elements[name] = element;
 	sortedElements.push_front(element);
@@ -154,7 +154,7 @@ ScreenElement *Screen::get(string elementName)
 
 	it = elements.find(elementName);
 	if (it == elements.end())
-		throw LoadException("Element not found : ", elementName);
+		throw exceptions::LoadException("Element not found : ", elementName);
 
 	return it->second;
 }
@@ -165,7 +165,7 @@ void Screen::remove(string elementName)
 
 	it = elements.find(elementName);
 	if (it == elements.end())
-		throw LoadException("Element not found : ", elementName);
+		throw exceptions::LoadException("Element not found : ", elementName);
 
 	ScreenElement *deletedItem = it->second;
 	elements.erase(it);
@@ -210,7 +210,7 @@ ScreenElement *Screen::add(std::string elementName, std::string fileName)
 {
 	ScreenElement *el;
 	if (elements.find(elementName) != elements.end())
-		throw LoadException("Duplicate element in the screen : ", elementName);
+		throw exceptions::LoadException("Duplicate element in the screen : ", elementName);
 
 	FileReader elFile(fileName.c_str());
 

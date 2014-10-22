@@ -30,7 +30,7 @@ QtImage::QtImage(const char *fileName) :
 	Image()
 {
 	if (!pixmap.load(fileName))
-		throw LoadException("Cannot load the image file",fileName);
+		throw exceptions::LoadException("Cannot load the image file",fileName);
 }
 
 unsigned int QtImage::width()

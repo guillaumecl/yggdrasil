@@ -48,15 +48,15 @@ Sprite::Sprite(FileReader &confFile, const char *sectionName, int pWidth, int pH
 
 	try {
 		objectPlane = new Plane(confFile,sectionName,pWidth,pHeight);
-	} catch (const exception &e) {	}
+	} catch (const std::exception &e) {	}
 
 	try	{
 		foregroundPlane = new Plane(confFile,(section + " foreground").c_str(),pWidth,pHeight);
-	} catch (const exception &e) { }
+	} catch (const std::exception &e) { }
 
 	try {
 		backgroundPlane = new Plane(confFile,(section + " background").c_str(),pWidth,pHeight);
-	} catch (const exception &e) { }
+	} catch (const std::exception &e) { }
 
 	planes[foreground] = foregroundPlane;
 	planes[object] = objectPlane;

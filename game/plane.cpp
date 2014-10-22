@@ -33,7 +33,7 @@ Image &getImage(FileReader &confFile, const char *sectionName)
 	string imageName = confFile.getString(sectionName,"image","");
 
 	if (imageName.size() == 0)
-		throw new LoadException("no input", imageName, 0);
+		throw exceptions::LoadException("no input", imageName, 0);
 	string path = confFile.directory() + "/" + imageName;
 
 	return core::Core::getDrawManager()->getImage(path.c_str());
@@ -55,8 +55,8 @@ try:
 	*/
 	string fName = confFile.getString(sectionName,"image","");
 	if (fName.empty())
-		throw LoadException("Image not specified in section",sectionName, 0);
-	throw LoadException("Cannot load image : ",fName);
+		throw exceptions::LoadException("Image not specified in section",sectionName, 0);
+	throw exceptions::LoadException("Cannot load image : ",fName);
 }
 
 Plane::~Plane()

@@ -47,7 +47,7 @@ Plugin::Plugin(const char *file) :
 	hinstDLL=LoadLibraryA(sFile.c_str());
 
 	if (!hinstDLL)
-		throw LoadException("LoadLibrary",sFile.c_str());
+		throw exceptions::LoadException("LoadLibrary",sFile.c_str());
 
 	log() << "Loading plugin \"" << name() << "\" which is a " << type() << " plugin written by " << author() << ".\n\n Information on this plugin : \n" << description();
 }
@@ -64,7 +64,7 @@ void *Plugin::call0(const char *funcName)
 	PVoidFunc func = (PVoidFunc)GetProcAddress(hinstDLL, funcName);
 	if (func)
 		return func();
-	throw LoadException("GetProcAddress", funcName);
+	throw exceptions::LoadException("GetProcAddress", funcName);
 }
 
 
@@ -73,7 +73,7 @@ void *Plugin::call1(const char *funcName, void *param)
 	PVoidFunc1 func = (PVoidFunc1)GetProcAddress(hinstDLL, funcName);
 	if (func)
 		return func(param);
-	throw LoadException("GetProcAddress", funcName);
+	throw exceptions::LoadException("GetProcAddress", funcName);
 }
 
 #else
@@ -90,7 +90,7 @@ Plugin::Plugin(const char *file) :
 	dlerror();
 	handler = dlopen(sFile.c_str(), RTLD_LAZY);
 	if (handler == NULL)
-		throw LoadException(dlerror(),sFile.c_str());
+		throw exceptions::LoadException(dlerror(),sFile.c_str());
 	log() << "Loading plugin \"" << name() << "\" which is a " << type() << " plugin written by " << author() << ".\n\n Information on this plugin : \n" << description() << "\n";
 }
 
@@ -107,7 +107,7 @@ void *Plugin::call0(const char *funcName)
 	PVoidFunc func = (PVoidFunc) dlsym(handler, funcName);
 	const char *dlsym_error = dlerror();
 	if (dlsym_error || (func==NULL))
-		throw FunctionException(dlsym_error);
+		throw exceptions::FunctionException(dlsym_error);
 	return func();
 }
 
@@ -118,7 +118,7 @@ void *Plugin::call1(const char *funcName, void *param)
 	PVoidFunc1 func = (PVoidFunc1) dlsym(handler, funcName);
 	const char *dlsym_error = dlerror();
 	if (dlsym_error || (func==NULL))
-		throw FunctionException(dlsym_error);
+		throw exceptions::FunctionException(dlsym_error);
 	return func(param);
 }
 #endif

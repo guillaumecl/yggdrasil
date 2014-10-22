@@ -64,7 +64,7 @@ DisplayWidget *QtCore::getWidget()
 	return widget;
 }
 
-void QtCore::setup(DrawManager &draw, SoundManager &sound)
+void QtCore::setup(draw::DrawManager &draw, sound::SoundManager &sound)
 {
 	m_draw = &draw;
 	m_sound = &sound;

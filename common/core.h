@@ -24,9 +24,6 @@
 
 #include <string>
 
-using namespace draw;
-using namespace sound;
-
 /**
  * @namespace core
  *
@@ -88,7 +85,7 @@ public:
 	 * @param draw The drawing Manager that will be used. The draw manager may request things to the Core and vice versa.
 	 * @param sound The sound Manager that will be used. The sound manager may request things to the Core and vice versa.
 	 */
-	virtual void setup(DrawManager &draw, SoundManager &sound) = 0;
+	virtual void setup(draw::DrawManager &draw, sound::SoundManager &sound) = 0;
 
 	/**
 	 *  Sets the frame rate that the engine should not overdo. The engine
@@ -103,19 +100,19 @@ public:
 	virtual double frameRate() = 0;
 
 	static Core *getCore();
-	static DrawManager *getDrawManager();
-	static SoundManager *getSoundManager();
+	static draw::DrawManager *getDrawManager();
+	static sound::SoundManager *getSoundManager();
 
 protected:
 	/**
 	 * 	Drawing manager for this core. Set by the setup function.
 	 */
-	DrawManager *m_draw;
+	draw::DrawManager *m_draw;
 
 	/**
 	 * 	Sound manager for this core. Set by the setup function.
 	 */
-	SoundManager *m_sound;
+	sound::SoundManager *m_sound;
 
 	Core();
 public:

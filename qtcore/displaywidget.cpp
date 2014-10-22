@@ -43,7 +43,7 @@ DisplayWidget::DisplayWidget(QWidget *parent, const char *name) :
 
 	QHBoxLayout *layout = new QHBoxLayout();
 
-	underlyingWidget = ((QtDrawManagerBase*)Core::getDrawManager())->getWidget(this, name);
+	underlyingWidget = ((draw::QtDrawManagerBase*)Core::getDrawManager())->getWidget(this, name);
 	layout->addWidget(underlyingWidget);
 	layout->setMargin(0);
 	setMouseTracking(true);
@@ -71,7 +71,7 @@ void DisplayWidget::keyPressEvent(QKeyEvent * /*e*/)
 
 void DisplayWidget::timerEvent(QTimerEvent * /*event*/)
 {
-	((QtDrawManagerBase*)Core::getDrawManager())->update();
+	((draw::QtDrawManagerBase*)Core::getDrawManager())->update();
 	if (inputFunc)
 		inputFunc();
 }
@@ -86,7 +86,7 @@ void DisplayWidget::setFuncs(void (*pDrawFunc)(), void (*pInputFunc)())
 
 void DisplayWidget::paintFunc()
 {
-	DrawManager *draw = Core::getDrawManager();
+	draw::DrawManager *draw = Core::getDrawManager();
 
 	draw->beginDraw();
 
@@ -98,7 +98,7 @@ void DisplayWidget::paintFunc()
 
 void DisplayWidget::setup()
 {
-	((QtDrawManagerBase*)Core::getDrawManager())->setup();
+	((draw::QtDrawManagerBase*)Core::getDrawManager())->setup();
 }
 
 }

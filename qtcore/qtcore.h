@@ -43,7 +43,7 @@ public:
 	~QtCore();
 	virtual void mainLoop(void (*drawFunc)(), void (*inputFunc)());
 	virtual void mainLoopIteration();
-	virtual void setup(DrawManager &draw, SoundManager &sound);
+	virtual void setup(draw::DrawManager &draw, sound::SoundManager &sound);
 	virtual void setFrameRate(double frameRate);
 	virtual double frameRate();
 

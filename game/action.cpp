@@ -39,7 +39,7 @@ Action::Action(FileReader &confFile, const char *actionName, int pWidth, int pHe
 	curFrame(0)
 {
 	if (!core::Core::globalCore)
-		throw GenericException("Plugins must be run in order to create actions.");
+		throw exceptions::GenericException("Plugins must be run in order to create actions.");
 	int numFrames = spr.getNumFrames();
 	int frameDelay;
 	frames.reserve(numFrames);

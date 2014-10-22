@@ -46,7 +46,7 @@ QtGlImage::QtGlImage(const char *fileName) :
 	QImage qImg, qImgResized, qGlImg;
 
 	if (!qImg.load(fileName))
-		throw LoadException("Cannot load the image file",fileName);
+		throw exceptions::LoadException("Cannot load the image file",fileName);
 
 	mWidth = qImg.width();
 	mHeight = qImg.height();

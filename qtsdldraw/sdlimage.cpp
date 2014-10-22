@@ -38,7 +38,7 @@ SdlImage::SdlImage(const char *fileName) :
 		throw LoadException("Cannot load the image file",fileName);*/
 	image = IMG_Load(fileName);
 	if (!image)
-		throw LoadException("Cannot load the image file",fileName);
+		throw exceptions::LoadException("Cannot load the image file",fileName);
 
 	curScale = 0.0;
 	//scale(1.0);
