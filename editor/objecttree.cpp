@@ -47,7 +47,9 @@ using game::Action;
 using std::map;
 using std::string;
 
-using namespace editor::custom;
+using editor::custom::FilterWidget;
+using editor::custom::ObjectItem;
+using editor::custom::ItemFilter;
 
 
 namespace editor

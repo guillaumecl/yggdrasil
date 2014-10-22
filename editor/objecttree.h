@@ -33,16 +33,6 @@
 namespace editor
 {
 
-namespace custom
-{
-class FilterWidget;
-}
-
-using custom::ObjectItem;
-using custom::ItemFilter;
-using custom::FilterWidget;
-
-
 /**
  *	@author Lightning Flik <flik@baobob.org>
  */
@@ -64,7 +54,7 @@ public:
 	QString getName(QStandardItem *it);
 
 	QWidget *insertFilter();
-	void setFilterWidget(FilterWidget *filter);
+	void setFilterWidget(custom::FilterWidget *filter);
 
 	QIcon iconObject;
 	QIcon iconAction;
@@ -85,20 +75,20 @@ private slots:
 private:
 	QPoint dragStartPosition;
 
-	void setName(ObjectItem *it, QString name);
-	void setType(ObjectItem *it, int type);
-	int getType(ObjectItem *it);
+	void setName(custom::ObjectItem *it, QString name);
+	void setType(custom::ObjectItem *it, int type);
+	int getType(custom::ObjectItem *it);
 
-	ObjectItem *itemAt(const QPoint &);
-	ObjectItem *itemAt(const QModelIndex &);
+	custom::ObjectItem *itemAt(const QPoint &);
+	custom::ObjectItem *itemAt(const QModelIndex &);
 
 	QStandardItemModel *itemModel;
-	ItemFilter *filterModel;
+	custom::ItemFilter *filterModel;
 
 	QAction *actLoad;
 	QAction *actRefresh;
 	QAction *actClose;;
-	void scanObject(ObjectItem *obj);
+	void scanObject(custom::ObjectItem *obj);
 
 protected:
 	void mouseDoubleClickEvent(QMouseEvent *event);

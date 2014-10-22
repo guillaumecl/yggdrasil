@@ -38,9 +38,12 @@
 #include "filterwidget.h"
 
 using editor::custom::FilterWidget;
+using editor::custom::ObjectItem;
 
 using game::Screen;
 using game::ScreenElement;
+
+using editor::custom::ItemFilter;
 
 using std::map;
 using std::string;

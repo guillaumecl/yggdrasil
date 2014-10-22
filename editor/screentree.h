@@ -31,15 +31,6 @@ class QStandardItemModel;
 namespace editor
 {
 
-namespace custom
-{
-class FilterWidget;
-}
-
-using custom::ObjectItem;
-using custom::ItemFilter;
-using custom::FilterWidget;
-
 /**
  *	@author Lightning Flik <flik@baobob.org>
  */
@@ -54,9 +45,9 @@ public:
 
 	void scan(QDir curDir, QStandardItem *folder = 0);
 
-	void updateScreenInfo(ObjectItem *item);
+	void updateScreenInfo(custom::ObjectItem *item);
 	QWidget *insertFilter();
-	void setFilterWidget(FilterWidget *filter);
+	void setFilterWidget(custom::FilterWidget *filter);
 
 	QIcon iconObject;
 	QIcon iconScreen;
@@ -91,9 +82,9 @@ private:
 
 	QPoint dragStartPosition;
 
-	void loadScreenInfo(ObjectItem *item);
+	void loadScreenInfo(custom::ObjectItem *item);
 
-	void addElement(std::string pName, game::ScreenElement *element, ObjectItem *scr);
+	void addElement(std::string pName, game::ScreenElement *element, custom::ObjectItem *scr);
 
 	void mousePressEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
@@ -105,14 +96,14 @@ private:
 	QAction *actRefresh;
 	QAction *actClose;
 
-	ObjectItem *getWidgetForScreen(game::Screen *pScr);
-	ObjectItem *getWidgetForObject(ObjectItem *base, game::ScreenElement *scrEl);
+	custom::ObjectItem *getWidgetForScreen(game::Screen *pScr);
+	custom::ObjectItem *getWidgetForObject(custom::ObjectItem *base, game::ScreenElement *scrEl);
 
 	QStandardItemModel *itemModel;
-	ItemFilter *filterModel;
+	custom::ItemFilter *filterModel;
 
-	ObjectItem *itemAt(const QPoint &pos);
-	ObjectItem *itemAt(const QModelIndex &ind);
+	custom::ObjectItem *itemAt(const QPoint &pos);
+	custom::ObjectItem *itemAt(const QModelIndex &ind);
 
 	void setCurrentIndex(const QModelIndex &ind);
 	void setExpanded(const QModelIndex &ind, bool pExpanded);

@@ -24,6 +24,7 @@ namespace custom
 {
 class ObjectItem;
 class ItemFilter;
+class FilterWidget;
 }
 
 }
