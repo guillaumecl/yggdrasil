@@ -83,7 +83,7 @@ void inputFunc()
 
 
 
-int main(int argc, char *argv[])
+int main(int /*argc*/, char */*argv*/[])
 {
 	core::Core *core = NULL;
 	DrawManager *drawManager = NULL;

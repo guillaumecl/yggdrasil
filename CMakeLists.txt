@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-add_definitions(-Wall -Wold-style-cast -Werror)
+add_definitions(-Wall -Wextra -pedantic -Wold-style-cast -Werror)
 include_directories(${CMAKE_SOURCE_DIR})
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})

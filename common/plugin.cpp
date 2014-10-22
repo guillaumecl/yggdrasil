@@ -104,7 +104,7 @@ void *Plugin::call0(const char *funcName)
 {
 	/* clear the dl error status */
 	dlerror();
-	PVoidFunc func = reinterpret_cast<PVoidFunc>(dlsym(handler, funcName));
+	PVoidFunc func = reinterpret_cast<PVoidFunc>(reinterpret_cast<unsigned long>(dlsym(handler, funcName)));
 	const char *dlsym_error = dlerror();
 	if (dlsym_error || (func==NULL))
 		throw exceptions::FunctionException(dlsym_error);
@@ -115,7 +115,7 @@ void *Plugin::call1(const char *funcName, void *param)
 {
 	/* clear the dl error status */
 	dlerror();
-	PVoidFunc1 func = reinterpret_cast<PVoidFunc1>(dlsym(handler, funcName));
+	PVoidFunc1 func = reinterpret_cast<PVoidFunc1>(reinterpret_cast<unsigned long>(dlsym(handler, funcName)));
 	const char *dlsym_error = dlerror();
 	if (dlsym_error || (func==NULL))
 		throw exceptions::FunctionException(dlsym_error);
