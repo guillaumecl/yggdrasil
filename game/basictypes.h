@@ -61,10 +61,10 @@ enum DirectionType {
         downLeft,
         downRight
 };
-};
+}
 
 
-};
+}
 
 namespace draw
 {
@@ -79,7 +79,7 @@ enum PlaneType {
         foreground,
         object
 };
-};
-};
+}
+}
 
 class FileReader;

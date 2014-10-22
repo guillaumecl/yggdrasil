@@ -86,7 +86,7 @@ private:
 
 	QAction *actLoad;
 	QAction *actRefresh;
-	QAction *actClose;;
+	QAction *actClose;
 	void scanObject(custom::ObjectItem *obj);
 
 protected:
