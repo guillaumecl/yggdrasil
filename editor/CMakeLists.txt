@@ -17,19 +17,20 @@ set(yggdrasil_editor_SRCS
   objectitem.cpp
   filterwidget.cpp
   itemfilter.cpp
-  propertytree.cpp
-  propertyitemmodel.cpp
-  propertyitem.cpp
   objectdisplayer.cpp
-  propertywidget.cpp
-  screenproperties.cpp
-  screenitemproperties.cpp
-  screenelementproperties.cpp
-  actionproperties.cpp
-  propertylist.cpp
-  propertyitemdelegate.cpp
   glwrapper.cpp
   qteditorlog.cpp
+
+  property/propertytree.cpp
+  property/propertyitemmodel.cpp
+  property/propertyitem.cpp
+  property/propertywidget.cpp
+  property/screenproperties.cpp
+  property/screenitemproperties.cpp
+  property/screenelementproperties.cpp
+  property/actionproperties.cpp
+  property/propertylist.cpp
+  property/propertyitemdelegate.cpp
 )
 
 set(yggdrasil_editor_UIS
@@ -57,17 +58,18 @@ set(yggdrasil_editor_MOCS
   objecttree.h
   namechoose.h
   filterwidget.h
-  propertytree.h
-  propertyitemmodel.h
   objectdisplayer.h
-  propertywidget.h
-  screenproperties.h
-  screenitemproperties.h
-  screenelementproperties.h
-  actionproperties.h
-  propertylist.h
-  propertyitemdelegate.h
   glwrapper.h
+
+  property/propertytree.h
+  property/propertyitemmodel.h
+  property/propertywidget.h
+  property/screenproperties.h
+  property/screenitemproperties.h
+  property/screenelementproperties.h
+  property/actionproperties.h
+  property/propertylist.h
+  property/propertyitemdelegate.h
 )
 QT4_WRAP_CPP(MOCS ${yggdrasil_editor_MOCS})
 

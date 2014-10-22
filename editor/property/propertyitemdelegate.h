@@ -17,13 +17,12 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef EDITOR_PROPERTYSCREENELEMENTPROPERTIES_H
-#define EDITOR_PROPERTYSCREENELEMENTPROPERTIES_H
+#ifndef EDITOR_PROPERTYPROPERTYITEMDELEGATE_H
+#define EDITOR_PROPERTYPROPERTYITEMDELEGATE_H
 
-#include "propertytree.h"
+#include <QItemDelegate>
 
-#include "ui_types.h"
-#include "game/basictypes.h"
+#include "editor/ui_types.h"
 
 namespace editor
 {
@@ -34,29 +33,29 @@ namespace property
 /**
 	@author flik <flik@baobob.org>
 */
-class ScreenElementProperties : public PropertyTree
+class PropertyItemDelegate : public QItemDelegate
 {
 	Q_OBJECT
 public:
-	ScreenElementProperties(QWidget *parent=0);
+	PropertyItemDelegate(QObject *parent=0, PropertyItemModel *pModel=0);
 
-	~ScreenElementProperties();
+	~PropertyItemDelegate();
 
-	virtual void sync(void *item);
-	virtual void itemUpdated(PropertyItem *item);
-	virtual void setReadOnly(bool pReadOnly);
+	virtual QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
-	PropertyList *direction;
+	virtual void setEditorData(QWidget *editor, const QModelIndex &index) const;
 
-	PropertyItem *width;
-	PropertyItem *height;
 
-	PropertyItem *icon;
-	PropertyItem *offsetX;
-	PropertyItem *offsetY;
-	PropertyList *defaultAction;
+	virtual void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
 
-	game::ScreenElement *current;
+	virtual QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+	virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+	void try_connect(QWidget *editor,const char *sigName,const char *signal) const;
+
+	PropertyItemModel *model;
+private slots:
+	virtual void valueChanged();
 };
 
 }

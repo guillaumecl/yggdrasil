@@ -29,7 +29,7 @@
      <x>0</x>
      <y>0</y>
      <width>567</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -320,7 +320,7 @@
   <customwidget>
    <class>editor::property::PropertyWidget</class>
    <extends>QStackedWidget</extends>
-   <header>editor/propertywidget.h</header>
+   <header>editor/property/propertywidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

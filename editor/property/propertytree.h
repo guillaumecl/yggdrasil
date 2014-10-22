@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2007 by CLEMENT Guillaume   *
- *   guillaume.clement@esial.uhp-nancy.fr   *
+ *   Copyright (C) 2007 by flik   *
+ *   flik@baobob.org   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,13 +17,14 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef EDITOR_PROPERTYPROPERTYWIDGET_H
-#define EDITOR_PROPERTYPROPERTYWIDGET_H
+#ifndef QTREEVIEWPROPERTYTREE_H
+#define QTREEVIEWPROPERTYTREE_H
 
-#include <QStackedWidget>
-#include "game/basictypes.h"
+#include <QTreeView>
+#include "editor/ui_types.h"
+#include "game/screen.h"
 
-#include "ui_types.h"
+class QStandardItem;
 
 namespace editor
 {
@@ -34,28 +35,27 @@ namespace property
 /**
 	@author flik <flik@baobob.org>
 */
-class PropertyWidget : public QStackedWidget
+class PropertyTree : public QTreeView
 {
 	Q_OBJECT
-
 public:
-	PropertyWidget(QWidget *parent=0);
+	PropertyTree(QWidget *parent=0);
 
-	~PropertyWidget();
+	~PropertyTree();
 
-public slots:
-	void selectScreen(game::Screen *scr);
-	void selectScreenItem(game::Screen *scr, const QString &name);
-	void selectScreenItem(game::Screen *scr, game::ScreenElement*el);
-	void selectScreenElement(game::ScreenElement *el);
-	void selectAction(game::ScreenElement *el,game::Action *act);
-	void unselect();
+	PropertyItem *insertSection(const QString &sectionName, PropertyItem *parent=0);
 
-private:
-	ScreenProperties *screenProperties;
-	ScreenElementProperties *screenElementProperties;
-	ScreenItemProperties *screenItemProperties;
-	ActionProperties *actionProperties;
+	virtual void sync(void *item) = 0;
+	virtual void itemUpdated(PropertyItem *item) = 0;
+
+	virtual void setReadOnly(bool bReadOnly) = 0;
+protected:
+	PropertyItemModel *model;
+
+	void currentChanged(const QModelIndex &current, const QModelIndex &previous);
+
+private slots:
+	void update(QStandardItem *item);
 signals:
 	void screenUpdated(game::Screen *scr);
 };

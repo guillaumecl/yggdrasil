@@ -31,7 +31,7 @@
 
 #include "gamedisplayer.h"
 #include "objectdisplayer.h"
-#include "propertywidget.h"
+#include "property/propertywidget.h"
 
 #include "common/archiver.h"
 #include "common/exception.h"
