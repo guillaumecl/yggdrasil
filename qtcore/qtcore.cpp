@@ -30,7 +30,7 @@ namespace core
 {
 
 static int paramCount = 0;
-static char *params[] = {"QtCore"};
+static char *params[] = {const_cast<char*>("QtCore")};
 
 QtCore::QtCore() :
 	Core(),
@@ -44,7 +44,7 @@ QtCore::QtCore() :
 		app->connect(app, SIGNAL(lastWindowClosed()), app, SLOT(quit()));
 	} else {
 		privateApp = false;
-		app = (QApplication *) QApplication::instance();
+		app = static_cast<QApplication *>(QApplication::instance());
 	}
 }
 

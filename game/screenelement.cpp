@@ -493,7 +493,7 @@ bool ScreenElement::operator<(const ScreenElement &compareTo)
 			 * This ensures that the items will always be ordered
 			 * the same way, if they have the same coordinates.
 			 */
-			return (void*)this < (void*)&compareTo;
+			return this < &compareTo;
 		return _x < compareTo._x;
 	}
 	return _y < compareTo._y;

@@ -123,6 +123,7 @@ void QtSdlDrawManager::setFont(Font &fnt)
 
 Font &QtSdlDrawManager::getFont()
 {
+	return *static_cast<Font*>(NULL);
 }
 
 void QtSdlDrawManager::drawText(const char *text, int x, int y)
@@ -131,10 +132,12 @@ void QtSdlDrawManager::drawText(const char *text, int x, int y)
 
 unsigned int QtSdlDrawManager::getTextHeight(const char *text)
 {
+	return 0;
 }
 
 unsigned int QtSdlDrawManager::getTextWidth(const char *text)
 {
+	return 0;
 }
 
 void QtSdlDrawManager::setGraphicOrigin(int x, int y)
@@ -172,9 +175,9 @@ void QtSdlDrawManager::fadeRect(unsigned char p, unsigned long color, int x, int
 	int minY = mapYCoordinate(y + height);
 	int maxY = mapYCoordinate(y);
 
-	unsigned char *rgba = (unsigned char*)&color;
+	unsigned char *rgba = reinterpret_cast<unsigned char*>(&color);
 
-	unsigned char *surfacePtr = (unsigned char*)widget->screen->pixels;
+	unsigned char *surfacePtr = static_cast<unsigned char*>(widget->screen->pixels);
 
 	if (minX < 0)					minX = 0;
 	if (minY < 0)					minY = 0;
@@ -220,14 +223,14 @@ int QtSdlDrawManager::mapXCoordinate(int x)
 
 void QtSdlDrawManager::draw(Image *img, int x, int y)
 {
-	SdlImage *image = (SdlImage*)img;
+	SdlImage *image = static_cast<SdlImage*>(img);
 
 	draw(image, x, y, 0, 0, image->width(),image-> height());
 }
 
 void QtSdlDrawManager::draw(Image *img, int x, int y, int xImg, int yImg, int widthImg, int heightImg)
 {
-	SdlImage *image = (SdlImage*)img;
+	SdlImage *image = static_cast<SdlImage*>(img);
 	if (widthImg > image->width() || heightImg > image->height()) {
 		drawTiled(image, x, y, widthImg, heightImg);
 		return;
@@ -271,7 +274,7 @@ void QtSdlDrawManager::draw(Image *img, int x, int y, int xImg, int yImg, int wi
 
 void QtSdlDrawManager::drawTiled(SdlImage *image, int xDst, int yDst, int widthImg, int heightImg)
 {
-	SDL_Surface *screen = widget->screen;
+	//(SDL_Surface *screen = widget->screen;
 
 	int tileX = widthImg / image->width();
 	int tileY = heightImg / image->height();

@@ -106,7 +106,7 @@ void ScreenElementProperties::itemUpdated(PropertyItem *item)
 	if (!current)
 		return;
 	if (item == direction)
-		current->direction = (directions::DirectionType) item->get().toInt();
+		current->direction = static_cast<directions::DirectionType>(item->get().toInt());
 
 	if (item == defaultAction)
 		current->defaultActionName = defaultAction->get().toString().toStdString();

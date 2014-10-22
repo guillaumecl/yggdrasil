@@ -147,7 +147,7 @@ void GLWrapper::resizeEvent(QResizeEvent *event)
 
 	QSize newSize = event->size();
 
-	w = (int)(insideWidth() * scale) - newSize.width();
+	w = static_cast<int>(insideWidth() * scale) - newSize.width();
 	if (w > 0) {
 		horizontalScrollBar->setVisible(true);
 		horizontalScrollBar->setMaximum(w);
@@ -158,7 +158,7 @@ void GLWrapper::resizeEvent(QResizeEvent *event)
 		horizontalScrollBar->setMaximum(0);
 	}
 
-	h = (int)(insideHeight() * scale) - newSize.height();
+	h = static_cast<int>(insideHeight() * scale) - newSize.height();
 	if (h > 0) {
 		verticalScrollBar->setVisible(true);
 		verticalScrollBar->setMaximum(h);
@@ -181,12 +181,12 @@ void GLWrapper::resizeEvent(QResizeEvent *event)
 		horizontalScrollBar->setMaximum(horizontalScrollBar->maximum() + verticalScrollBar->width());
 
 	if (w <= 0) {
-		newSize.setWidth((int)(insideWidth() * scale));
+		newSize.setWidth(static_cast<int>(insideWidth() * scale));
 		horizontalScrollBar->setValue(0);
 	}
 
 	if (h <= 0) {
-		newSize.setHeight((int)(insideHeight() * scale));
+		newSize.setHeight(static_cast<int>(insideHeight() * scale));
 		verticalScrollBar->setValue(0);
 	}
 
@@ -286,8 +286,8 @@ void GLWrapper::wheelEvent(QWheelEvent *event)
 	QResizeEvent q(size(),size()) ;
 	resizeEvent(&q);
 
-	horizontalScrollBar->setValue((int)(x * scale) - event->x());
-	verticalScrollBar->setValue((int)(y * scale) - event->y());
+	horizontalScrollBar->setValue(static_cast<int>(x * scale) - event->x());
+	verticalScrollBar->setValue(static_cast<int>(y * scale) - event->y());
 
 	QPoint pos = getInsidePosition(event->pos());
 	if (isValidPosition(pos))
@@ -297,8 +297,8 @@ void GLWrapper::wheelEvent(QWheelEvent *event)
 QPoint GLWrapper::getInsidePosition(QPoint relPos)
 {
 	relPos = displayWidget->mapFrom(this,relPos);
-	int x = (int)((hValue() + relPos.x()) / scale);
-	int y = (int)((double)insideHeight() - ((vValue() + relPos.y()) / scale));
+	int x = static_cast<int>((hValue() + relPos.x()) / scale);
+	int y = static_cast<int>(static_cast<double>(insideHeight()) - ((vValue() + relPos.y()) / scale));
 
 	return QPoint(x,y);
 }
@@ -367,7 +367,7 @@ int GLWrapper::vValue()
 
 QSize GLWrapper::sizeHint() const
 {
-	return QSize((int)(insideWidth() * scale), (int)(insideHeight() * scale));
+	return QSize(static_cast<int>(insideWidth() * scale), static_cast<int>(insideHeight() * scale));
 }
 
 }

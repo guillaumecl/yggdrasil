@@ -126,11 +126,11 @@ void QtGlImage::draw(int x, int y, int xImg, int yImg, int widthImg, int heightI
 	/*	xImg += actualWidth - mWidth;
 	*/
 	yImg += actualHeight - mHeight;
-	xCoord = (double)(xImg) / (double)actualWidth;
-	yCoord = (double)(yImg + mHeight) / (double)actualHeight;
+	xCoord = static_cast<double>(xImg) / static_cast<double>(actualWidth);
+	yCoord = static_cast<double>(yImg + mHeight) / static_cast<double>(actualHeight);
 
-	wI = (double)widthImg / (double)actualWidth;
-	hI = (double)heightImg / (double)actualHeight;
+	wI = static_cast<double>(widthImg) / static_cast<double>(actualWidth);
+	hI = static_cast<double>(heightImg) / static_cast<double>(actualHeight);
 
 	glBindTexture(GL_TEXTURE_2D, id);
 	glBegin(GL_QUADS);

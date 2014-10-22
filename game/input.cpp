@@ -46,7 +46,7 @@ Input::~Input()
 bool Input::keyPressed(bitset<32> &keys, buttons::ButtonType key)
 {
 	if (key <= buttons::max)
-		return keys[(int)key];
+		return keys[static_cast<int>(key)];
 	/*
 		Special keys
 	*/
@@ -163,7 +163,7 @@ void Input::addCombo(buttons::ButtonType key)
 
 const char *keyName(buttons::ButtonType key)
 {
-	return key_names[(int)key];
+	return key_names[static_cast<int>(key)];
 }
 
 buttons::ButtonType key(const char *name)

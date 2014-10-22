@@ -35,8 +35,8 @@ ScreenItemProperties::ScreenItemProperties(QWidget *parent) :
 {
 	PropertyItem *section = insertSection(tr("Object"));
 
-	x = new PropertyItem((unsigned int)0);
-	y = new PropertyItem((unsigned int)0);
+	x = new PropertyItem(0);
+	y = new PropertyItem(0);
 	locked = new PropertyItem(false);
 	name = new PropertyItem("");
 

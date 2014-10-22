@@ -219,7 +219,7 @@ void GameDisplayer::mouseReleaseEvent(QMouseEvent *event)
 				    y >= el->y() && y < el->y() + el->height()) {
 					name = QString::fromStdString(el->getName());
 					QAction *act = menu.addAction(name);
-					act->setData(QVariant::fromValue((void*)el));
+					act->setData(QVariant::fromValue(static_cast<void*>(el)));
 					selected = el;
 					numItems++;
 				}
@@ -230,7 +230,7 @@ void GameDisplayer::mouseReleaseEvent(QMouseEvent *event)
 				if (act == NULL)
 					selected = NULL; /* simulate "nothing found at cursor" */
 				else
-					selected = (ScreenElement*)act->data().value<void*>();
+					selected = static_cast<ScreenElement*>(act->data().value<void*>());
 			}
 
 			if (selected) {
@@ -275,7 +275,7 @@ void GameDisplayer::dropEvent(QDropEvent *event)
 
 		stream >> t;
 
-		screen = (Screen*)t;
+		screen = reinterpret_cast<Screen*>(t);
 
 		loadScreen(screen);
 

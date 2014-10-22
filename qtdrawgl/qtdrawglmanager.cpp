@@ -148,6 +148,7 @@ void QtDrawGlManager::setFont(Font &fnt)
 
 Font &QtDrawGlManager::getFont()
 {
+	return *static_cast<Font*>(NULL);
 }
 
 void QtDrawGlManager::drawText(const char *text, int x, int y)
@@ -211,7 +212,7 @@ void QtDrawGlManager::fade(unsigned char p, unsigned long color)
 
 void QtDrawGlManager::fadeRect(unsigned char p, unsigned long color, int x, int y, int width, int height)
 {
-	GLubyte *t = (GLubyte*)&color;
+	GLubyte *t = reinterpret_cast<GLubyte*>(&color);
 	GLubyte col[4] = {t[2],t[1],t[0],p};
 
 	glBegin(GL_QUADS);
@@ -244,12 +245,12 @@ void QtDrawGlManager::endScale()
 
 void QtDrawGlManager::draw(Image *image, int x, int y)
 {
-	((QtGlImage*)image)->draw(x, y);
+	static_cast<QtGlImage*>(image)->draw(x, y);
 }
 
 void QtDrawGlManager::draw(Image *image, int x, int y, int xImg, int yImg, int widthImg, int heightImg)
 {
-	((QtGlImage*)image)->draw(x, y, xImg, yImg, widthImg, heightImg);
+	static_cast<QtGlImage*>(image)->draw(x, y, xImg, yImg, widthImg, heightImg);
 }
 
 }

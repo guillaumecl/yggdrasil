@@ -45,7 +45,7 @@ PropertyItem::~PropertyItem()
 
 PropertyItemModel *PropertyItem::model() const
 {
-	return (PropertyItemModel*)(QStandardItem::model());
+	return static_cast<PropertyItemModel*>(QStandardItem::model());
 }
 
 

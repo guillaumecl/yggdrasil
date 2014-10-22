@@ -65,7 +65,8 @@ Plane::~Plane()
 
 void Plane::draw(int x, int y, int currentFrame, game::directions::DirectionType direction)
 {
-	core::Core::getDrawManager()->draw(&image, x + offsetX,y + offsetY,currentFrame * mWidth,(int)direction*mHeight, mWidth, mHeight);
+	core::Core::getDrawManager()->draw(&image, x + offsetX,y + offsetY,currentFrame * mWidth,
+		static_cast<int>(direction*mHeight), mWidth, mHeight);
 }
 
 void Plane::setSize(int pWidth, int pHeight)

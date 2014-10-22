@@ -104,7 +104,7 @@ void *Plugin::call0(const char *funcName)
 {
 	/* clear the dl error status */
 	dlerror();
-	PVoidFunc func = (PVoidFunc) dlsym(handler, funcName);
+	PVoidFunc func = reinterpret_cast<PVoidFunc>(dlsym(handler, funcName));
 	const char *dlsym_error = dlerror();
 	if (dlsym_error || (func==NULL))
 		throw exceptions::FunctionException(dlsym_error);
@@ -115,7 +115,7 @@ void *Plugin::call1(const char *funcName, void *param)
 {
 	/* clear the dl error status */
 	dlerror();
-	PVoidFunc1 func = (PVoidFunc1) dlsym(handler, funcName);
+	PVoidFunc1 func = reinterpret_cast<PVoidFunc1>(dlsym(handler, funcName));
 	const char *dlsym_error = dlerror();
 	if (dlsym_error || (func==NULL))
 		throw exceptions::FunctionException(dlsym_error);
@@ -131,20 +131,20 @@ void *Plugin::create()
 
 const char *Plugin::name()
 {
-	return (const char *)call0("name");
+	return static_cast<const char *>(call0("name"));
 }
 
 const char *Plugin::author()
 {
-	return (const char *)call0("author");
+	return static_cast<const char *>(call0("author"));
 }
 
 const char *Plugin::description()
 {
-	return (const char *)call0("description");
+	return static_cast<const char *>(call0("description"));
 }
 
 const char *Plugin::type()
 {
-	return (const char *)call0("type");
+	return static_cast<const char *>(call0("type"));
 }

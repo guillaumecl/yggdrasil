@@ -232,7 +232,7 @@ void ScreenTree::mouseMoveEvent(QMouseEvent *event)
 	QByteArray encodedData;
 	QDataStream stream(&encodedData, QIODevice::WriteOnly);
 
-	stream << (quintptr)screen;
+	stream << reinterpret_cast<quintptr>(screen);
 	data->setData(mime::Screen, encodedData);
 	drag->setMimeData(data);
 

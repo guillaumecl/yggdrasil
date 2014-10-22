@@ -64,21 +64,21 @@ void *ObjectItem::pointer() const
 Screen *ObjectItem::screen() const
 {
 	if (type() == item::Screen)
-		return (Screen*)pointer();
+		return static_cast<Screen*>(pointer());
 	return NULL;
 }
 
 ScreenElement *ObjectItem::screenElement() const
 {
 	if (type() == item::Object)
-		return (ScreenElement*)pointer();
+		return static_cast<ScreenElement*>(pointer());
 	return NULL;
 }
 
 Action *ObjectItem::action() const
 {
 	if (type() == item::Action)
-		return (Action*)pointer();
+		return static_cast<Action*>(pointer());
 	return NULL;
 }
 

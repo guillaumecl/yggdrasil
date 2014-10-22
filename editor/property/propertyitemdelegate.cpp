@@ -73,7 +73,7 @@ QWidget *PropertyItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 
 void PropertyItemDelegate::valueChanged()
 {
-	emit commitData((QWidget*)sender());
+	emit commitData(static_cast<QWidget*>(sender()));
 }
 
 void PropertyItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const

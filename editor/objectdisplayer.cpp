@@ -122,7 +122,7 @@ void ObjectDisplayer::dropEvent(QDropEvent *event)
 
 		stream >> t;
 
-		ScreenElement *el = (ScreenElement*)t;
+		ScreenElement *el = reinterpret_cast<ScreenElement*>(t);
 
 		loadObject(el);
 
