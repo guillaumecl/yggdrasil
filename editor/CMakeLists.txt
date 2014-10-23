@@ -5,19 +5,17 @@ include (${QT_USE_FILE})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(property)
+add_subdirectory(view)
 
 set(yggdrasil_editor_SRCS
   yggdrasil_editor.cpp
   main.cpp
-  gamedisplayer.cpp
   screentree.cpp
   objecttree.cpp
   namechoose.cpp
   objectitem.cpp
   filterwidget.cpp
   itemfilter.cpp
-  objectdisplayer.cpp
-  glwrapper.cpp
   qteditorlog.cpp
 )
 
@@ -41,13 +39,10 @@ QT4_ADD_TRANSLATION(TRS ${yggdrasil_editor_TRS})
 
 set(yggdrasil_editor_MOCS
   yggdrasil_editor.h
-  gamedisplayer.h
   screentree.h
   objecttree.h
   namechoose.h
   filterwidget.h
-  objectdisplayer.h
-  glwrapper.h
 )
 QT4_WRAP_CPP(MOCS ${yggdrasil_editor_MOCS})
 
@@ -56,4 +51,5 @@ target_link_libraries(yggdrasil_editor ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY}
   common
   game
   yggdrasil_property
+  yggdrasil_view
 )

@@ -30,6 +30,9 @@
 namespace editor
 {
 
+namespace view
+{
+
 /**
  * The GameDisplayer object is like a game screen, except that no input action takes place here. It really uses the default core components like inside the game to make perfect compatibility.
  *
@@ -153,4 +156,5 @@ private:
 	bool posContainsSelection(QPoint pos);
 };
 
+}
 }

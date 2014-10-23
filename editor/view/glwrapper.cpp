@@ -27,9 +27,7 @@
 
 #include <iostream>
 
-namespace editor
-{
-
+using editor::view::GLWrapper;
 
 inline static int min(int x, int y)
 {
@@ -368,6 +366,4 @@ int GLWrapper::vValue()
 QSize GLWrapper::sizeHint() const
 {
 	return QSize(static_cast<int>(insideWidth() * scale), static_cast<int>(insideHeight() * scale));
-}
-
 }

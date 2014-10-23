@@ -72,8 +72,8 @@ private:
 	QString currentGameDirectory;
 	QString curFile;
 
-	GameDisplayer *gameDisplayer;
-	ObjectDisplayer *objectDisplayer;
+	view::GameDisplayer *gameDisplayer;
+	view::ObjectDisplayer *objectDisplayer;
 
 	/**
 	 * Core object that was created in the constructor

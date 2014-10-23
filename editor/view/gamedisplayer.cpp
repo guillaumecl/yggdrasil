@@ -21,7 +21,7 @@
 #include <QMessageBox>
 #include <QMenu>
 #include <QMouseEvent>
-#include "namechoose.h"
+#include "editor/namechoose.h"
 #include <QList>
 #include <QApplication>
 
@@ -30,15 +30,12 @@
 #include "common/drawmanager.h"
 #include "common/exception.h"
 #include "gamedisplayer.h"
-#include "mime.h"
+#include "editor/mime.h"
 #include "game/screen.h"
 #include "game/screenelement.h"
 #include "qtcore/displaywidget.h"
 
-
-namespace editor
-{
-
+using editor::view::GameDisplayer;
 
 using namespace game;
 
@@ -472,7 +469,4 @@ void GameDisplayer::lockSelected()
 
 		emit itemChanged(currentScreen, el);
 	}
-}
-
-
 }

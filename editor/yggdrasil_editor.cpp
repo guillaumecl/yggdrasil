@@ -29,8 +29,8 @@
 #include <QContextMenuEvent>
 #include <QFileDialog>
 
-#include "gamedisplayer.h"
-#include "objectdisplayer.h"
+#include "view/gamedisplayer.h"
+#include "view/objectdisplayer.h"
 #include "property/propertywidget.h"
 
 #include "common/archiver.h"
@@ -83,8 +83,8 @@ yggdrasil_editor::yggdrasil_editor() :
 
 	tabs = new QTabWidget(this);
 
-	gameDisplayer = new GameDisplayer(core,draw,sound,displayWidget);
-	objectDisplayer = new ObjectDisplayer(core,draw,sound,displayWidget);
+	gameDisplayer = new view::GameDisplayer(core,draw,sound,displayWidget);
+	objectDisplayer = new view::ObjectDisplayer(core,draw,sound,displayWidget);
 
 	tabs->addTab(gameDisplayer,ui->screenTree->iconScreen, tr("Screen editor"));
 	tabs->addTab(objectDisplayer,ui->objectTree->iconObject, tr("Object editor"));

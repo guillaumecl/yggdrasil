@@ -4,8 +4,12 @@ namespace editor
 {
 
 class yggdrasil_editor;
+
+namespace view
+{
 class GameDisplayer;
 class ObjectDisplayer;
+}
 
 namespace property
 {

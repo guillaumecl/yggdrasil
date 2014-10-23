@@ -22,15 +22,12 @@
 
 #include "objectdisplayer.h"
 
-#include "mime.h"
+#include "editor/mime.h"
 #include "game/sprite.h"
 
 #include "game/screenelement.h"
 
-namespace editor
-{
-
-
+using editor::view::ObjectDisplayer;
 using namespace game;
 
 ObjectDisplayer::ObjectDisplayer(core::QtCore *pCore, draw::DrawManager *pDraw, sound::SoundManager *pSound, core::DisplayWidget *pDisplayWidget) :
@@ -143,6 +140,4 @@ void ObjectDisplayer::closeObject(game::ScreenElement *element)
 {
 	if (currentObject == element)
 		loadObject(NULL);
-}
-
 }
