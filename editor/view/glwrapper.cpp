@@ -294,6 +294,9 @@ void GLWrapper::wheelEvent(QWheelEvent *event)
 
 QPoint GLWrapper::getInsidePosition(QPoint relPos)
 {
+	if (!displayWidget || displayWidget->parentWidget() != this)
+		return QPoint();
+
 	relPos = displayWidget->mapFrom(this,relPos);
 	int x = static_cast<int>((hValue() + relPos.x()) / scale);
 	int y = static_cast<int>(static_cast<double>(insideHeight()) - ((vValue() + relPos.y()) / scale));
