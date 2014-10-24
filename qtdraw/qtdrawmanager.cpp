@@ -196,8 +196,8 @@ void QtDrawManager::draw(Image *img, int x, int y, int xImg, int yImg, int width
 {
 	QtImage *image = static_cast<QtImage *>(img);
 
-	painter.drawPixmap(QRect(x, mapYCoordinate(y) - heightImg, widthImg, heightImg), image->pixmap,
-	                    QRect(xImg, yImg, widthImg, heightImg));
+	painter.drawTiledPixmap(x, mapYCoordinate(y) - heightImg, widthImg, heightImg, image->pixmap,
+		xImg, yImg);
 }
 
 
