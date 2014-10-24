@@ -20,7 +20,6 @@
 #include "qtdrawmanager.h"
 
 #include "common/exception.h"
-#include <QPainter>
 
 #include <iostream>
 
@@ -101,14 +100,13 @@ int QtDrawManager::initGraphics(int width, int height)
 
 void QtDrawManager::beginDraw()
 {
-	widgetPainter = new QPainter(widget);
-	painter = widgetPainter;
-	painter->fillRect(QRect(0,0,widget->width(), widget->height()),Qt::black);
+	painter.begin(widget);
+	painter.fillRect(QRect(0,0,widget->width(), widget->height()),Qt::black);
 }
 
 void QtDrawManager::endDraw()
 {
-	delete widgetPainter;
+	painter.end();
 }
 
 void QtDrawManager::setFont(Font &fnt)
@@ -142,7 +140,7 @@ unsigned int QtDrawManager::getTextWidth(const char *text)
 
 void QtDrawManager::setGraphicOrigin(int x, int y)
 {
-	painter->translate(-x, y);
+	painter.translate(-x, y);
 }
 
 int QtDrawManager::mapYCoordinate(int y)
@@ -179,31 +177,31 @@ void QtDrawManager::fadeRect(unsigned char p, unsigned long color, int x, int y,
 	unsigned char *col = reinterpret_cast<unsigned char*>(&color);
 	QColor alphaColor(col[2], col[1], col[0], p);
 
-	painter->fillRect(mapXCoordinate(x), mapYCoordinate(y) - height, width, height, alphaColor);
+	painter.fillRect(mapXCoordinate(x), mapYCoordinate(y) - height, width, height, alphaColor);
 }
 
 void QtDrawManager::scale(double pScale)
 {
-	painter->scale(pScale, pScale);
+	painter.scale(pScale, pScale);
 }
 
 void QtDrawManager::endScale()
 {
-	painter->resetTransform();
+	painter.resetTransform();
 }
 
 void QtDrawManager::draw(Image *img, int x, int y)
 {
 	QtImage *image = static_cast<QtImage *>(img);
 
-	painter->drawPixmap(mapXCoordinate(x), mapYCoordinate(y) - image->height(), image->width(), image->height(), image->pixmap);
+	painter.drawPixmap(mapXCoordinate(x), mapYCoordinate(y) - image->height(), image->width(), image->height(), image->pixmap);
 }
 
 void QtDrawManager::draw(Image *img, int x, int y, int xImg, int yImg, int widthImg, int heightImg)
 {
 	QtImage *image = static_cast<QtImage *>(img);
 
-	painter->drawPixmap(QRect(mapXCoordinate(x), mapYCoordinate(y) - heightImg, widthImg, heightImg), image->pixmap,
+	painter.drawPixmap(QRect(mapXCoordinate(x), mapYCoordinate(y) - heightImg, widthImg, heightImg), image->pixmap,
 	                    QRect(xImg, yImg, widthImg, heightImg));
 }
 

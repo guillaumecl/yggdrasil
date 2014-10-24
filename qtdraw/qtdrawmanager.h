@@ -23,6 +23,7 @@
 
 #include <map>
 #include <string>
+#include <QPainter>
 #include "qrenderwidget.h"
 
 #include "qtimage.h"
@@ -85,8 +86,7 @@ private:
 	int mapXCoordinate(int x);
 
 	QRenderWidget *widget;
-	QPainter *widgetPainter;
-	QPainter *painter;
+	QPainter painter;
 	QPixmap scaledView;
 	double curScale;
 
