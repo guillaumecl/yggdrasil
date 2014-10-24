@@ -83,7 +83,6 @@ public:
 	virtual void endScale();
 private:
 	int mapYCoordinate(int y);
-	int mapXCoordinate(int x);
 
 	QRenderWidget *widget;
 	QPainter painter;
