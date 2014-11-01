@@ -79,6 +79,17 @@ void CollisionScreen::updateElement(ScreenElement *el)
 		addIfNeeded(el,topLeftScreen);
 		addIfNeeded(el,bottomLeftScreen);
 	}
+
+	if (y2 >= maxY) {
+		addIfNeeded(el,bottomScreen);
+		addIfNeeded(el,bottomLeftScreen);
+		addIfNeeded(el,bottomRightScreen);
+	}
+	if (y1 <= mY) {
+		addIfNeeded(el,topScreen);
+		addIfNeeded(el,topLeftScreen);
+		addIfNeeded(el,topRightScreen);
+	}
 }
 
 
