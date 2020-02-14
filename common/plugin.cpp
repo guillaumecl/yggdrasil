@@ -22,14 +22,18 @@
 
 #ifdef WIN32
 #	include <windows.h>
+
+typedef FARPROC PVoidFunc;
+typedef long long int (*PVoidFunc1)(void*);
 #else
 #	include <dlfcn.h>
+
+typedef void *(*PVoidFunc)();
+typedef void *(*PVoidFunc1)(void*);
 #endif
 
 #include "exception.h"
 
-typedef void *(*PVoidFunc)();
-typedef void *(*PVoidFunc1)(void*);
 
 #include <string>
 
@@ -40,8 +44,8 @@ using std::string;
 Plugin::Plugin(const char *file) :
 	hinstDLL(NULL)
 {
-	string sFile(file);
-
+	string sFile("lib");
+	sFile += file;
 	sFile += ".dll";
 
 	hinstDLL=LoadLibraryA(sFile.c_str());
@@ -61,19 +65,17 @@ Plugin::~Plugin()
 
 void *Plugin::call0(const char *funcName)
 {
-	PVoidFunc func = (PVoidFunc)GetProcAddress(hinstDLL, funcName);
+	PVoidFunc func = reinterpret_cast<PVoidFunc>(GetProcAddress(hinstDLL, funcName));
 	if (func)
-		return func();
+		return reinterpret_cast<void*>(func());
 	throw exceptions::LoadException("GetProcAddress", funcName);
 }
 
 
-void *Plugin::call1(const char *funcName, void *param)
+void *Plugin::call1(const char *, void *)
 {
-	PVoidFunc1 func = (PVoidFunc1)GetProcAddress(hinstDLL, funcName);
-	if (func)
-		return func(param);
-	throw exceptions::LoadException("GetProcAddress", funcName);
+    // Not implemented yet
+	return NULL;
 }
 
 #else

@@ -20,6 +20,7 @@
 
 #include <QMessageBox>
 #include <QMenu>
+#include <QMimeData>
 #include <QMouseEvent>
 #include "editor/namechoose.h"
 #include <QList>

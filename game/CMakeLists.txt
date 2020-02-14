@@ -13,4 +13,4 @@ set(game_SRCS
 )
 
 add_library(game SHARED ${game_SRCS})
-target_link_libraries(game)
+target_link_libraries(game common)

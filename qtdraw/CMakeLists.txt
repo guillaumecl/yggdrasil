@@ -1,5 +1,4 @@
-find_package(Qt4 REQUIRED)
-include (${QT_USE_FILE})
+find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
 set(qtdraw_SRCS
   qtimage.cpp
@@ -8,4 +7,4 @@ set(qtdraw_SRCS
 )
 
 add_library(qtdraw SHARED ${qtdraw_SRCS})
-target_link_libraries(qtdraw ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+target_link_libraries(qtdraw common Qt5::Core Qt5::Widgets)

@@ -23,7 +23,7 @@
 
 #include <QMainWindow>
 
-#include "ui_types.h"
+#include "types_ui.h"
 #include "common/common_types.h"
 
 #include "qtcore/qtcore_types.h"

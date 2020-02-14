@@ -20,7 +20,7 @@
 #pragma once
 
 #include <QTreeView>
-#include "editor/ui_types.h"
+#include "editor/types_ui.h"
 #include "game/screen.h"
 
 class QStandardItem;

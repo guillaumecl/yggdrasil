@@ -1,15 +1,15 @@
+find_package(Qt5 COMPONENTS Core Widgets LinguistTools REQUIRED)
 
-set(view_SRCS
-  gamedisplayer.cpp
-  objectdisplayer.cpp
-  glwrapper.cpp
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+
+set(CMAKE_AUTOMOC ON)
+
+add_library(yggdrasil_view STATIC
+    gamedisplayer.cpp
+    objectdisplayer.cpp
+    glwrapper.cpp
 )
-
-set(view_MOCS
-  gamedisplayer.h
-  objectdisplayer.h
-  glwrapper.h
-)
-QT4_WRAP_CPP(MOCS ${view_MOCS})
-
-add_library(yggdrasil_view STATIC ${view_SRCS} ${MOCS})
+target_link_libraries(yggdrasil_view
+        game
+        Qt5::Core Qt5::Widgets)

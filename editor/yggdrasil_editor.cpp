@@ -28,6 +28,7 @@
 #include <QCloseEvent>
 #include <QContextMenuEvent>
 #include <QFileDialog>
+#include <QMessageBox>
 
 #include "view/gamedisplayer.h"
 #include "view/objectdisplayer.h"

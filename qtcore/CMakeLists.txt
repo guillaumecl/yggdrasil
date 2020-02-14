@@ -1,6 +1,4 @@
-find_package ( Qt4 REQUIRED )
-
-include(${QT_USE_FILE})
+find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
 set(qtcore_SRCS
   qtcore.cpp
@@ -8,4 +6,4 @@ set(qtcore_SRCS
 )
 
 add_library(qtcore SHARED ${qtcore_SRCS})
-target_link_libraries(qtcore ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+target_link_libraries(qtcore common Qt5::Core Qt5::Widgets)

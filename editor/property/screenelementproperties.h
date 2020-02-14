@@ -21,7 +21,7 @@
 
 #include "propertytree.h"
 
-#include "editor/ui_types.h"
+#include "editor/types_ui.h"
 #include "game/basictypes.h"
 
 namespace editor

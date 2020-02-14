@@ -19,7 +19,7 @@
  ***************************************************************************/
 #pragma once
 
-#include "ui_types.h"
+#include "types_ui.h"
 #include "game/basictypes.h"
 #include <QTreeView>
 #include <QDir>

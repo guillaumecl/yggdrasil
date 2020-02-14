@@ -29,7 +29,7 @@
 namespace editor
 {
 
-NameChoose::NameChoose(QWidget* parent, game::Screen *pScr, Qt::WFlags fl) :
+NameChoose::NameChoose(QWidget* parent, game::Screen *pScr, Qt::WindowFlags fl) :
 	QDialog(parent, fl),
 	scr(pScr),
 	ui(new Ui::nameChoose)

@@ -21,7 +21,9 @@
 
 #include <QApplication>
 #include <QDir>
+#include <QDrag>
 #include <QMenu>
+#include <QMimeData>
 #include <QHeaderView>
 #include <QDragEnterEvent>
 #include <QDebug>
@@ -248,7 +250,7 @@ void ObjectTree::mouseMoveEvent(QMouseEvent *event)
 
 	drag->setMimeData(data);
 
-	Qt::DropAction dropAction = drag->start(Qt::MoveAction);
+	Qt::DropAction dropAction = drag->exec(Qt::MoveAction);
 
 	if (dropAction == Qt::MoveAction) {
 		/*

@@ -77,7 +77,7 @@ PropertyItem *PropertyTree::insertSection(const QString &sectionName, PropertyIt
 void PropertyTree::currentChanged(const QModelIndex &current, const QModelIndex &previous)
 {
 	PropertyItem *item = model->itemFromIndex(current);
-	if (item->isEditable())
+	if (item && item->isEditable())
 		edit(current);
 	Q_UNUSED(previous);
 }

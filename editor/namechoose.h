@@ -36,7 +36,7 @@ class NameChoose : public QDialog
 	Q_OBJECT
 
 public:
-	NameChoose(QWidget* parent, game::Screen *pScr,Qt::WFlags fl = 0);
+	NameChoose(QWidget* parent, game::Screen *pScr,Qt::WindowFlags fl = 0);
 	~NameChoose();
 	QString text();
 	void setText(QString newText);

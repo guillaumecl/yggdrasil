@@ -22,7 +22,7 @@
 #include <QStackedWidget>
 #include "game/basictypes.h"
 
-#include "editor/ui_types.h"
+#include "editor/types_ui.h"
 
 namespace editor
 {

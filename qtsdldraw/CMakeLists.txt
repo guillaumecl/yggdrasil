@@ -1,6 +1,6 @@
-find_package(Qt4 REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
+
 find_package(SDL REQUIRED)
-include(${QT_USE_FILE})
 
 set(qtsdldraw_SRCS
   sdlimage.cpp
@@ -9,6 +9,6 @@ set(qtsdldraw_SRCS
 )
 
 add_library(qtsdldraw SHARED ${qtsdldraw_SRCS})
-target_link_libraries(qtsdldraw
+target_link_libraries(qtsdldraw common Qt5::Core Qt5::Widgets
   common
 )

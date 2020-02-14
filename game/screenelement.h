@@ -186,6 +186,8 @@ public:
 	void loadEditorProperties(FileReader &confFile, const char *elName);
 
 	bool operator<(const ScreenElement &compareTo);
+
+    ScreenElement& operator=(const ScreenElement &from) = default;
 };
 
 }

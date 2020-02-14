@@ -23,7 +23,9 @@
 #include <QMenu>
 #include <QDir>
 #include <QHeaderView>
+#include <QDrag>
 #include <QDragEnterEvent>
+#include <QMimeData>
 #include <QDebug>
 #include <QMessageBox>
 
@@ -236,7 +238,7 @@ void ScreenTree::mouseMoveEvent(QMouseEvent *event)
 	data->setData(mime::Screen, encodedData);
 	drag->setMimeData(data);
 
-	Qt::DropAction dropAction = drag->start(Qt::MoveAction);
+	Qt::DropAction dropAction = drag->exec(Qt::MoveAction);
 
 	if (dropAction == Qt::MoveAction) {
 		/*

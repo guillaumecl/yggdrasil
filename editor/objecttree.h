@@ -25,7 +25,7 @@
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
 
-#include "ui_types.h"
+#include "types_ui.h"
 
 #include <QDir>
 
